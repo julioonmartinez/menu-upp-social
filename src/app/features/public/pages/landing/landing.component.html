@@ -1,0 +1,161 @@
+<div class="landing-page">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content container">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            <span class="text-blue">MENU</span><span class="text-orange">UPP</span>
+            <span class="subtitle">La plataforma social para foodies</span>
+          </h1>
+          
+          <p class="hero-description">
+            Descubre rutas gastronómicas, conecta con otros amantes de la comida y crea tu pasaporte culinario personalizado.
+          </p>
+          
+          <div class="hero-buttons">
+            <app-button 
+              variant="primary" 
+              size="lg" 
+              routerLink="/register"
+            >
+              Únete Gratis
+            </app-button>
+            
+            <app-button 
+              variant="tertiary" 
+              size="lg" 
+              routerLink="/login"
+            >
+              Iniciar Sesión
+            </app-button>
+          </div>
+        </div>
+        
+        <div class="hero-image">
+          <img src="assets/images/hero-image.jpg" alt="Menu-UPP Social Experience">
+        </div>
+      </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <h2 class="section-title">Disfruta la Mejor Experiencia Gastronómica</h2>
+        
+        <div class="features-grid">
+          <app-card 
+            *ngFor="let feature of features"
+            variant="elevated"
+            padding="lg"
+            class="feature-card"
+          >
+            <div class="feature-icon">
+              <i class="fa-solid {{ feature.icon }}"></i>
+            </div>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-description">{{ feature.description }}</p>
+          </app-card>
+        </div>
+      </div>
+    </section>
+    
+    <!-- App Screenshot Section -->
+    <section class="app-screenshot-section">
+      <div class="container">
+        <div class="screenshot-content">
+          <div class="screenshot-text">
+            <h2 class="section-title">Explora y Colecciona Experiencias</h2>
+            <p class="screenshot-description">
+              Navega por restaurantes, descubre platos recomendados y guarda tus favoritos. Sigue rutas gastronómicas creadas por expertos y otros usuarios, o crea las tuyas propias para compartir con la comunidad.
+            </p>
+            
+            <ul class="screenshot-features">
+              <li><i class="fa-solid fa-check"></i> Descubre restaurantes y platos destacados</li>
+              <li><i class="fa-solid fa-check"></i> Sigue rutas gastronómicas temáticas</li>
+              <li><i class="fa-solid fa-check"></i> Gana insignias en tu pasaporte culinario</li>
+              <li><i class="fa-solid fa-check"></i> Comparte tus experiencias con la comunidad</li>
+            </ul>
+          </div>
+          
+          <div class="screenshot-image">
+            <img src="assets/images/app-screenshot.jpg" alt="App MenuUPP">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item" *ngFor="let stat of stats">
+            <div class="stat-value">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="section-title">Lo que dicen nuestros usuarios</h2>
+        
+        <div class="testimonials-grid">
+          <app-card 
+            *ngFor="let testimonial of testimonials"
+            variant="elevated"
+            padding="lg"
+            class="testimonial-card"
+          >
+            <div class="testimonial-content">
+              <div class="testimonial-quote">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                {{ testimonial.quote }}
+              </div>
+              
+              <div class="testimonial-author">
+                <div class="author-avatar">
+                  <img [src]="testimonial.image" [alt]="testimonial.author">
+                </div>
+                <div class="author-info">
+                  <div class="author-name">{{ testimonial.author }}</div>
+                  <div class="author-role">{{ testimonial.role }}</div>
+                </div>
+              </div>
+            </div>
+          </app-card>
+        </div>
+      </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2 class="cta-title">Únete a Menu-UPP hoy mismo</h2>
+          <p class="cta-description">
+            Comienza tu aventura gastronómica y conecta con otros amantes de la buena comida. Regístrate gratis y accede a todas las funcionalidades.
+          </p>
+          
+          <div class="cta-buttons">
+            <app-button 
+              variant="primary" 
+              size="lg" 
+              routerLink="/register"
+            >
+              Registrarse Gratis
+            </app-button>
+            
+            <app-button 
+              variant="tertiary" 
+              size="lg" 
+              routerLink="/login"
+            >
+              Iniciar Sesión
+            </app-button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

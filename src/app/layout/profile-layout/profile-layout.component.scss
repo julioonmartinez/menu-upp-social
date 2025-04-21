@@ -1,0 +1,322 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Layout de perfil
+.profile-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Header del perfil
+.profile-header {
+  position: relative;
+}
+
+// Barra de navegación superior
+.navigation-bar {
+  padding: $spacing-sm $spacing-md;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: rgba($white, 0.95);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-index-fixed;
+}
+
+// Botón de retroceso
+.back-button {
+  background: none;
+  border: none;
+  color: $blue-primary;
+  font-size: $font-size-lg;
+  height: 40px;
+  width: 40px;
+  border-radius: $border-radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+  
+  &:hover {
+    background-color: rgba($blue-primary, 0.05);
+  }
+  
+  &:active {
+    background-color: rgba($blue-primary, 0.1);
+  }
+}
+
+// Acciones de perfil
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+// Botón de icono
+.icon-button {
+  background: none;
+  border: none;
+  color: $blue-primary;
+  font-size: $font-size-md;
+  height: 40px;
+  width: 40px;
+  border-radius: $border-radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+  
+  &:hover {
+    background-color: rgba($blue-primary, 0.05);
+  }
+  
+  &:active {
+    background-color: rgba($blue-primary, 0.1);
+  }
+}
+
+// Banner del perfil
+.profile-banner {
+  padding-top: 60px;
+  
+  .banner-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to top, rgba($white, 1), rgba($white, 0));
+    }
+    
+    @include respond-to('md') {
+      height: 220px;
+    }
+  }
+}
+
+// Información del perfil
+.profile-info {
+  padding: 0 $spacing-md;
+  margin-top: -40px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: $spacing-md;
+    margin-top: -60px;
+  }
+}
+
+// Avatar del perfil
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: $border-radius-round;
+  overflow: hidden;
+  border: 3px solid $white;
+  box-shadow: $shadow-sm;
+  margin-bottom: $spacing-sm;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  @include respond-to('md') {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+// Detalles del perfil
+.profile-details {
+  flex: 1;
+}
+
+// Nombre del perfil
+.profile-name {
+  margin-bottom: $spacing-xs;
+  font-size: $font-size-xl;
+  
+  @include respond-to('md') {
+    font-size: $font-size-xxl;
+  }
+}
+
+// Metadatos del perfil
+.profile-meta {
+  margin-bottom: $spacing-md;
+  
+  .username {
+    color: rgba($blue-primary, 0.7);
+    font-size: $font-size-sm;
+    display: block;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Estadísticas
+.stats {
+  display: flex;
+  gap: $spacing-md;
+}
+
+// Elemento de estadística
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  
+  .stat-value {
+    font-weight: $font-weight-bold;
+    font-size: $font-size-md;
+  }
+  
+  .stat-label {
+    font-size: $font-size-sm;
+    color: rgba($blue-primary, 0.7);
+  }
+}
+
+// Navegación del perfil
+.profile-nav {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba($dark-gray, 0.1);
+  margin-top: $spacing-md;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  a {
+    padding: $spacing-sm $spacing-md;
+    white-space: nowrap;
+    color: $blue-primary;
+    text-decoration: none;
+    position: relative;
+    font-weight: $font-weight-medium;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: $orange-primary;
+      opacity: 0;
+      transition: opacity $transition-fast;
+    }
+    
+    &.active {
+      color: $orange-primary;
+      font-weight: $font-weight-bold;
+      
+      &::after {
+        opacity: 1;
+      }
+    }
+    
+    &:hover:not(.active) {
+      color: rgba($orange-primary, 0.8);
+      
+      &::after {
+        opacity: 0.3;
+      }
+    }
+  }
+}
+
+// Contenido del perfil
+.profile-content {
+  flex: 1;
+  padding: $spacing-md;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// Skeleton loaders para estados de carga
+.profile-banner-skeleton {
+  padding-top: 60px;
+  
+  .banner-skeleton {
+    height: 180px;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+    
+    @include respond-to('md') {
+      height: 220px;
+    }
+  }
+  
+  .avatar-skeleton {
+    width: 80px;
+    height: 80px;
+    border-radius: $border-radius-round;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+    margin: -40px 0 $spacing-sm $spacing-md;
+    
+    @include respond-to('md') {
+      width: 120px;
+      height: 120px;
+      margin-top: -60px;
+    }
+  }
+  
+  .info-skeleton {
+    padding: 0 $spacing-md;
+    
+    .name-skeleton {
+      height: 32px;
+      width: 200px;
+      background-color: $light-gray;
+      animation: pulse 1.5s infinite;
+      margin-bottom: $spacing-sm;
+      border-radius: $border-radius-sm;
+    }
+    
+    .meta-skeleton {
+      height: 48px;
+      background-color: $light-gray;
+      animation: pulse 1.5s infinite;
+      margin-bottom: $spacing-md;
+      border-radius: $border-radius-sm;
+    }
+  }
+}
+
+// Animación de pulse para skeletons
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

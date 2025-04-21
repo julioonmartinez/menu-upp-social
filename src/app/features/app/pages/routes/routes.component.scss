@@ -1,0 +1,300 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de rutas
+.routes-page {
+  padding-bottom: $spacing-xl;
+}
+
+// Encabezado de página
+.page-header {
+  margin-bottom: $spacing-lg;
+  
+  h1 {
+    margin-bottom: $spacing-xs;
+  }
+}
+
+// Descripción de la página
+.page-description {
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-md;
+  max-width: 800px;
+  line-height: 1.5;
+}
+
+// Sección de rutas
+.routes-section {
+  margin-bottom: $spacing-xl;
+}
+
+// Título de sección
+.section-title {
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  
+  @include respond-to('md') {
+    font-size: $font-size-xl;
+  }
+}
+
+// Encabezado de sección de rutas con filtros
+.routes-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacing-md;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+// Contenedor de filtros
+.filters-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+  
+  @include respond-to('md') {
+    margin-bottom: 0;
+  }
+}
+
+// Grupo de filtro
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  
+  label {
+    font-size: $font-size-xs;
+    margin-bottom: 4px;
+    color: rgba($blue-primary, 0.7);
+  }
+}
+
+// Select de filtro
+.filter-select {
+  padding: $spacing-xs $spacing-sm;
+  border: 1px solid rgba($blue-primary, 0.2);
+  border-radius: $border-radius-sm;
+  background-color: $white;
+  font-size: $font-size-sm;
+  color: $blue-primary;
+  min-width: 120px;
+  
+  &:focus {
+    outline: none;
+    border-color: $orange-primary;
+  }
+}
+
+// Botón para limpiar filtros
+.clear-filters-button {
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($light-gray, 0.3);
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.5);
+    color: $blue-primary;
+  }
+  
+  i {
+    font-size: $font-size-xs;
+  }
+}
+
+// Filtro de etiquetas
+.tags-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-md;
+  overflow-x: auto;
+  padding-bottom: $spacing-xs;
+  
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba($light-gray, 0.3);
+    border-radius: 2px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($blue-primary, 0.2);
+    border-radius: 2px;
+  }
+}
+
+// Botón de etiqueta
+.tag-button {
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($light-gray, 0.3);
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+  color: $blue-primary;
+  cursor: pointer;
+  transition: all $transition-fast;
+  white-space: nowrap;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.5);
+  }
+  
+  &.active {
+    background-color: $orange-primary;
+    color: $white;
+  }
+}
+
+// Grid de rutas
+.routes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Carousel de rutas populares
+.routes-grid-popular {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Carousel de rutas nuevas
+.routes-grid-new {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Estado vacío
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+}
+
+// Icono de estado vacío
+.empty-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Sección de llamada a la acción
+.cta-section {
+  margin-top: $spacing-xl;
+}
+
+// Tarjeta de llamada a la acción
+.cta-card {
+  background-color: rgba($orange-primary, 0.05);
+  border-left: 4px solid $orange-primary;
+}
+
+// Contenido de la llamada a la acción
+.cta-content {
+  text-align: center;
+  
+  h2 {
+    color: $orange-primary;
+    margin-bottom: $spacing-sm;
+  }
+  
+  p {
+    margin-bottom: $spacing-md;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -1,0 +1,228 @@
+<div class="restaurant-menu">
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando menú del restaurante...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error && !loading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error }}</p>
+      <app-button 
+        variant="primary" 
+        routerLink="/app/explore"
+      >
+        Volver a Explorar
+      </app-button>
+    </div>
+    
+    <!-- Contenido del menú -->
+    <ng-container *ngIf="!loading && !error && isRestaurant">
+      <!-- Barra de búsqueda y filtros -->
+      <div class="search-filters-bar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input 
+            type="text" 
+            placeholder="Buscar en el menú..." 
+            [(ngModel)]="searchQuery"
+            (input)="updateSearch()"
+          >
+          <button 
+            *ngIf="searchQuery" 
+            class="clear-search" 
+            (click)="searchQuery = ''; updateSearch()"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        
+        <div class="filters-toggle">
+          <button class="filter-button" [class.active]="hasFiltersApplied" (click)="toggleFiltersPanel()">
+            <i class="fa-solid fa-sliders"></i>
+            Filtros
+            <span class="filter-count" *ngIf="hasFiltersApplied">{{ getActiveFiltersCount() }}</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Panel de filtros -->
+      <div class="filters-panel" *ngIf="showFiltersPanel">
+        <app-card variant="elevated" padding="md">
+          <div class="filters-content">
+            <!-- Filtro de valoración -->
+            <div class="filter-group">
+              <h3 class="filter-title">Valoración</h3>
+              
+              <div class="rating-filter">
+                <button 
+                  *ngFor="let rating of [5, 4, 3, 2, 1]"
+                  class="rating-button"
+                  [class.active]="selectedRating === rating"
+                  (click)="setRatingFilter(selectedRating === rating ? null : rating)"
+                >
+                  {{ rating }}
+                  <i class="fa-solid fa-star"></i>
+                  <span class="rating-label">o más</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Filtro de precio -->
+            <div class="filter-group">
+              <h3 class="filter-title">Precio</h3>
+              
+              <div class="price-filter">
+                <div class="price-ranges">
+                  <button 
+                    class="price-range-button"
+                    [class.active]="priceRange && priceRange[0] === priceRangeMinMax[0] && priceRange[1] <= 10"
+                    (click)="setPriceFilter(priceRangeMinMax[0], 10)"
+                  >
+                    €
+                  </button>
+                  
+                  <button 
+                    class="price-range-button"
+                    [class.active]="priceRange && priceRange[0] >= 10 && priceRange[1] <= 20"
+                    (click)="setPriceFilter(10, 20)"
+                  >
+                    €€
+                  </button>
+                  
+                  <button 
+                    class="price-range-button"
+                    [class.active]="priceRange && priceRange[0] >= 20"
+                    (click)="setPriceFilter(20, priceRangeMinMax[1])"
+                  >
+                    €€€
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Filtro de favoritos -->
+            <div class="filter-group">
+              <div class="favorites-filter">
+                <label class="favorites-toggle">
+                  <input 
+                    type="checkbox" 
+                    [checked]="showOnlyFavorites" 
+                    (change)="toggleFavoritesFilter()"
+                  >
+                  <span class="toggle-label">
+                    <i class="fa-solid fa-heart"></i>
+                    Solo favoritos
+                  </span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="filter-actions">
+              <app-button 
+                variant="tertiary" 
+                size="sm"
+                (clicked)="resetFilters()"
+                [disabled]="!hasFiltersApplied"
+              >
+                <i class="fa-solid fa-xmark"></i>
+                Limpiar filtros
+              </app-button>
+              
+              <app-button 
+                variant="primary" 
+                size="sm"
+                (clicked)="toggleFiltersPanel()"
+              >
+                Aplicar
+              </app-button>
+            </div>
+          </div>
+        </app-card>
+      </div>
+      
+      <!-- Navegación de categorías -->
+      <div class="categories-nav">
+        <div class="categories-container">
+          <button 
+            class="category-button" 
+            [class.active]="selectedCategory === null"
+            (click)="selectCategory(null)"
+          >
+            Todos
+          </button>
+          
+          <!-- Estado de carga de categorías -->
+          <div class="loading-categories" *ngIf="loadingCategories">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+          </div>
+          
+          <button 
+            *ngFor="let category of categories"
+            class="category-button" 
+            [class.active]="selectedCategory === category.id"
+            (click)="selectCategory(category.id!)"
+          >
+            {{ category.name }}
+            <span class="dish-count" *ngIf="dishCountByCategory[category.id!]">
+              {{ dishCountByCategory[category.id!] }}
+            </span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Platos del menú -->
+      <div class="menu-content">
+        <!-- Título de categoría seleccionada -->
+        <div class="category-header" *ngIf="selectedCategory">
+          <h2 class="category-title">
+            {{ getSelectedCategoryName() }}
+          </h2>
+          
+          <div class="category-description" *ngIf="getSelectedCategoryDescription()">
+            {{ getSelectedCategoryDescription() }}
+          </div>
+        </div>
+        
+        <!-- Estado de carga de platos -->
+        <div class="loading-dishes" *ngIf="loadingDishes">
+          <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+          </div>
+          <p>Cargando platos...</p>
+        </div>
+        
+        <!-- Sin resultados -->
+        <div class="no-dishes" *ngIf="!loadingDishes && dishes.length === 0">
+          <div class="no-dishes-icon">
+            <i class="fa-solid fa-utensils"></i>
+          </div>
+          <p>No se encontraron platos con los filtros seleccionados.</p>
+          <app-button 
+            variant="tertiary" 
+            (clicked)="resetFilters()"
+            *ngIf="hasFiltersApplied"
+          >
+            Limpiar filtros
+          </app-button>
+        </div>
+        
+        <!-- Grid de platos -->
+        <div class="dishes-grid" *ngIf="!loadingDishes && dishes.length > 0">
+          <app-dish-card 
+            *ngFor="let dish of dishes" 
+            [dish]="dish"
+            [size]="'md'"
+            (favoriteClicked)="onFavoriteClick($event)"
+            (rateClicked)="onRateClick($event)"
+          ></app-dish-card>
+        </div>
+      </div>
+    </ng-container>
+  </div>

@@ -1,0 +1,60 @@
+<div class="public-layout">
+    <!-- Header público -->
+    <header class="public-header">
+      <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+          <a routerLink="/">
+            <span class="logo-menu">MENU</span>
+            <span class="logo-upp">UPP</span>
+          </a>
+        </div>
+        
+        <!-- Botones de acción -->
+        <div class="header-actions">
+          <app-button 
+            variant="tertiary" 
+            size="sm" 
+            routerLink="/login"
+            (clicked)="navigateToLogin()"
+          >
+            Iniciar sesión
+          </app-button>
+          
+          <app-button 
+            variant="primary" 
+            size="sm" 
+            routerLink="/register"
+            (clicked)="navigateToRegister()"
+          >
+            Registrarse
+          </app-button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="public-content">
+      <router-outlet></router-outlet>
+    </main>
+    
+    <!-- Footer público -->
+    <footer class="public-footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <span class="logo-menu">MENU</span>
+          <span class="logo-upp">UPP</span>
+        </div>
+        
+        <nav class="footer-nav">
+          <a routerLink="/terms">Términos y condiciones</a>
+          <a routerLink="/privacy">Política de privacidad</a>
+          <a href="mailto:contacto@menuupp.com">Contacto</a>
+        </nav>
+        
+        <div class="footer-copyright">
+          &copy; {{ currentYear }} MenuUPP. Todos los derechos reservados.
+        </div>
+      </div>
+    </footer>
+  </div>

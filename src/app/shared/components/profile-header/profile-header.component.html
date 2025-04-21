@@ -1,0 +1,76 @@
+<div class="profile-header">
+    <!-- Imagen de portada -->
+    <div class="profile-cover" [style.background-image]="coverImage ? 'url(' + coverImage.url + ')' : 'none'">
+      <div class="cover-overlay"></div>
+    </div>
+    
+    <!-- Contenido principal del header -->
+    <div class="profile-content">
+      <!-- Logo/Avatar -->
+      <div class="profile-logo">
+        <img 
+          [src]="profileImage?.url || 'assets/images/placeholder-profile.jpg'" 
+          [alt]="name"
+        >
+      </div>
+      
+      <!-- Información del perfil -->
+      <div class="profile-info">
+        <h1 class="profile-name">{{ name }}</h1>
+        
+        <div class="profile-meta">
+          <!-- Username -->
+          <div class="profile-username">{{ '@' + username }}</div>
+          
+          <!-- Estadísticas -->
+          <div class="profile-stats">
+            <!-- Seguidores (común para ambos tipos) -->
+            <div class="stat-item">
+              <span class="stat-value">{{ followers | number }}</span>
+              <span class="stat-label">Seguidores</span>
+            </div>
+            
+            <!-- Valoración (solo para restaurantes) -->
+            <div class="stat-item" *ngIf="profileType === 'restaurant' && rating !== null">
+              <span class="stat-value">
+                {{ rating.toFixed(1) }}
+                <i class="fa-solid fa-star"></i>
+              </span>
+              <span class="stat-label">({{ ratingCount | number }})</span>
+            </div>
+            
+            <!-- Siguiendo (solo para usuarios) -->
+            <div class="stat-item" *ngIf="profileType === 'user'">
+              <span class="stat-value">{{ following | number }}</span>
+              <span class="stat-label">Siguiendo</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Descripción -->
+        <p class="profile-description" *ngIf="description">{{ description }}</p>
+      </div>
+      
+      <!-- Acciones -->
+      <div class="profile-actions">
+        <app-button
+          [variant]="isFollowing ? 'tertiary' : 'primary'"
+          [size]="'md'"
+          [icon]="isFollowing ? 'user-check' : 'user-plus'"
+          [loading]="loading"
+          (clicked)="onFollowClick()"
+        >
+          {{ isFollowing ? 'Siguiendo' : 'Seguir' }}
+        </app-button>
+        
+        <app-button
+          [variant]="'tertiary'"
+          [size]="'md'"
+          [icon]="'share-nodes'"
+          (clicked)="onShareClick()"
+        >
+          Compartir
+        </app-button>
+      </div>
+    </div>
+  </div>

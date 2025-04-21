@@ -1,59 +1,132 @@
-# MenuUppSocial
+# Menu-UPP Social
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+Plataforma social gastronómica construida con Angular. Este proyecto transforma un sistema administrativo de menús digitales en una experiencia social completa centrada en la gastronomía.
 
-## Development server
+## Características
 
-To start a local development server, run:
+- **Perfiles de Restaurantes**: Página de perfil completa con menú, reseñas e información.
+- **Perfiles de Usuarios**: Actividad social, rutas creadas y pasaporte gastronómico.
+- **Feed Social**: Actividades de usuarios, restaurantes en tendencia y platos populares.
+- **Gamificación**: Pasaporte gastronómico con insignias y rutas a completar.
+- **Sistema de Valoraciones**: Calificaciones y reseñas para platillos y restaurantes.
 
-```bash
-ng serve
+## Stack Tecnológico
+
+- **Framework**: Angular 17+ con enfoque standalone
+- **Estilos**: SCSS con patrón 7-1
+- **Estado**: Signals de Angular
+- **Iconografía**: Font Awesome 6
+- **Responsive**: Mobile-first
+- **Datos**: Mocks para desarrollo inicial
+
+## Prerrequisitos
+
+- Node.js (v18+)
+- npm (v9+)
+- Angular CLI (v17+)
+
+## Instalación
+
+1. **Clonar el repositorio**:
+   ```bash
+   git clone https://github.com/tu-usuario/menu-upp-social.git
+   cd menu-upp-social
+   ```
+
+2. **Instalar dependencias**:
+   ```bash
+   npm install
+   ```
+
+3. **Iniciar el servidor de desarrollo**:
+   ```bash
+   ng serve
+   ```
+
+4. **Acceder a la aplicación**:
+   Abrir http://localhost:4200 en tu navegador
+
+## Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── core/                # Servicios core, interceptors, guards
+│   ├── shared/              # Elementos compartidos entre módulos
+│   ├── features/            # Módulos principales por característica
+│   │   ├── public/          # Páginas públicas (landing, login, registro)
+│   │   ├── app/             # Funcionalidad principal autenticada 
+│   │   └── profiles/        # Perfiles públicos (restaurantes/usuarios)
+│   └── layout/              # Layouts principales de la aplicación
+├── assets/                  # Recursos estáticos
+└── styles/                  # SCSS global (patrón 7-1)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Secciones Principales
 
-## Code scaffolding
+### Explorar (Feed)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **URL**: `/app/explore`
+- **Descripción**: Feed de actividades recientes, restaurantes en tendencia, platillos populares
 
-```bash
-ng generate component component-name
+### Perfiles de Restaurante
+
+- **URL**: `/profile/:username`
+- **Subsecciones**: Inicio, Menú, Información, Reseñas
+- **Descripción**: Visualización completa de un restaurante
+
+### Perfiles de Usuario
+
+- **URL**: `/profile/:username`
+- **Subsecciones**: Actividad, Rutas, Favoritos
+- **Descripción**: Perfil social de un usuario
+
+### Pasaporte Gastronómico
+
+- **URL**: `/app/passport`
+- **Descripción**: Gamificación con logros, insignias y estadísticas
+
+## Desarrollo
+
+### Convenciones de Código
+
+- Utilizar componentes standalone
+- Lazy loading para todas las rutas
+- Usar signals para estado local y global
+- Seguir estructura de carpetas definida
+
+### Comandos Útiles
+
+- **Generar componente**:
+  ```bash
+  ng generate component shared/components/nombre-componente --standalone
+  ```
+
+- **Generar servicio**:
+  ```bash
+  ng generate service core/services/nombre-servicio
+  ```
+
+- **Generar interfaz**:
+  ```bash
+  ng generate interface core/models/nombre-modelo
+  ```
+
+## Notas sobre los Datos Mock
+
+El proyecto utiliza datos mock para desarrollo. Los archivos JSON se encuentran en:
+
+```
+assets/mocks/
+├── users.json              # Usuarios y perfiles
+├── restaurants.json        # Restaurantes con detalles
+├── dishes.json             # Platillos con valoraciones
+├── activities.json         # Actividades sociales
+├── routes.json             # Rutas gastronómicas
+├── badges.json             # Insignias y logros
+└── categories.json         # Categorías de platillos
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Licencia
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este proyecto está bajo la licencia [MIT](LICENSE).

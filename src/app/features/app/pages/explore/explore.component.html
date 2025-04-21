@@ -1,0 +1,188 @@
+<div class="explore-page">
+    <header class="page-header">
+      <h1>Explorar</h1>
+    </header>
+    
+    <section class="explore-section">
+      <h2 class="section-title">Restaurantes en tendencia</h2>
+      
+      <!-- Skeleton loaders para estado de carga -->
+      <div class="restaurants-grid" *ngIf="isLoadingRestaurants">
+        <div class="restaurant-skeleton" *ngFor="let i of [1, 2, 3]">
+          <div class="image-skeleton"></div>
+          <div class="name-skeleton"></div>
+          <div class="info-skeleton"></div>
+        </div>
+      </div>
+      
+      <!-- Restaurantes reales -->
+      <div class="restaurants-grid" *ngIf="!isLoadingRestaurants">
+        <app-card 
+          *ngFor="let restaurant of trendingRestaurants"
+          [hoverable]="true"
+          variant="elevated"
+          class="restaurant-card"
+          [routerLink]="['/profile', restaurant.username]"
+        >
+          <div class="restaurant-content">
+            <div class="restaurant-image" [style.background-image]="'url(' + restaurant.coverImage?.url + ')'">
+              <div class="restaurant-logo">
+                <img [src]="restaurant.logo?.url" [alt]="restaurant.name">
+              </div>
+            </div>
+            
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">{{ restaurant.name }}</h3>
+              
+              <div class="restaurant-meta">
+                <div class="restaurant-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <span>{{ restaurant.rating?.average?.toFixed(1) }}</span>
+                  <span class="review-count">({{ restaurant.rating?.count }})</span>
+                </div>
+                
+                <div class="restaurant-cuisines">
+                  <span *ngFor="let cuisine of restaurant.cuisineType?.slice(0, 2); let last = last">
+                    {{ cuisine }}{{ !last ? ', ' : '' }}
+                  </span>
+                </div>
+              </div>
+              
+              <p class="restaurant-description" *ngIf="restaurant.description">
+                {{ restaurant.description.substring(0, 100) }}{{ restaurant.description && restaurant.description.length > 100 ? '...' : '' }}
+              </p>
+            </div>
+          </div>
+        </app-card>
+      </div>
+      
+      <div class="section-footer">
+        <app-button 
+          variant="tertiary"
+          icon="arrow-right"
+          iconPosition="right"
+          routerLink="/app/search"
+        >
+          Ver más restaurantes
+        </app-button>
+      </div>
+    </section>
+    
+    <section class="explore-section">
+      <h2 class="section-title">Platos populares cerca</h2>
+      
+      <!-- Skeleton loaders para estado de carga -->
+      <div class="dishes-grid" *ngIf="isLoadingDishes">
+        <div class="dish-skeleton" *ngFor="let i of [1, 2, 3, 4, 5, 6]">
+          <div class="image-skeleton"></div>
+          <div class="name-skeleton"></div>
+          <div class="info-skeleton"></div>
+        </div>
+      </div>
+      
+      <!-- Platos reales -->
+      <div class="dishes-grid" *ngIf="!isLoadingDishes">
+        <app-card 
+          *ngFor="let dish of popularDishes"
+          [hoverable]="true"
+          variant="elevated"
+          class="dish-card"
+          padding="none"
+        >
+          <div class="dish-content">
+            <div class="dish-image" [style.background-image]="'url(' + dish.mainImage?.url + ')'">
+              <div class="dish-favorite">
+                <button class="favorite-button">
+                  <i class="fa-solid fa-heart"></i>
+                </button>
+              </div>
+              
+              <div class="dish-rating">
+                <span class="rating-value">{{ dish.rating?.average?.toFixed(1) }}</span>
+                <i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            
+            <div class="dish-info">
+              <h3 class="dish-name">{{ dish.name }}</h3>
+              
+              <div class="dish-meta">
+                <span class="dish-price">{{ dish.price.toFixed(2) }} {{ dish.currency }}</span>
+                
+                <div class="dish-badges">
+                  <span class="badge" *ngIf="dish.isVegetarian">
+                    <i class="fa-solid fa-leaf"></i>
+                  </span>
+                  <span class="badge" *ngIf="dish.isGlutenFree">
+                    <i class="fa-solid fa-wheat-awn-circle-exclamation"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </div>
+      
+      <div class="section-footer">
+        <app-button 
+          variant="tertiary"
+          icon="arrow-right"
+          iconPosition="right"
+          routerLink="/app/search"
+        >
+          Explorar más platillos
+        </app-button>
+      </div>
+    </section>
+    
+    <section class="explore-section">
+      <h2 class="section-title">Actividad reciente</h2>
+      
+      <!-- Skeleton loaders para estado de carga -->
+      <div class="activity-list" *ngIf="isLoadingActivities">
+        <div class="activity-skeleton" *ngFor="let i of [1, 2, 3, 4, 5]">
+          <div class="avatar-skeleton"></div>
+          <div class="content-skeleton">
+            <div class="text-skeleton"></div>
+            <div class="time-skeleton"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Actividades reales -->
+      <div class="activity-list" *ngIf="!isLoadingActivities">
+        <app-card 
+          *ngFor="let activity of activities"
+          class="activity-card"
+          padding="sm"
+        >
+          <div class="activity-content">
+            <div class="activity-avatar">
+              <img [src]="activity.userImage?.url" [alt]="activity.userName">
+            </div>
+            
+            <div class="activity-details">
+              <div class="activity-text">
+                <a [routerLink]="['/profile', activity.userId]" class="user-link">{{ activity.userName }}</a>
+                <span class="activity-action">{{ getActivityText(activity) }}</span>
+              </div>
+              
+              <div class="activity-time">
+                {{ formatActivityDate(activity.createdAt!) }}
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </div>
+      
+      <div class="section-footer">
+        <app-button 
+          variant="tertiary"
+          icon="arrow-right"
+          iconPosition="right"
+        >
+          Ver más actividad
+        </app-button>
+      </div>
+    </section>
+  </div>

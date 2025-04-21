@@ -1,0 +1,26 @@
+<div 
+  class="card" 
+  [ngClass]="[
+    'card-' + variant,
+    hoverable ? 'card-hoverable' : '',
+    'padding-' + padding,
+    'border-radius-' + borderRadius,
+    fullWidth ? 'card-full-width' : ''
+  ]"
+  [style.height]="height"
+>
+  <!-- Header opcional -->
+  <div class="card-header" *ngIf="cardHasHeader">
+    <ng-content select="[slot=header]"></ng-content>
+  </div>
+  
+  <!-- Contenido principal -->
+  <div class="card-content">
+    <ng-content></ng-content>
+  </div>
+  
+  <!-- Footer opcional -->
+  <div class="card-footer" *ngIf="cardHasFooter">
+    <ng-content select="[slot=footer]"></ng-content>
+  </div>
+</div>

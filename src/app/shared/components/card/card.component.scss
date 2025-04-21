@@ -1,0 +1,95 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Estilos base de la card
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: $white;
+  transition: all $transition-normal;
+}
+
+// Variantes de card
+.card-flat {
+  background-color: $white;
+}
+
+.card-elevated {
+  @include card-base;
+}
+
+.card-outlined {
+  border: 1px solid rgba($dark-gray, 0.1);
+}
+
+// Efecto hover
+.card-hoverable {
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Padding
+.padding-none {
+  padding: 0;
+}
+
+.padding-sm {
+  padding: $spacing-sm;
+}
+
+.padding-md {
+  padding: $spacing-md;
+}
+
+.padding-lg {
+  padding: $spacing-lg;
+}
+
+// Border radius
+.border-radius-none {
+  border-radius: 0;
+}
+
+.border-radius-sm {
+  border-radius: $border-radius-sm;
+}
+
+.border-radius-md {
+  border-radius: $border-radius-md;
+}
+
+.border-radius-lg {
+  border-radius: $border-radius-lg;
+}
+
+.border-radius-xl {
+  border-radius: $border-radius-xl;
+}
+
+// Ancho completo
+.card-full-width {
+  width: 100%;
+}
+
+// Secciones de la card
+.card-header {
+  padding-bottom: $spacing-sm;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-footer {
+  padding-top: $spacing-sm;
+  margin-top: auto;
+}

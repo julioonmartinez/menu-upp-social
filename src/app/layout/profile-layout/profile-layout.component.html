@@ -1,0 +1,103 @@
+<div class="profile-layout">
+    <!-- Header del perfil -->
+    <header class="profile-header">
+      <div class="navigation-bar">
+        <button class="back-button" routerLink="/app/explore">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        
+        <div class="profile-actions">
+          <button class="icon-button" (click)="shareProfile()">
+            <i class="fa-solid fa-share-nodes"></i>
+          </button>
+          
+          <app-button 
+            variant="primary" 
+            size="sm" 
+            icon="user-plus"
+            (clicked)="followProfile()"
+          >
+            Seguir
+          </app-button>
+        </div>
+      </div>
+      
+      <!-- Banner y avatar -->
+      <div class="profile-banner" *ngIf="!isLoading">
+        <div class="banner-image" 
+          [style.background-image]="isRestaurant ? 
+            'url(' + restaurant?.coverImage?.url + ')' : 
+            'url(' + user?.profileImage?.url + ')'">
+        </div>
+        
+        <div class="profile-info">
+          <div class="profile-avatar" *ngIf="isRestaurant">
+            <img [src]="restaurant?.logo?.url" [alt]="restaurant?.name">
+          </div>
+          
+          <div class="profile-details">
+            <h1 class="profile-name">
+              {{ isRestaurant ? restaurant?.name : user?.name + ' ' + user?.lastName }}
+            </h1>
+            
+            <div class="profile-meta">
+              <span class="username">{{ '@' + username }}</span>
+              
+              <div class="stats">
+                <div class="stat-item">
+                  <span class="stat-value">{{ isRestaurant ? restaurant?.followers : user?.followers }}</span>
+                  <span class="stat-label">seguidores</span>
+                </div>
+                
+                <div class="stat-item" *ngIf="isRestaurant">
+                  <span class="stat-value">{{ restaurant?.rating?.average?.toFixed(1) }}</span>
+                  <span class="stat-label">
+                    <i class="fa-solid fa-star"></i>
+                    ({{ restaurant?.rating?.count }})
+                  </span>
+                </div>
+                
+                <div class="stat-item" *ngIf="!isRestaurant">
+                  <span class="stat-value">{{ user?.following }}</span>
+                  <span class="stat-label">siguiendo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Skeleton loader para estado de carga -->
+      <div class="profile-banner-skeleton" *ngIf="isLoading">
+        <div class="banner-skeleton"></div>
+        <div class="avatar-skeleton"></div>
+        <div class="info-skeleton">
+          <div class="name-skeleton"></div>
+          <div class="meta-skeleton"></div>
+        </div>
+      </div>
+      
+      <!-- Navegación del perfil -->
+      <nav class="profile-nav" *ngIf="!isLoading">
+        <!-- Navegación para restaurantes -->
+        <ng-container *ngIf="isRestaurant">
+          <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+          <a routerLink="/profile/{{ username }}/menu" routerLinkActive="active">Menú</a>
+          <a routerLink="/profile/{{ username }}/info" routerLinkActive="active">Información</a>
+          <a routerLink="/profile/{{ username }}/reviews" routerLinkActive="active">Reseñas</a>
+        </ng-container>
+        
+        <!-- Navegación para usuarios -->
+        <ng-container *ngIf="!isRestaurant">
+          <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Actividad</a>
+          <a routerLink="/profile/{{ username }}/routes" routerLinkActive="active">Rutas</a>
+          <a routerLink="/profile/{{ username }}/favorites" routerLinkActive="active">Favoritos</a>
+        </ng-container>
+      </nav>
+    </header>
+    
+    <!-- Contenido del perfil -->
+    <main class="profile-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>

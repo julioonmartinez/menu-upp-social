@@ -1,0 +1,157 @@
+<div class="routes-page">
+    <header class="page-header">
+      <h1>Rutas Gastronómicas</h1>
+      <p class="page-description">
+        Descubre y explora rutas gastronómicas creadas por la comunidad. Visita restaurantes, prueba platos recomendados y colecciona experiencias culinarias.
+      </p>
+    </header>
+    
+    <!-- Sección de rutas populares (destacadas) -->
+    <section class="routes-section" *ngIf="!loading && popularRoutes.length > 0">
+      <h2 class="section-title">Rutas Populares</h2>
+      
+      <div class="routes-carousel">
+        <div class="routes-grid-popular">
+          <app-route-card 
+            *ngFor="let route of popularRoutes.slice(0, 3)"
+            [route]="route"
+            [size]="'lg'"
+          ></app-route-card>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Sección principal de rutas -->
+    <section class="routes-section">
+      <div class="routes-header">
+        <h2 class="section-title">Explorar Rutas</h2>
+        
+        <!-- Filtros -->
+        <div class="filters-container">
+          <!-- Filtro por dificultad -->
+          <div class="filter-group">
+            <label for="difficulty-filter">Dificultad</label>
+            <select 
+              id="difficulty-filter"
+              [(ngModel)]="selectedDifficulty"
+              (change)="filterByDifficulty(selectedDifficulty)"
+              class="filter-select"
+            >
+              <option [value]="null">Todas</option>
+              <option *ngFor="let option of difficultyOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+          
+          <!-- Botón para limpiar filtros -->
+          <button 
+            class="clear-filters-button" 
+            *ngIf="selectedTag || selectedDifficulty"
+            (click)="resetFilters()"
+          >
+            <i class="fa-solid fa-xmark"></i>
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+      
+      <!-- Filtro por etiquetas (tags) -->
+      <div class="tags-filter">
+        <button 
+          class="tag-button" 
+          [class.active]="selectedTag === null"
+          (click)="filterByTag(null)"
+        >
+          Todas
+        </button>
+        
+        <button 
+          *ngFor="let tag of tags"
+          class="tag-button"
+          [class.active]="selectedTag === tag"
+          (click)="filterByTag(tag)"
+        >
+          {{ tag }}
+        </button>
+      </div>
+      
+      <!-- Estado de carga -->
+      <div class="loading-state" *ngIf="loading">
+        <div class="loading-spinner">
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </div>
+        <p>Cargando rutas gastronómicas...</p>
+      </div>
+      
+      <!-- Estado de error -->
+      <div class="error-state" *ngIf="error && !loading">
+        <div class="error-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <p>{{ error }}</p>
+        <app-button 
+          variant="primary" 
+          (clicked)="resetFilters();"
+          
+        >
+          Reintentar
+        </app-button>
+      </div>
+      
+      <!-- Estado vacío -->
+      <div class="empty-state" *ngIf="!loading && !error && routes.length === 0">
+        <div class="empty-icon">
+          <i class="fa-solid fa-route"></i>
+        </div>
+        <p>No se encontraron rutas con los filtros seleccionados</p>
+        <app-button 
+          variant="tertiary" 
+          (clicked)="resetFilters()"
+        >
+          Limpiar filtros
+        </app-button>
+      </div>
+      
+      <!-- Lista de rutas -->
+      <div class="routes-grid" *ngIf="!loading && !error && routes.length > 0">
+        <app-route-card 
+          *ngFor="let route of routes"
+          [route]="route"
+        ></app-route-card>
+      </div>
+    </section>
+    
+    <!-- Sección de rutas nuevas -->
+    <section class="routes-section" *ngIf="!loading && newRoutes.length > 0">
+      <h2 class="section-title">Rutas Recientes</h2>
+      
+      <div class="routes-carousel">
+        <div class="routes-grid-new">
+          <app-route-card 
+            *ngFor="let route of newRoutes.slice(0, 3)"
+            [route]="route"
+            [size]="'md'"
+          ></app-route-card>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Sección de llamada a la acción -->
+    <section class="cta-section">
+      <app-card variant="elevated" padding="lg" class="cta-card">
+        <div class="cta-content">
+          <h2>¿Tienes tu propia ruta gastronómica?</h2>
+          <p>Comparte tus descubrimientos culinarios con la comunidad y ayuda a otros a descubrir nuevos lugares.</p>
+          <app-button
+            variant="primary"
+            size="lg"
+            icon="plus"
+            routerLink="/app/routes/create"
+          >
+            Crear Ruta
+          </app-button>
+        </div>
+      </app-card>
+    </section>
+  </div>

@@ -1,0 +1,371 @@
+<div class="dish-detail">
+    <!-- Navegación de retorno -->
+    <div class="back-navigation">
+      <a [routerLink]="['/profile', restaurantUsername, 'menu']" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Volver al menú
+      </a>
+    </div>
+    
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando detalle del plato...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error && !loading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error }}</p>
+      <app-button 
+        variant="primary" 
+        [routerLink]="['/profile', restaurantUsername, 'menu']"
+      >
+        Volver al menú
+      </app-button>
+    </div>
+    
+    <!-- Contenido del plato -->
+    <ng-container *ngIf="dish && !loading && !error">
+      <div class="dish-content">
+        <!-- Columna principal -->
+        <div class="main-column">
+          <!-- Galería de imágenes -->
+          <div class="dish-gallery">
+            <div class="main-image">
+              <img [src]="activeImage?.url" [alt]="dish.name">
+            </div>
+            
+            <div class="image-thumbnails" *ngIf="allImages.length > 1">
+              <div 
+                *ngFor="let image of allImages; let i = index"
+                class="thumbnail"
+                [class.active]="i === activeImageIndex"
+                (click)="setActiveImage(i)"
+              >
+                <img [src]="image.url" [alt]="dish.name">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Información del plato -->
+          <app-card variant="elevated" padding="md" class="dish-info-card">
+            <div class="dish-info">
+              <h1 class="dish-name">{{ dish.name }}</h1>
+              
+              <div class="dish-meta">
+                <!-- Valoración -->
+                <div class="dish-rating" *ngIf="dish.rating">
+                  <div class="stars">
+                    <i 
+                      *ngFor="let star of [1, 2, 3, 4, 5]"
+                      class="fa-star"
+                      [class.fa-solid]="star <= dish.rating.average"
+                      [class.fa-regular]="star > dish.rating.average"
+                    ></i>
+                  </div>
+                  <span class="rating-value">{{ dish.rating.average.toFixed(1) }}</span>
+                  <span class="rating-count">({{ dish.rating.count }})</span>
+                </div>
+                
+                <!-- Precio -->
+                <div class="dish-price">
+                  {{ dish.price.toFixed(2) }} {{ dish.currency || '€' }}
+                </div>
+              </div>
+              
+              <!-- Descripción -->
+              <div class="dish-description" *ngIf="dish.description">
+                <p>{{ dish.description }}</p>
+              </div>
+              
+              <!-- Etiquetas -->
+              <div class="dish-tags">
+                <span class="dish-tag vegetarian" *ngIf="dish.isVegetarian">
+                  <i class="fa-solid fa-leaf"></i>
+                  Vegetariano
+                </span>
+                
+                <span class="dish-tag vegan" *ngIf="dish.isVegan">
+                  <i class="fa-solid fa-seedling"></i>
+                  Vegano
+                </span>
+                
+                <span class="dish-tag gluten-free" *ngIf="dish.isGlutenFree">
+                  <i class="fa-solid fa-wheat-awn-circle-exclamation"></i>
+                  Sin gluten
+                </span>
+              </div>
+              
+              <!-- Ingredientes -->
+              <div class="dish-ingredients" *ngIf="dish.ingredients && dish.ingredients.length > 0">
+                <h3 class="section-subtitle">Ingredientes</h3>
+                
+                <div class="ingredients-list">
+                  <span class="ingredient" *ngFor="let ingredient of visibleIngredients">
+                    {{ ingredient }}
+                  </span>
+                  
+                  <button 
+                    class="show-more-button" 
+                    *ngIf="hasMoreIngredients" 
+                    (click)="toggleIngredients()"
+                  >
+                    {{ showAllIngredients ? 'Mostrar menos' : 'Ver todos' }}
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Alérgenos -->
+              <div class="dish-allergens" *ngIf="dish.allergens && dish.allergens.length > 0">
+                <h3 class="section-subtitle">Alérgenos</h3>
+                
+                <div class="allergens-list">
+                  <span class="allergen" *ngFor="let allergen of dish.allergens">
+                    {{ allergen }}
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Acciones -->
+              <div class="dish-actions">
+                <app-button
+                  [variant]="isFavorite ? 'tertiary' : 'primary'"
+                  [icon]="isFavorite ? 'check' : 'heart'"
+                  (clicked)="toggleFavorite()"
+                >
+                  {{ isFavorite ? 'En favoritos' : 'Añadir a favoritos' }}
+                </app-button>
+                
+                <app-button
+                  variant="tertiary"
+                  icon="star"
+                  (clicked)="toggleAddReview()"
+                  *ngIf="!showAddReview"
+                >
+                  Valorar plato
+                </app-button>
+              </div>
+              
+              <!-- Formulario de valoración -->
+              <div class="review-form" *ngIf="showAddReview">
+                <h3 class="form-title">Valorar "{{ dish.name }}"</h3>
+                
+                <div class="rating-input">
+                  <label>Tu valoración:</label>
+                  <div class="rating-stars">
+                    <i 
+                      *ngFor="let star of [1, 2, 3, 4, 5]"
+                      class="fa-star"
+                      [class.fa-solid]="star <= ratingValue"
+                      [class.fa-regular]="star > ratingValue"
+                      (click)="ratingValue = star"
+                    ></i>
+                  </div>
+                </div>
+                
+                <div class="comment-input">
+                  <label for="review-comment">Tu comentario:</label>
+                  <textarea 
+                    id="review-comment" 
+                    rows="4"
+                    placeholder="Comparte tu experiencia con este plato..."
+                    [(ngModel)]="reviewComment"
+                  ></textarea>
+                </div>
+                
+                <div class="form-actions">
+                  <app-button
+                    variant="tertiary"
+                    (clicked)="toggleAddReview()"
+                  >
+                    Cancelar
+                  </app-button>
+                  
+                  <app-button
+                    variant="primary"
+                    [loading]="loadingAddReview"
+                    [disabled]="!reviewComment.trim()"
+                    (clicked)="submitReview()"
+                  >
+                    Publicar reseña
+                  </app-button>
+                </div>
+              </div>
+            </div>
+          </app-card>
+          
+          <!-- Reseñas -->
+          <div class="dish-reviews">
+            <h2 class="section-title">Reseñas</h2>
+            
+            <!-- Estadísticas de reseñas -->
+            <div class="reviews-stats" *ngIf="!loadingReviews && reviewStats.total > 0">
+              <div class="stats-summary">
+                <div class="average-rating">
+                  <div class="big-rating">{{ reviewStats.average.toFixed(1) }}</div>
+                  <div class="stars">
+                    <i 
+                      *ngFor="let star of [1, 2, 3, 4, 5]"
+                      class="fa-star"
+                      [class.fa-solid]="star <= reviewStats.average"
+                      [class.fa-regular]="star > reviewStats.average"
+                    ></i>
+                  </div>
+                  <div class="total-reviews">{{ reviewStats.total }} reseñas</div>
+                </div>
+                
+                <div class="rating-bars">
+                  <div class="rating-bar" *ngFor="let count of reviewStats.distribution.slice().reverse(); let i = index">
+                    <div class="bar-label">{{ 5 - i }}</div>
+                    <div class="bar-container">
+                      <div 
+                        class="bar-fill" 
+                        [style.width.%]="reviewStats.total ? (count / reviewStats.total) * 100 : 0"
+                      ></div>
+                    </div>
+                    <div class="bar-count">{{ count }}</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Filtros de reseñas -->
+              <div class="reviews-filters">
+                <div class="filter-group">
+                  <label>Ordenar por:</label>
+                  <div class="sort-options">
+                    <button 
+                      class="sort-button" 
+                      [class.active]="activeSortOption === 'recent'"
+                      (click)="setSortOption('recent')"
+                    >
+                      Más recientes
+                    </button>
+                    <button 
+                      class="sort-button" 
+                      [class.active]="activeSortOption === 'rating-high'"
+                      (click)="setSortOption('rating-high')"
+                    >
+                      Mayor valoración
+                    </button>
+                    <button 
+                      class="sort-button" 
+                      [class.active]="activeSortOption === 'rating-low'"
+                      (click)="setSortOption('rating-low')"
+                    >
+                      Menor valoración
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="filter-group">
+                  <label>Filtrar por:</label>
+                  <div class="rating-filters">
+                    <button 
+                      class="filter-button" 
+                      [class.active]="activeRatingFilter === null"
+                      (click)="setRatingFilter(null)"
+                    >
+                      Todas
+                    </button>
+                    <button 
+                      *ngFor="let rating of [5, 4, 3, 2, 1]"
+                      class="filter-button" 
+                      [class.active]="activeRatingFilter === rating"
+                      (click)="setRatingFilter(rating)"
+                    >
+                      {{ rating }} <i class="fa-solid fa-star"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Estado de carga de reseñas -->
+            <div class="loading-reviews" *ngIf="loadingReviews">
+              <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+              </div>
+              <p>Cargando reseñas...</p>
+            </div>
+            
+            <!-- Sin reseñas -->
+            <div class="no-reviews" *ngIf="!loadingReviews && reviewStats.total === 0">
+              <div class="no-reviews-icon">
+                <i class="fa-regular fa-comment"></i>
+              </div>
+              <p>Aún no hay reseñas para este plato.</p>
+              
+              <app-button
+                variant="primary"
+                icon="star"
+                (clicked)="toggleAddReview()"
+                *ngIf="!showAddReview"
+              >
+                Sé el primero en valorarlo
+              </app-button>
+            </div>
+            
+            <!-- Lista de reseñas -->
+            <div class="reviews-list" *ngIf="!loadingReviews && reviews.length > 0">
+              <app-review-card
+                *ngFor="let review of reviews"
+                [review]="review"
+                (likeClicked)="onReviewLike($event)"
+                (replyClicked)="onReviewReply($event)"
+              ></app-review-card>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Columna lateral -->
+        <div class="side-column">
+          <!-- Restaurante -->
+          <app-card variant="elevated" padding="md" class="restaurant-card">
+            <div class="restaurant-info">
+              <h3 class="restaurant-title">Restaurante</h3>
+              
+              <div class="restaurant-details">
+                <div class="restaurant-logo" *ngIf="restaurant?.logo?.url">
+                  <img [src]="restaurant?.logo?.url" [alt]="restaurant?.name">
+                </div>
+                
+                <div class="restaurant-data">
+                  <h4 class="restaurant-name">
+                    <a [routerLink]="['/profile', restaurantUsername]">
+                      {{ restaurant?.name }}
+                    </a>
+                  </h4>
+                  
+                  <div class="restaurant-rating" *ngIf="restaurant?.rating">
+                    <div class="stars">
+                      <i class="fa-solid fa-star"></i>
+                      <span>{{ restaurant?.rating?.average?.toFixed(1) }}</span>
+                    </div>
+                    <span class="rating-count">({{ restaurant?.rating?.count }})</span>
+                  </div>
+                </div>
+              </div>
+              
+              <app-button 
+                variant="tertiary"
+                [routerLink]="['/profile', restaurantUsername]"
+                [fullWidth]="true"
+              >
+                Ver restaurante
+              </app-button>
+            </div>
+          </app-card>
+          
+          <!-- Platos relacionados -->
+          <div class="related-dishes" *ngIf="false">
+            <!-- No implementado, pero podría mostrar platos de la misma categoría -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>

@@ -1,0 +1,690 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de detalle de ruta
+.route-detail-page {
+  padding-bottom: $spacing-xl;
+}
+
+// Navegación de retorno
+.back-navigation {
+  margin-bottom: $spacing-md;
+}
+
+// Enlace de retorno
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: $blue-primary;
+  text-decoration: none;
+  font-size: $font-size-sm;
+  transition: color $transition-fast;
+  
+  i {
+    margin-right: $spacing-xs;
+  }
+  
+  &:hover {
+    color: $orange-primary;
+  }
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Banner de la ruta
+.route-banner {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  margin-bottom: $spacing-lg;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba($blue-primary, 0.3), rgba($blue-primary, 0.8));
+  }
+  
+  @include respond-to('md') {
+    height: 400px;
+  }
+}
+
+// Contenido del banner
+.banner-content {
+  position: relative;
+  height: 100%;
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: $white;
+  z-index: 1;
+}
+
+// Etiquetas de la ruta
+.route-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-sm;
+}
+
+// Etiqueta de dificultad
+.route-difficulty {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  background-color: rgba($white, 0.2);
+}
+
+// Etiquetas normales
+.route-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  background-color: rgba($white, 0.2);
+}
+
+// Nombre de la ruta
+.route-name {
+  margin: 0 0 $spacing-md;
+  font-size: $font-size-xl;
+  text-shadow: 0 2px 4px rgba($blue-primary, 0.5);
+  
+  @include respond-to('md') {
+    font-size: $font-size-xxl;
+  }
+}
+
+// Metadatos de la ruta
+.route-meta {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+// Creador de la ruta
+.route-creator {
+  display: flex;
+  align-items: center;
+  
+  .creator-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: $spacing-xs;
+    border: 2px solid $white;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  a {
+    color: $white;
+    text-decoration: none;
+    font-weight: $font-weight-semibold;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Estadísticas de la ruta
+.route-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+}
+
+// Estadística individual
+.route-stat {
+  display: flex;
+  align-items: center;
+  font-size: $font-size-sm;
+  
+  i {
+    margin-right: $spacing-xs;
+  }
+}
+
+// Contenido de la ruta
+.route-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-lg;
+  
+  @include respond-to('md') {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+// Sección de la ruta
+.route-section {
+  margin-bottom: $spacing-lg;
+}
+
+// Título de sección
+.section-title {
+  margin-top: 0;
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+}
+
+// Descripción de la ruta
+.route-description {
+  font-size: $font-size-md;
+  line-height: 1.6;
+  color: rgba($blue-primary, 0.8);
+}
+
+// Timeline de paradas
+.stops-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+// Elemento de parada
+.stop-item {
+  display: flex;
+  
+  &.stop-completed {
+    .stop-order {
+      background-color: $orange-primary;
+    }
+    
+    .timeline-line {
+      background-color: $orange-primary;
+    }
+  }
+}
+
+// Indicador de orden
+.stop-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: $spacing-md;
+}
+
+// Número de orden
+.stop-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: $blue-primary;
+  color: $white;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-xs;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+// Línea de timeline
+.timeline-line {
+  width: 2px;
+  flex-grow: 1;
+  background-color: rgba($blue-primary, 0.3);
+}
+
+// Tarjeta de parada
+.stop-card {
+  flex: 1;
+}
+
+// Contenido de la parada
+.stop-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+// Cabecera de la parada
+.stop-header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  
+  @include respond-to('sm') {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+// Información del restaurante
+.restaurant-info {
+  display: flex;
+  align-items: center;
+}
+
+// Logo del restaurante
+.restaurant-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: $spacing-md;
+  border: 2px solid $white;
+  box-shadow: $shadow-sm;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Detalles del restaurante
+.restaurant-details {
+  flex: 1;
+}
+
+// Nombre del restaurante
+.restaurant-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-md;
+  
+  a {
+    color: $blue-primary;
+    text-decoration: none;
+    
+    &:hover {
+      color: $orange-primary;
+    }
+  }
+}
+
+// Dirección del restaurante
+.restaurant-address {
+  display: flex;
+  align-items: center;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  
+  i {
+    margin-right: $spacing-xs;
+    font-size: $font-size-xs;
+  }
+  
+  a {
+    color: rgba($blue-primary, 0.7);
+    text-decoration: none;
+    
+    &:hover {
+      color: $blue-primary;
+      text-decoration: underline;
+    }
+  }
+}
+
+// Estado de completado
+.completion-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+// Badge de estado
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($light-gray, 0.5);
+  border-radius: $border-radius-md;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: rgba($blue-primary, 0.7);
+  
+  i {
+    margin-right: $spacing-xs;
+  }
+  
+  &.completed {
+    background-color: rgba($orange-primary, 0.1);
+    color: $orange-primary;
+  }
+}
+
+// Fecha de completado
+.completion-date {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.5);
+  margin-top: 4px;
+}
+
+// Plato recomendado
+.recommended-dish {
+  background-color: rgba($light-gray, 0.2);
+  border-radius: $border-radius-md;
+  padding: $spacing-md;
+}
+
+// Título del plato
+.dish-title {
+  margin: 0 0 $spacing-sm;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Tarjeta de plato
+.dish-card {
+  display: flex;
+  align-items: center;
+}
+
+// Imagen del plato
+.dish-image {
+  width: 80px;
+  height: 60px;
+  border-radius: $border-radius-sm;
+  overflow: hidden;
+  margin-right: $spacing-md;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Información del plato
+.dish-info {
+  flex: 1;
+}
+
+// Nombre del plato
+.dish-name {
+  font-weight: $font-weight-semibold;
+  margin-bottom: 4px;
+}
+
+// Precio del plato
+.dish-price {
+  font-size: $font-size-sm;
+  color: $orange-primary;
+  font-weight: $font-weight-medium;
+}
+
+// Notas de la parada
+.stop-notes {
+  background-color: rgba($light-gray, 0.2);
+  border-radius: $border-radius-md;
+  padding: $spacing-md;
+}
+
+// Título de las notas
+.notes-title {
+  margin: 0 0 $spacing-sm;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Estado de carga de reseñas
+.loading-reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-lg 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-sm;
+  
+  .loading-spinner {
+    font-size: 24px;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Sin reseñas
+.no-reviews {
+  text-align: center;
+  padding: $spacing-lg;
+  background-color: rgba($light-gray, 0.2);
+  border-radius: $border-radius-md;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Lista de reseñas
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+// Tarjeta de reseña
+.review-card {
+  overflow: hidden;
+}
+
+// Contenido de la reseña
+.review-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Cabecera de la reseña
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+// Usuario de la reseña
+.review-user {
+  display: flex;
+  align-items: center;
+}
+
+// Avatar del usuario
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: $spacing-sm;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Información del usuario
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+// Nombre del usuario
+.user-name {
+  font-weight: $font-weight-semibold;
+  
+  a {
+    color: $blue-primary;
+    text-decoration: none;
+    
+    &:hover {
+      color: $orange-primary;
+    }
+  }
+}
+
+// Fecha de la reseña
+.review-date {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.5);
+}
+
+// Valoración de la reseña
+.review-rating {
+  color: #FFD700;
+  font-size: $font-size-sm;
+}
+
+// Comentario de la reseña
+.review-comment {
+  p {
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+// Acciones de la reseña
+.review-actions {
+  margin-top: $spacing-xs;
+  display: flex;
+  align-items: center;
+}
+
+// Botón de me gusta
+.like-button {
+  background: none;
+  border: none;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.3);
+    color: $blue-primary;
+  }
+}
+
+// Tarjeta del creador
+.creator-card {
+  margin-bottom: $spacing-md;
+}
+
+// Tarjeta de acciones
+.actions-card {
+  margin-bottom: $spacing-md;
+}
+
+// Título de tarjeta
+.card-title {
+  margin-top: 0;
+  margin-bottom: $spacing-md;
+  font-size: $font-size-md;
+  color: $blue-primary;
+}
+
+// Perfil del creador
+.creator-profile {
+  display: flex;
+  align-items: center;
+}
+
+// Avatar grande del creador
+.creator-avatar-large {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: $spacing-md;
+  box-shadow: $shadow-sm;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Información del creador
+.creator-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+// Nombre del creador
+.creator-name {
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-md;
+}
+
+// Acciones de la ruta
+.route-actions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Botón de acción
+.action-button {
+  text-align: left;
+}

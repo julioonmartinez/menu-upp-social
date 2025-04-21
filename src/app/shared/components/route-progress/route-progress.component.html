@@ -1,0 +1,90 @@
+<app-card [variant]="'elevated'" [padding]="'md'" class="progress-card">
+    <h3 class="card-title">Tu progreso</h3>
+    
+    <!-- Estado de no iniciado -->
+    <div class="not-started" *ngIf="!isStarted">
+      <div class="not-started-icon">
+        <i class="fa-solid fa-route"></i>
+      </div>
+      <p class="not-started-message">{{ getStatusMessage() }}</p>
+      <app-button 
+        [variant]="'primary'" 
+        [size]="'md'" 
+        [fullWidth]="true"
+        [loading]="loading"
+        (clicked)="onStartRoute()"
+      >
+        Iniciar Ruta
+      </app-button>
+    </div>
+    
+    <!-- Estado de iniciado -->
+    <div class="in-progress" *ngIf="isStarted">
+      <!-- Barra de progreso -->
+      <div class="progress-bar-container">
+        <div class="progress-label">
+          <span *ngIf="isCompleted">
+            ¡Completada!
+          </span>
+          <span *ngIf="!isCompleted">
+            {{ completionStatus.completedStops }} / {{ completionStatus.totalStops }} paradas
+          </span>
+          <span class="progress-percentage">{{ completionStatus.progress }}%</span>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-bar-fill" [style.width.%]="completionStatus.progress"></div>
+        </div>
+      </div>
+      
+      <!-- Mensaje de estado -->
+      <p class="status-message">{{ getStatusMessage() }}</p>
+      
+      <!-- Fechas de inicio/completado -->
+      <div class="date-info">
+        <div class="date-item" *ngIf="completionStatus.startedDate">
+          <span class="date-label">Iniciada:</span>
+          <span class="date-value">{{ formatDate(completionStatus.startedDate) }}</span>
+        </div>
+        
+        <div class="date-item" *ngIf="completionStatus.completedDate">
+          <span class="date-label">Completada:</span>
+          <span class="date-value">{{ formatDate(completionStatus.completedDate) }}</span>
+        </div>
+      </div>
+      
+      <!-- Lista de paradas -->
+      <div class="stops-list" *ngIf="!isCompleted">
+        <h4 class="stops-title">Próximas paradas</h4>
+        
+        <div class="stop-item" *ngFor="let stop of stops">
+          <div class="stop-content">
+            <div class="stop-order">{{ stop.order }}</div>
+            <div class="stop-info">
+              <h5 class="stop-name">{{ stop.restaurantName }}</h5>
+              <p class="stop-dish" *ngIf="stop.dishName">{{ stop.dishName }}</p>
+            </div>
+          </div>
+          
+          <app-button 
+            [variant]="stop.isCompleted ? 'tertiary' : 'primary'" 
+            [size]="'sm'"
+            [icon]="stop.isCompleted ? 'check' : 'utensils'"
+            [disabled]="stop.isCompleted!"
+            [loading]="loading"
+            (clicked)="onCompleteStop(stop.id!)"
+          >
+            {{ stop.isCompleted ? 'Completado' : 'Completar' }}
+          </app-button>
+        </div>
+      </div>
+      
+      <!-- Mensaje de felicitación -->
+      <div class="completion-message" *ngIf="isCompleted">
+        <div class="trophy-icon">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+        <p>¡Has completado todas las paradas de esta ruta gastronómica! Comparte tu experiencia dejando una reseña.</p>
+      </div>
+    </div>
+  </app-card>

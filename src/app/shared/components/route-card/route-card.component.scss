@@ -1,0 +1,238 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Estilos base de la tarjeta de ruta
+.route-card {
+  display: block;
+  height: 100%;
+}
+
+// Contenido de la tarjeta
+.route-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Imagen de la ruta
+.route-image {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: $border-radius-md $border-radius-md 0 0;
+  overflow: hidden;
+}
+
+// Overlay para mejorar legibilidad
+.route-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba($blue-primary, 0.2), rgba($blue-primary, 0.7));
+}
+
+// Etiquetas de la ruta
+.route-tags {
+  position: absolute;
+  top: $spacing-sm;
+  left: $spacing-sm;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  z-index: 1;
+}
+
+// Etiqueta de dificultad
+.route-difficulty {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $white;
+  
+  &.difficulty-easy {
+    background-color: #28A745;
+  }
+  
+  &.difficulty-medium {
+    background-color: #FFC107;
+  }
+  
+  &.difficulty-hard {
+    background-color: #DC3545;
+  }
+}
+
+// Etiquetas normales
+.route-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  background-color: rgba($white, 0.8);
+  color: $blue-primary;
+}
+
+// Información del creador
+.route-creator {
+  position: absolute;
+  bottom: $spacing-sm;
+  left: $spacing-sm;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+// Avatar del creador
+.creator-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: $spacing-xs;
+  border: 2px solid $white;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Nombre del creador
+.creator-name {
+  font-size: $font-size-xs;
+  color: $white;
+  font-weight: $font-weight-medium;
+  text-shadow: 0 1px 2px rgba($blue-primary, 0.5);
+}
+
+// Información de la ruta
+.route-info {
+  padding: $spacing-md;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+// Nombre de la ruta
+.route-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  line-height: 1.3;
+  
+  // Limitar a dos líneas
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Ubicación de la ruta
+.route-location {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  
+  i {
+    margin-right: $spacing-xs;
+    font-size: $font-size-xs;
+  }
+}
+
+// Descripción de la ruta
+.route-description {
+  margin: 0 0 $spacing-md;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  line-height: 1.4;
+  
+  // Flex para que ocupe espacio disponible
+  flex: 1;
+}
+
+// Estadísticas de la ruta
+.route-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+  margin-top: auto;
+}
+
+// Elemento de estadística
+.stat-item {
+  display: flex;
+  align-items: center;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.8);
+  
+  i {
+    margin-right: $spacing-xs;
+    font-size: $font-size-sm;
+  }
+}
+
+// Progreso de la ruta
+.route-progress {
+  margin-top: $spacing-sm;
+}
+
+// Etiqueta de progreso
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-xs;
+  margin-bottom: 4px;
+  
+  .progress-percentage {
+    font-weight: $font-weight-semibold;
+    color: $orange-primary;
+  }
+}
+
+// Barra de progreso
+.progress-bar {
+  height: 6px;
+  background-color: rgba($light-gray, 0.5);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+// Relleno de la barra de progreso
+.progress-bar-fill {
+  height: 100%;
+  background-color: $orange-primary;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+// Variantes de tamaño
+.route-card-sm {
+  .route-image {
+    height: 100px;
+  }
+}
+
+.route-card-md {
+  .route-image {
+    height: 140px;
+  }
+}
+
+.route-card-lg {
+  .route-image {
+    height: 180px;
+  }
+  
+  .route-name {
+    font-size: $font-size-lg;
+  }
+}

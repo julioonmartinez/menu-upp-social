@@ -1,0 +1,85 @@
+<app-card 
+  [variant]="'elevated'" 
+  [hoverable]="interactive"
+  [padding]="'none'"
+  [borderRadius]="'md'"
+  class="route-card"
+  [class]="'route-card-' + size"
+  [routerLink]="interactive ? ['/app/routes', route.id] : null"
+>
+  <div class="route-card-content">
+    <!-- Imagen de portada -->
+    <div class="route-image" [style.background-image]="'url(' + route.coverImage?.url + ')'">
+      <!-- Overlay con gradiente para mejor legibilidad -->
+      <div class="route-image-overlay"></div>
+      
+      <!-- Etiquetas y dificultad -->
+      <div class="route-tags">
+        <span class="route-difficulty" [class]="getDifficultyClass()">
+          {{ getDifficultyLabel() }}
+        </span>
+        
+        <span class="route-tag" *ngFor="let tag of route.tags?.slice(0, 2)">
+          {{ tag }}
+        </span>
+      </div>
+      
+      <!-- Información de creador -->
+      <div class="route-creator" *ngIf="showCreator && route.creatorName">
+        <div class="creator-avatar" *ngIf="route.creatorImage?.url">
+          <img [src]="route.creatorImage?.url" [alt]="route.creatorName">
+        </div>
+        <span class="creator-name">{{ route.creatorName }}</span>
+      </div>
+    </div>
+    
+    <!-- Información de la ruta -->
+    <div class="route-info">
+      <h3 class="route-name">{{ route.name }}</h3>
+      
+      <div class="route-location" *ngIf="route.city">
+        <i class="fa-solid fa-location-dot"></i>
+        <span>{{ route.city }}</span>
+      </div>
+      
+      <p class="route-description" *ngIf="size !== 'sm'">
+        {{ route.description?.substring(0, size === 'lg' ? 160 : 100) }}{{ route.description && route.description.length > (size === 'lg' ? 160 : 100) ? '...' : '' }}
+      </p>
+      
+      <!-- Estadísticas -->
+      <div class="route-stats">
+        <div class="stat-item">
+          <i class="fa-solid fa-utensils"></i>
+          <span>{{ route.totalRestaurants || route.stops?.length || 0 }}</span>
+        </div>
+        
+        <div class="stat-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>{{ formatDuration(route.estimatedTime) }}</span>
+        </div>
+        
+        <div class="stat-item">
+          <i class="fa-solid fa-star"></i>
+          <span>{{ route.avgRating?.toFixed(1) || '—' }}</span>
+        </div>
+      </div>
+      
+      <!-- Barra de progreso para rutas iniciadas -->
+      <div class="route-progress" *ngIf="showProgress && route.completionStatus?.isStarted">
+        <div class="progress-label">
+          <span *ngIf="route.completionStatus?.completedDate">
+            ¡Completada!
+          </span>
+          <span *ngIf="!route.completionStatus?.completedDate">
+            {{ route.completionStatus?.completedStops }} / {{ route.completionStatus?.totalStops }} paradas
+          </span>
+          <span class="progress-percentage">{{ route.completionStatus?.progress }}%</span>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-bar-fill" [style.width.%]="route.completionStatus?.progress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-card>

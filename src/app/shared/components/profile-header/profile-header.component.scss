@@ -1,0 +1,165 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Header de perfil
+.profile-header {
+  position: relative;
+  margin-bottom: $spacing-lg;
+}
+
+// Imagen de portada
+.profile-cover {
+  height: 200px;
+  background-color: $light-gray;
+  background-size: cover;
+  background-position: center;
+  border-radius: $border-radius-lg;
+  position: relative;
+  overflow: hidden;
+  
+  @include respond-to('md') {
+    height: 240px;
+  }
+}
+
+// Overlay de la portada para mejor legibilidad
+.cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba($blue-primary, 0), rgba($blue-primary, 0.7));
+}
+
+// Contenido principal del perfil
+.profile-content {
+  position: relative;
+  margin-top: -60px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  grid-template-areas: 
+    "logo info"
+    "actions actions";
+  gap: $spacing-md;
+  z-index: 1;
+  
+  @include respond-to('md') {
+    grid-template-columns: 140px 1fr auto;
+    grid-template-areas: "logo info actions";
+    margin-top: -70px;
+  }
+}
+
+// Logo/Avatar
+.profile-logo {
+  grid-area: logo;
+  width: 120px;
+  height: 120px;
+  border-radius: $border-radius-round;
+  overflow: hidden;
+  border: 4px solid $white;
+  background-color: $white;
+  box-shadow: $shadow-md;
+  
+  @include respond-to('md') {
+    width: 140px;
+    height: 140px;
+  }
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Información del perfil
+.profile-info {
+  grid-area: info;
+  background-color: $white;
+  padding: $spacing-md;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+}
+
+// Nombre del perfil
+.profile-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-xl;
+  color: $blue-primary;
+  
+  @include respond-to('md') {
+    font-size: $font-size-xxl;
+  }
+}
+
+// Metadatos del perfil
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-sm;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+// Username
+.profile-username {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Estadísticas del perfil
+.profile-stats {
+  display: flex;
+  gap: $spacing-md;
+}
+
+// Elemento de estadística
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  
+  .stat-value {
+    font-weight: $font-weight-semibold;
+    display: flex;
+    align-items: center;
+    
+    i {
+      color: #FFD700;
+      margin-left: $spacing-xs;
+    }
+  }
+  
+  .stat-label {
+    font-size: $font-size-sm;
+    color: rgba($blue-primary, 0.7);
+  }
+}
+
+// Descripción del perfil
+.profile-description {
+  margin: 0;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  color: rgba($blue-primary, 0.8);
+}
+
+// Acciones del perfil
+.profile-actions {
+  grid-area: actions;
+  display: flex;
+  gap: $spacing-sm;
+  justify-content: flex-end;
+  align-items: flex-start;
+  
+  @include respond-to('md') {
+    margin-top: $spacing-md;
+  }
+}

@@ -1,0 +1,113 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de privacidad
+.privacy-page {
+  padding: $spacing-xl 0;
+}
+
+// Contenedor
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  width: 100%;
+}
+
+// Encabezado de privacidad
+.privacy-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  h1 {
+    font-size: $font-size-xl;
+    color: $blue-primary;
+    margin-bottom: $spacing-xs;
+    
+    @include respond-to('md') {
+      font-size: $font-size-xxl;
+    }
+  }
+}
+
+// Fecha de última actualización
+.last-updated {
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-sm;
+}
+
+// Tarjeta de privacidad
+.privacy-card {
+  margin-bottom: $spacing-xl;
+}
+
+// Contenido de privacidad
+.privacy-content {
+  color: rgba($blue-primary, 0.8);
+  font-size: $font-size-md;
+  line-height: 1.6;
+}
+
+// Sección de privacidad
+.privacy-section {
+  margin-bottom: $spacing-lg;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  h2 {
+    color: $blue-primary;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-sm;
+    
+    @include respond-to('md') {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  h3 {
+    color: $blue-primary;
+    font-size: $font-size-md;
+    margin-top: $spacing-md;
+    margin-bottom: $spacing-sm;
+    
+    @include respond-to('md') {
+      font-size: $font-size-lg;
+    }
+  }
+  
+  p {
+    margin-bottom: $spacing-md;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  a {
+    color: $orange-primary;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  strong {
+    color: $blue-primary;
+    font-weight: $font-weight-bold;
+  }
+  
+  ul {
+    margin: 0 0 $spacing-md $spacing-lg;
+    
+    li {
+      margin-bottom: $spacing-xs;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

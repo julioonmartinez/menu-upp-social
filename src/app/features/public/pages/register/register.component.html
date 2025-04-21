@@ -1,0 +1,143 @@
+<div class="register-page">
+    <div class="container">
+      <div class="register-wrapper">
+        <app-card variant="elevated" padding="lg" class="register-card">
+          <div class="card-header">
+            <h1 class="card-title">Crear una cuenta</h1>
+            <p class="card-subtitle">Únete a la comunidad gastronómica de MenuUPP</p>
+          </div>
+          
+          <!-- Formulario de registro -->
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+            <!-- Alerta de error -->
+            <div class="error-alert" *ngIf="error">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>{{ error }}</span>
+            </div>
+            
+            <!-- Selección de tipo de cuenta -->
+            <div class="account-type-selector">
+              <label class="selector-label">Tipo de cuenta</label>
+              
+              <div class="account-options">
+                <div 
+                  *ngFor="let type of accountTypes"
+                  class="account-option"
+                  [class.selected]="registerForm.get('accountType')?.value === type.value"
+                  (click)="selectAccountType(type.value)"
+                >
+                  <div class="option-icon">
+                    <i class="fa-solid {{ type.icon }}"></i>
+                  </div>
+                  <div class="option-info">
+                    <div class="option-name">{{ type.label }}</div>
+                    <div class="option-description">{{ type.description }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Campo de nombre -->
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <div class="input-container">
+                <i class="fa-solid fa-user input-icon"></i>
+                <input 
+                  type="text" 
+                  id="name" 
+                  formControlName="name" 
+                  placeholder="Tu nombre"
+                  [class.invalid]="hasError('name')"
+                >
+              </div>
+              <div class="error-message" *ngIf="hasError('name')">
+                {{ getErrorMessage('name') }}
+              </div>
+            </div>
+            
+            <!-- Campo de email -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <div class="input-container">
+                <i class="fa-solid fa-envelope input-icon"></i>
+                <input 
+                  type="email" 
+                  id="email" 
+                  formControlName="email" 
+                  placeholder="ejemplo@correo.com"
+                  [class.invalid]="hasError('email')"
+                >
+              </div>
+              <div class="error-message" *ngIf="hasError('email')">
+                {{ getErrorMessage('email') }}
+              </div>
+            </div>
+            
+            <!-- Campo de contraseña -->
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <div class="input-container">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input 
+                  type="password" 
+                  id="password" 
+                  formControlName="password"
+                  placeholder="Mínimo 6 caracteres"
+                  [class.invalid]="hasError('password')"
+                >
+              </div>
+              <div class="error-message" *ngIf="hasError('password')">
+                {{ getErrorMessage('password') }}
+              </div>
+            </div>
+            
+            <!-- Campo de confirmar contraseña -->
+            <div class="form-group">
+              <label for="confirmPassword">Confirmar Contraseña</label>
+              <div class="input-container">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input 
+                  type="password" 
+                  id="confirmPassword" 
+                  formControlName="confirmPassword"
+                  placeholder="Repite tu contraseña"
+                  [class.invalid]="hasError('confirmPassword')"
+                >
+              </div>
+              <div class="error-message" *ngIf="hasError('confirmPassword')">
+                {{ getErrorMessage('confirmPassword') }}
+              </div>
+            </div>
+            
+            <!-- Términos y condiciones -->
+            <div class="form-group terms-checkbox">
+              <label class="checkbox-container">
+                <input type="checkbox" formControlName="terms">
+                <span class="checkmark"></span>
+                Acepto los <a routerLink="/terms" target="_blank">términos y condiciones</a> y la <a routerLink="/privacy" target="_blank">política de privacidad</a>
+              </label>
+              <div class="error-message" *ngIf="hasError('terms')">
+                {{ getErrorMessage('terms') }}
+              </div>
+            </div>
+            
+            <!-- Botón de envío -->
+            <app-button 
+              variant="primary" 
+              size="lg" 
+              [fullWidth]="true"
+              [loading]="loading"
+              type="submit"
+            >
+              Crear Cuenta
+            </app-button>
+          </form>
+          
+          <!-- Enlaces adicionales -->
+          <div class="card-footer">
+            <p>¿Ya tienes una cuenta? <a routerLink="/login">Iniciar sesión</a></p>
+          </div>
+        </app-card>
+      </div>
+    </div>
+  </div>

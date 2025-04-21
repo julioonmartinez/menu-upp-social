@@ -1,0 +1,83 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Grupo de formulario
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-sm;
+}
+
+// Etiqueta del input
+.input-label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $blue-primary;
+  display: flex;
+  align-items: center;
+  
+  .required-mark {
+    color: #DC3545;
+    margin-left: $spacing-xs;
+  }
+}
+
+// Contenedor del input
+.input-container {
+  position: relative;
+}
+
+// Icono del input
+.input-icon {
+  position: absolute;
+  left: $spacing-sm;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba($blue-primary, 0.5);
+  font-size: $font-size-md;
+  pointer-events: none;
+}
+
+// Input
+input {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid rgba($blue-primary, 0.2);
+  border-radius: $border-radius-md;
+  font-size: $font-size-md;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+  
+  &.with-icon {
+    padding-left: $spacing-xl;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $orange-primary;
+    box-shadow: 0 0 0 3px rgba($orange-primary, 0.1);
+  }
+  
+  &.invalid {
+    border-color: #DC3545;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(#DC3545, 0.1);
+    }
+  }
+  
+  &::placeholder {
+    color: rgba($blue-primary, 0.3);
+  }
+  
+  &:disabled {
+    background-color: rgba($light-gray, 0.5);
+    cursor: not-allowed;
+  }
+}
+
+// Mensaje de error
+.error-message {
+  font-size: $font-size-xs;
+  color: #DC3545;
+}

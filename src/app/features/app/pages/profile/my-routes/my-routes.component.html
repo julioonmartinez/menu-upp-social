@@ -1,0 +1,240 @@
+<div class="my-routes-page">
+    <header class="page-header">
+      <h1>Mis Rutas Gastronómicas</h1>
+    </header>
+    
+    <!-- Pestañas de navegación -->
+    <div class="tabs-navigation">
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'own'"
+        (click)="changeTab('own')"
+      >
+        <i class="fa-solid fa-map"></i>
+        Mis Creaciones
+      </button>
+      
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'progress'"
+        (click)="changeTab('progress')"
+      >
+        <i class="fa-solid fa-person-walking"></i>
+        En Progreso
+        <span class="route-count" *ngIf="inProgressRoutes.length > 0">{{ inProgressRoutes.length }}</span>
+      </button>
+      
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'completed'"
+        (click)="changeTab('completed')"
+      >
+        <i class="fa-solid fa-flag-checkered"></i>
+        Completadas
+        <span class="route-count" *ngIf="completedRoutes.length > 0">{{ completedRoutes.length }}</span>
+      </button>
+    </div>
+    
+    <!-- Contenido de la pestaña "Mis Creaciones" -->
+    <div class="tab-content" *ngIf="activeTab === 'own'">
+      <!-- Encabezado con acciones -->
+      <div class="tab-header">
+        <h2 class="tab-title">Rutas Creadas por Ti</h2>
+        
+        <app-button
+          variant="primary"
+          icon="plus"
+          routerLink="/app/routes/create"
+        >
+          Crear Ruta
+        </app-button>
+      </div>
+      
+      <!-- Estado de carga -->
+      <div class="loading-state" *ngIf="loadingOwn">
+        <div class="loading-spinner">
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </div>
+        <p>Cargando tus rutas creadas...</p>
+      </div>
+      
+      <!-- Estado de error -->
+      <div class="error-state" *ngIf="error && !loadingOwn">
+        <div class="error-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <p>{{ error }}</p>
+        <app-button 
+          variant="primary" 
+          (clicked)="loadOwnRoutes()"
+        >
+          Reintentar
+        </app-button>
+      </div>
+      
+      <!-- Estado vacío -->
+      <div class="empty-state" *ngIf="!loadingOwn && !error && ownRoutes.length === 0">
+        <div class="empty-icon">
+          <i class="fa-solid fa-route"></i>
+        </div>
+        <p>Aún no has creado ninguna ruta gastronómica</p>
+        <app-button 
+          variant="primary"
+          icon="plus"
+          routerLink="/app/routes/create"
+        >
+          Crear Mi Primera Ruta
+        </app-button>
+      </div>
+      
+      <!-- Lista de rutas -->
+      <div class="routes-grid" *ngIf="!loadingOwn && !error && ownRoutes.length > 0">
+        <app-route-card 
+          *ngFor="let route of ownRoutes"
+          [route]="route"
+          [showCreator]="false"
+        ></app-route-card>
+      </div>
+    </div>
+    
+    <!-- Contenido de la pestaña "En Progreso" -->
+    <div class="tab-content" *ngIf="activeTab === 'progress'">
+      <h2 class="tab-title">Rutas en Progreso</h2>
+      
+      <!-- Estado de carga -->
+      <div class="loading-state" *ngIf="loadingProgress">
+        <div class="loading-spinner">
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </div>
+        <p>Cargando tus rutas en progreso...</p>
+      </div>
+      
+      <!-- Estado de error -->
+      <div class="error-state" *ngIf="error && !loadingProgress">
+        <div class="error-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <p>{{ error }}</p>
+        <app-button 
+          variant="primary" 
+          (clicked)="loadInProgressRoutes()"
+        >
+          Reintentar
+        </app-button>
+      </div>
+      
+      <!-- Estado vacío -->
+      <div class="empty-state" *ngIf="!loadingProgress && !error && inProgressRoutes.length === 0">
+        <div class="empty-icon">
+          <i class="fa-solid fa-person-walking"></i>
+        </div>
+        <p>No tienes rutas en progreso actualmente</p>
+        <app-button 
+          variant="primary"
+          icon="compass"
+          routerLink="/app/routes"
+        >
+          Explorar Rutas
+        </app-button>
+      </div>
+      
+      <!-- Lista de rutas -->
+      <div class="routes-grid" *ngIf="!loadingProgress && !error && inProgressRoutes.length > 0">
+        <app-route-card 
+          *ngFor="let route of inProgressRoutes"
+          [route]="route"
+        ></app-route-card>
+      </div>
+    </div>
+    
+    <!-- Contenido de la pestaña "Completadas" -->
+    <div class="tab-content" *ngIf="activeTab === 'completed'">
+      <h2 class="tab-title">Rutas Completadas</h2>
+      
+      <!-- Estado de carga -->
+      <div class="loading-state" *ngIf="loadingCompleted">
+        <div class="loading-spinner">
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </div>
+        <p>Cargando tus rutas completadas...</p>
+      </div>
+      
+      <!-- Estado de error -->
+      <div class="error-state" *ngIf="error && !loadingCompleted">
+        <div class="error-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <p>{{ error }}</p>
+        <app-button 
+          variant="primary" 
+          (clicked)="loadCompletedRoutes()"
+        >
+          Reintentar
+        </app-button>
+      </div>
+      
+      <!-- Estado vacío -->
+      <div class="empty-state" *ngIf="!loadingCompleted && !error && completedRoutes.length === 0">
+        <div class="empty-icon">
+          <i class="fa-solid fa-flag-checkered"></i>
+        </div>
+        <p>Aún no has completado ninguna ruta gastronómica</p>
+        <app-button 
+          variant="primary"
+          icon="compass"
+          routerLink="/app/routes"
+        >
+          Explorar Rutas
+        </app-button>
+      </div>
+      
+      <!-- Lista de rutas -->
+      <div class="routes-grid" *ngIf="!loadingCompleted && !error && completedRoutes.length > 0">
+        <app-route-card 
+          *ngFor="let route of completedRoutes"
+          [route]="route"
+        ></app-route-card>
+      </div>
+    </div>
+    
+    <!-- Sección de estadísticas -->
+    <section class="stats-section" *ngIf="hasRoutesInCurrentTab && !isLoadingCurrentTab">
+      <app-card variant="elevated" padding="md" class="stats-card">
+        <h3 class="card-title">Estadísticas de tus Rutas</h3>
+        
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-map"></i>
+            </div>
+            <div class="stat-value">{{ ownRoutes.length }}</div>
+            <div class="stat-label">Rutas Creadas</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-person-walking"></i>
+            </div>
+            <div class="stat-value">{{ inProgressRoutes.length }}</div>
+            <div class="stat-label">En Progreso</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-flag-checkered"></i>
+            </div>
+            <div class="stat-value">{{ completedRoutes.length }}</div>
+            <div class="stat-label">Completadas</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+            <div class="stat-value">{{ getTotalRestaurantsVisited() }}</div>
+            <div class="stat-label">Restaurantes</div>
+          </div>
+        </div>
+      </app-card>
+    </section>
+  </div>

@@ -1,0 +1,225 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Tarjeta de progreso
+.progress-card {
+  margin-bottom: $spacing-md;
+}
+
+// Título de la tarjeta
+.card-title {
+  margin-top: 0;
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+}
+
+// Estado no iniciado
+.not-started {
+  text-align: center;
+  padding: $spacing-md 0;
+}
+
+// Icono de ruta no iniciada
+.not-started-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+  
+  i {
+    @include fade-in;
+  }
+}
+
+// Mensaje de ruta no iniciada
+.not-started-message {
+  margin-bottom: $spacing-md;
+  font-size: $font-size-md;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Estado en progreso
+.in-progress {
+  display: flex;
+  flex-direction: column;
+}
+
+// Contenedor de barra de progreso
+.progress-bar-container {
+  margin-bottom: $spacing-md;
+}
+
+// Etiqueta de progreso
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-sm;
+  margin-bottom: 4px;
+  
+  .progress-percentage {
+    font-weight: $font-weight-semibold;
+    color: $orange-primary;
+  }
+}
+
+// Barra de progreso
+.progress-bar {
+  height: 8px;
+  background-color: rgba($light-gray, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+// Relleno de la barra de progreso
+.progress-bar-fill {
+  height: 100%;
+  background-color: $orange-primary;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+// Mensaje de estado
+.status-message {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $blue-primary;
+  margin-bottom: $spacing-md;
+  text-align: center;
+}
+
+// Información de fechas
+.date-info {
+  margin-bottom: $spacing-md;
+  padding: $spacing-sm;
+  background-color: rgba($light-gray, 0.3);
+  border-radius: $border-radius-md;
+}
+
+// Elemento de fecha
+.date-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-sm;
+  padding: $spacing-xs 0;
+  
+  &:not(:last-child) {
+    margin-bottom: $spacing-xs;
+  }
+  
+  .date-label {
+    font-weight: $font-weight-medium;
+    color: rgba($blue-primary, 0.7);
+  }
+  
+  .date-value {
+    color: $blue-primary;
+  }
+}
+
+// Lista de paradas
+.stops-list {
+  margin-top: $spacing-sm;
+}
+
+// Título de la lista de paradas
+.stops-title {
+  font-size: $font-size-md;
+  margin-top: 0;
+  margin-bottom: $spacing-sm;
+  color: $blue-primary;
+}
+
+// Elemento de parada
+.stop-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-sm;
+  background-color: $white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+// Contenido de la parada
+.stop-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+// Número de orden
+.stop-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: $blue-primary;
+  color: $white;
+  font-weight: $font-weight-bold;
+  margin-right: $spacing-sm;
+  flex-shrink: 0;
+}
+
+// Información de la parada
+.stop-info {
+  flex: 1;
+}
+
+// Nombre de la parada
+.stop-name {
+  margin: 0 0 2px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+// Plato de la parada
+.stop-dish {
+  margin: 0;
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Mensaje de finalización
+.completion-message {
+  text-align: center;
+  padding: $spacing-md;
+  background-color: rgba($orange-primary, 0.1);
+  border-radius: $border-radius-md;
+  margin-top: $spacing-md;
+  @include slide-in('up');
+}
+
+// Icono de trofeo
+.trophy-icon {
+  font-size: 48px;
+  color: $orange-primary;
+  margin-bottom: $spacing-sm;
+  
+  i {
+    animation: trophy-animation 1s ease-in-out;
+  }
+}
+
+// Animación para el trofeo
+@keyframes trophy-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

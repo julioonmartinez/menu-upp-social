@@ -1,0 +1,468 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de exploración
+.explore-page {
+  padding-bottom: $spacing-lg;
+}
+
+// Encabezado de página
+.page-header {
+  margin-bottom: $spacing-lg;
+  
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+// Sección de exploración
+.explore-section {
+  margin-bottom: $spacing-xl;
+}
+
+// Título de sección
+.section-title {
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  
+  @include respond-to('md') {
+    font-size: $font-size-xl;
+  }
+}
+
+// Pie de sección
+.section-footer {
+  margin-top: $spacing-md;
+  display: flex;
+  justify-content: center;
+  
+  @include respond-to('md') {
+    justify-content: flex-end;
+  }
+}
+
+// Grid de restaurantes
+.restaurants-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .restaurant-card {
+    height: 100%;
+  }
+}
+
+// Contenido de restaurante
+.restaurant-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Imagen de restaurante
+.restaurant-image {
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: $border-radius-md $border-radius-md 0 0;
+  overflow: hidden;
+}
+
+// Logo de restaurante
+.restaurant-logo {
+  position: absolute;
+  bottom: -20px;
+  left: $spacing-md;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: $white;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  border: 2px solid $white;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Información de restaurante
+.restaurant-info {
+  padding: $spacing-md;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+// Nombre de restaurante
+.restaurant-name {
+  margin-top: $spacing-sm;
+  margin-bottom: $spacing-xs;
+  font-size: $font-size-md;
+}
+
+// Metadatos de restaurante
+.restaurant-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Valoración de restaurante
+.restaurant-rating {
+  display: flex;
+  align-items: center;
+  
+  i {
+    color: #FFD700;
+    margin-right: $spacing-xs;
+  }
+  
+  .review-count {
+    margin-left: $spacing-xs;
+    color: rgba($blue-primary, 0.5);
+  }
+}
+
+// Descripción de restaurante
+.restaurant-description {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  margin-top: auto;
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+
+// Grid de platos
+.dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .dish-card {
+    height: 100%;
+  }
+}
+
+// Contenido de plato
+.dish-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Imagen de plato
+.dish-image {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: $border-radius-md $border-radius-md 0 0;
+}
+
+// Botón de favorito
+.dish-favorite {
+  position: absolute;
+  top: $spacing-sm;
+  right: $spacing-sm;
+  
+  .favorite-button {
+    background-color: rgba($white, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    color: rgba($blue-primary, 0.7);
+    
+    &:hover, &.active {
+      background-color: $white;
+      color: $orange-primary;
+      transform: scale(1.05);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// Valoración de plato
+.dish-rating {
+  position: absolute;
+  bottom: $spacing-sm;
+  left: $spacing-sm;
+  background-color: rgba($blue-primary, 0.9);
+  color: $white;
+  border-radius: $border-radius-md;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  display: flex;
+  align-items: center;
+  
+  .rating-value {
+    margin-right: $spacing-xs;
+  }
+  
+  i {
+    color: #FFD700;
+  }
+}
+
+// Información de plato
+.dish-info {
+  padding: $spacing-md;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+// Nombre de plato
+.dish-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-md;
+  
+  // Limitar a dos líneas
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  min-height: 2.6em;
+}
+
+// Metadatos de plato
+.dish-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Precio de plato
+.dish-price {
+  font-weight: $font-weight-semibold;
+  color: $orange-primary;
+}
+
+// Badges de plato
+.dish-badges {
+  display: flex;
+  gap: $spacing-xs;
+  
+  .badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba($blue-primary, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xs;
+    color: $blue-primary;
+  }
+}
+
+// Lista de actividades
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Tarjeta de actividad
+.activity-card {
+  margin-bottom: 0;
+}
+
+// Contenido de actividad
+.activity-content {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+// Avatar de actividad
+.activity-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Detalles de actividad
+.activity-details {
+  flex: 1;
+}
+
+// Texto de actividad
+.activity-text {
+  margin-bottom: $spacing-xs;
+  line-height: 1.4;
+  
+  .user-link {
+    font-weight: $font-weight-semibold;
+    color: $blue-primary;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  .activity-action {
+    color: rgba($blue-primary, 0.7);
+  }
+}
+
+// Tiempo de actividad
+.activity-time {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.5);
+}
+
+// Skeletons para estados de carga
+.restaurant-skeleton {
+  background-color: $white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  
+  .image-skeleton {
+    height: 140px;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .name-skeleton {
+    height: 24px;
+    margin: $spacing-md $spacing-md $spacing-sm;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+    border-radius: $border-radius-sm;
+    width: 70%;
+  }
+  
+  .info-skeleton {
+    height: 60px;
+    margin: 0 $spacing-md $spacing-md;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+    border-radius: $border-radius-sm;
+  }
+}
+
+.dish-skeleton {
+  background-color: $white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  
+  .image-skeleton {
+    height: 160px;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .name-skeleton {
+    height: 40px;
+    margin: $spacing-md $spacing-md $spacing-sm;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+    border-radius: $border-radius-sm;
+  }
+  
+  .info-skeleton {
+    height: 24px;
+    margin: 0 $spacing-md $spacing-md;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+    border-radius: $border-radius-sm;
+    width: 50%;
+  }
+}
+
+.activity-skeleton {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm;
+  background-color: $white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  
+  .avatar-skeleton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $light-gray;
+    animation: pulse 1.5s infinite;
+    flex-shrink: 0;
+  }
+  
+  .content-skeleton {
+    flex: 1;
+    
+    .text-skeleton {
+      height: 16px;
+      background-color: $light-gray;
+      animation: pulse 1.5s infinite;
+      border-radius: $border-radius-sm;
+      margin-bottom: $spacing-xs;
+    }
+    
+    .time-skeleton {
+      height: 12px;
+      background-color: $light-gray;
+      animation: pulse 1.5s infinite;
+      border-radius: $border-radius-sm;
+      width: 30%;
+    }
+  }
+}
+
+// Animación de pulse para skeletons
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

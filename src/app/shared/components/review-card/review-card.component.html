@@ -1,0 +1,71 @@
+<app-card 
+  [variant]="'elevated'" 
+  [padding]="variant === 'compact' ? 'sm' : 'md'"
+  [borderRadius]="'md'"
+  class="review-card"
+  [class.review-card-compact]="variant === 'compact'"
+>
+  <div class="review-content">
+    <!-- Header con información del usuario y valoración -->
+    <div class="review-header">
+      <!-- Información del usuario -->
+      <div class="user-info">
+        <div class="user-avatar" *ngIf="review.userImage?.url">
+          <img [src]="review.userImage?.url" [alt]="review.userName">
+        </div>
+        
+        <div class="user-details">
+          <div class="user-name">
+            <a [routerLink]="['/profile', review.userId]">
+              {{ review.userName }}
+            </a>
+          </div>
+          
+          <div class="review-date" *ngIf="review.createdAt">
+            {{ formatDate(review.createdAt) }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Valoración en estrellas -->
+      <div class="star-rating">
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+          <i 
+            class="fa-star" 
+            [class.fa-solid]="star <= review.rating"
+            [class.fa-regular]="star > review.rating"
+          ></i>
+        </ng-container>
+      </div>
+    </div>
+    
+    <!-- Contenido de la reseña -->
+    <div class="review-body" *ngIf="review.comment">
+      <p class="review-text">{{ review.comment }}</p>
+    </div>
+    
+    <!-- Imágenes adjuntas -->
+    <div class="review-images" *ngIf="review.images && review.images.length > 0">
+      <div class="image-grid">
+        <div 
+          *ngFor="let image of review.images"
+          class="review-image"
+          [style.background-image]="'url(' + image.url + ')'"
+        ></div>
+      </div>
+    </div>
+    
+    <!-- Acciones de la reseña -->
+    <div class="review-actions">
+      <button class="action-button like-button" (click)="onLikeClick()">
+        <i class="fa-regular fa-thumbs-up"></i>
+        <span *ngIf="review.likes">{{ review.likes }}</span>
+      </button>
+      
+      <button class="action-button reply-button" (click)="onReplyClick()">
+        <i class="fa-regular fa-comment"></i>
+        <span>Responder</span>
+      </button>
+    </div>
+  </div>
+</app-card>

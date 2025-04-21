@@ -1,0 +1,181 @@
+<div class="restaurant-profile">
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando perfil del restaurante...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error && !loading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error }}</p>
+      <app-button 
+        variant="primary" 
+        routerLink="/app/explore"
+      >
+        Volver a Explorar
+      </app-button>
+    </div>
+    
+    <!-- Contenido del perfil -->
+    <ng-container *ngIf="!loading && !error && isRestaurant">
+      <!-- Header del perfil -->
+      <app-profile-header
+        [profileType]="'restaurant'"
+        [name]="restaurantName"
+        [username]="restaurantUsername"
+        [description]="restaurantDescription"
+        [profileImage]="restaurantLogo"
+        [coverImage]="restaurantCover"
+        [followers]="restaurantFollowers"
+        [rating]="restaurantRating"
+        [ratingCount]="restaurantRatingCount"
+        [isFollowing]="isFollowing"
+        [loading]="loadingFollow"
+        (followClicked)="onFollowClick()"
+        (shareClicked)="onShareClick()"
+      ></app-profile-header>
+      
+      <!-- Menú de navegación -->
+      <div class="profile-nav">
+        <a routerLink="/profile/{{ restaurantUsername }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <i class="fa-solid fa-home"></i>
+          Inicio
+        </a>
+        
+        <a routerLink="/profile/{{ restaurantUsername }}/menu" routerLinkActive="active">
+          <i class="fa-solid fa-utensils"></i>
+          Menú
+        </a>
+        
+        <a routerLink="/profile/{{ restaurantUsername }}/info" routerLinkActive="active">
+          <i class="fa-solid fa-circle-info"></i>
+          Información
+        </a>
+        
+        <a routerLink="/profile/{{ restaurantUsername }}/reviews" routerLinkActive="active">
+          <i class="fa-solid fa-star"></i>
+          Reseñas
+        </a>
+        
+        <a routerLink="/profile/{{ restaurantUsername }}/links" routerLinkActive="active">
+          <i class="fa-solid fa-link"></i>
+          Enlaces
+        </a>
+      </div>
+      
+      <!-- Sección principal -->
+      <div class="profile-content">
+        <!-- Platos destacados -->
+        <section class="featured-dishes-section">
+          <div class="section-header">
+            <h2 class="section-title">Platos destacados</h2>
+            
+            <app-button 
+              variant="tertiary" 
+              size="sm"
+              icon="arrow-right"
+              iconPosition="right"
+              [routerLink]="['/profile', restaurantUsername, 'menu']"
+            >
+              Ver menú completo
+            </app-button>
+          </div>
+          
+          <!-- Estado de carga de platos -->
+          <div class="loading-dishes" *ngIf="loadingDishes">
+            <div class="loading-spinner">
+              <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+            </div>
+            <p>Cargando platos destacados...</p>
+          </div>
+          
+          <!-- Sin platos destacados -->
+          <div class="no-dishes" *ngIf="!loadingDishes && featuredDishes.length === 0">
+            <p>Este restaurante aún no tiene platos destacados.</p>
+          </div>
+          
+          <!-- Grid de platos destacados -->
+          <div class="dishes-grid" *ngIf="!loadingDishes && featuredDishes.length > 0">
+            <app-dish-card 
+              *ngFor="let dish of featuredDishes" 
+              [dish]="dish"
+              (favoriteClicked)="onFavoriteClick($event)"
+              (rateClicked)="onRateClick($event)"
+            ></app-dish-card>
+          </div>
+        </section>
+        
+        <!-- Información básica del restaurante -->
+        <section class="restaurant-info-section">
+          <div class="section-header">
+            <h2 class="section-title">Acerca de</h2>
+            
+            <app-button 
+              variant="tertiary" 
+              size="sm"
+              icon="arrow-right"
+              iconPosition="right"
+              [routerLink]="['/profile', restaurantUsername, 'info']"
+            >
+              Más información
+            </app-button>
+          </div>
+          
+          <app-card variant="elevated" class="info-card">
+            <div class="info-content">
+              <!-- Descripción -->
+              <div class="info-description" *ngIf="restaurantDescription">
+                <p>{{ restaurantDescription }}</p>
+              </div>
+              
+              <!-- Características -->
+              <div class="info-features" *ngIf="restaurant?.features && (restaurant?.features?.length || 0 ) > 0">
+                <h3 class="info-subtitle">Características</h3>
+                
+                <div class="features-list">
+                  <span class="feature-tag" *ngFor="let feature of restaurant?.features">
+                    {{ feature }}
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Tipo de cocina -->
+              <div class="info-cuisine" *ngIf="restaurant?.cuisineType && (restaurant?.cuisineType?.length || 0 ) > 0">
+                <h3 class="info-subtitle">Tipo de cocina</h3>
+                
+                <div class="cuisine-list">
+                  <span class="cuisine-tag" *ngFor="let cuisine of restaurant?.cuisineType">
+                    {{ cuisine }}
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Rango de precios -->
+              <div class="info-price" *ngIf="restaurant?.priceRange">
+                <h3 class="info-subtitle">Rango de precios</h3>
+                <div class="price-range">{{ restaurant?.priceRange }}</div>
+              </div>
+              
+              <!-- Horario -->
+              <div class="info-schedule" *ngIf="restaurant?.schedule && restaurant?.schedule?.length! > 0">
+                <h3 class="info-subtitle">Horario</h3>
+                
+                <div class="schedule-preview">
+                  <div class="schedule-day" *ngFor="let day of getPreviewSchedule()">
+                    <span class="day-name">{{ formatDayName(day.day) }}</span>
+                    <span class="day-hours" *ngIf="day.open">{{ day.openTime }} - {{ day.closeTime }}</span>
+                    <span class="day-closed" *ngIf="!day.open">Cerrado</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </app-card>
+        </section>
+      </div>
+    </ng-container>
+  </div>

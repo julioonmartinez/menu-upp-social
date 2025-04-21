@@ -1,0 +1,468 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Contenedor común para todas las secciones
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  width: 100%;
+}
+
+// Hero Section
+.hero-section {
+  padding: $spacing-xl 0;
+  background-color: rgba($light-gray, 0.3);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: rgba($orange-light, 0.1);
+    z-index: 0;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background-color: rgba($orange-primary, 0.05);
+    z-index: 0;
+  }
+  
+  @include respond-to('lg') {
+    padding: $spacing-xxl 0;
+  }
+}
+
+// Contenido del hero
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-xl;
+  }
+}
+
+// Texto del hero
+.hero-text {
+  flex: 1;
+  margin-bottom: $spacing-lg;
+  
+  @include respond-to('md') {
+    margin-bottom: 0;
+  }
+}
+
+// Título del hero
+.hero-title {
+  font-size: $font-size-xxl;
+  line-height: 1.2;
+  margin-bottom: $spacing-md;
+  
+  @include respond-to('md') {
+    font-size: $font-size-xxl * 1.5;
+  }
+  
+  .text-blue {
+    color: $blue-primary;
+  }
+  
+  .text-orange {
+    color: $orange-primary;
+  }
+  
+  .subtitle {
+    display: block;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    margin-top: $spacing-xs;
+    color: rgba($blue-primary, 0.8);
+    
+    @include respond-to('md') {
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+// Descripción del hero
+.hero-description {
+  font-size: $font-size-md;
+  margin-bottom: $spacing-lg;
+  color: rgba($blue-primary, 0.7);
+  max-width: 600px;
+  
+  @include respond-to('md') {
+    font-size: $font-size-lg;
+  }
+}
+
+// Botones del hero
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+}
+
+// Imagen del hero
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Sección de características
+.features-section {
+  padding: $spacing-xl 0;
+  background-color: $white;
+  
+  @include respond-to('lg') {
+    padding: $spacing-xxl 0;
+  }
+}
+
+// Título de sección
+.section-title {
+  text-align: center;
+  font-size: $font-size-xl;
+  margin-bottom: $spacing-xl;
+  color: $blue-primary;
+  
+  @include respond-to('md') {
+    font-size: $font-size-xxl;
+  }
+}
+
+// Grid de características
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-lg;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Tarjeta de característica
+.feature-card {
+  height: 100%;
+  text-align: center;
+  transition: transform $transition-normal;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+// Icono de característica
+.feature-icon {
+  font-size: 48px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Título de característica
+.feature-title {
+  font-size: $font-size-lg;
+  margin-bottom: $spacing-sm;
+  color: $blue-primary;
+}
+
+// Descripción de característica
+.feature-description {
+  color: rgba($blue-primary, 0.7);
+  line-height: 1.6;
+}
+
+// Sección de capturas de pantalla
+.app-screenshot-section {
+  padding: $spacing-xl 0;
+  background-color: rgba($light-gray, 0.2);
+  
+  @include respond-to('lg') {
+    padding: $spacing-xxl 0;
+  }
+}
+
+// Contenido de capturas
+.screenshot-content {
+  display: flex;
+  flex-direction: column;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-xl;
+  }
+}
+
+// Texto de capturas
+.screenshot-text {
+  flex: 1;
+  margin-bottom: $spacing-lg;
+  
+  @include respond-to('md') {
+    margin-bottom: 0;
+  }
+  
+  .section-title {
+    text-align: left;
+  }
+}
+
+// Descripción de capturas
+.screenshot-description {
+  font-size: $font-size-md;
+  margin-bottom: $spacing-md;
+  color: rgba($blue-primary, 0.7);
+  line-height: 1.6;
+}
+
+// Características en capturas
+.screenshot-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+    color: $blue-primary;
+    
+    i {
+      color: $orange-primary;
+      margin-right: $spacing-sm;
+    }
+  }
+}
+
+// Imagen de capturas
+.screenshot-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Sección de estadísticas
+.stats-section {
+  padding: $spacing-xl 0;
+  background-color: $blue-primary;
+  color: $white;
+  
+  @include respond-to('lg') {
+    padding: $spacing-xxl 0;
+  }
+}
+
+// Grid de estadísticas
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-lg;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Elemento de estadística
+.stat-item {
+  text-align: center;
+  padding: $spacing-md;
+}
+
+// Valor de estadística
+.stat-value {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-xs;
+  color: $white;
+}
+
+// Etiqueta de estadística
+.stat-label {
+  font-size: $font-size-md;
+  color: rgba($white, 0.8);
+}
+
+// Sección de testimonios
+.testimonials-section {
+  padding: $spacing-xl 0;
+  background-color: $white;
+  
+  @include respond-to('lg') {
+    padding: $spacing-xxl 0;
+  }
+}
+
+// Grid de testimonios
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-lg;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Tarjeta de testimonio
+.testimonial-card {
+  height: 100%;
+}
+
+// Contenido del testimonio
+.testimonial-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Cita del testimonio
+.testimonial-quote {
+  flex: 1;
+  font-style: italic;
+  color: rgba($blue-primary, 0.8);
+  line-height: 1.6;
+  margin-bottom: $spacing-md;
+  position: relative;
+  padding-left: $spacing-md;
+}
+
+// Icono de comillas
+.quote-icon {
+  color: rgba($orange-primary, 0.2);
+  font-size: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+// Autor del testimonio
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+
+// Avatar del autor
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: $spacing-md;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Información del autor
+.author-info {
+  flex: 1;
+}
+
+// Nombre del autor
+.author-name {
+  font-weight: $font-weight-bold;
+  color: $blue-primary;
+  margin-bottom: 2px;
+}
+
+// Rol del autor
+.author-role {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.6);
+}
+
+// Sección de llamada a la acción
+.cta-section {
+  padding: $spacing-xl 0;
+  background-color: rgba($orange-primary, 0.05);
+  border-top: 1px solid rgba($orange-primary, 0.1);
+  border-bottom: 1px solid rgba($orange-primary, 0.1);
+  
+  @include respond-to('lg') {
+    padding: $spacing-xxl 0;
+  }
+}
+
+// Contenido de la llamada a la acción
+.cta-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// Título de la llamada a la acción
+.cta-title {
+  font-size: $font-size-xl;
+  margin-bottom: $spacing-md;
+  color: $blue-primary;
+  
+  @include respond-to('md') {
+    font-size: $font-size-xxl;
+  }
+}
+
+// Descripción de la llamada a la acción
+.cta-description {
+  font-size: $font-size-md;
+  margin-bottom: $spacing-lg;
+  color: rgba($blue-primary, 0.7);
+  
+  @include respond-to('md') {
+    font-size: $font-size-lg;
+  }
+}
+
+// Botones de la llamada a la acción
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-md;
+}

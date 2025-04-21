@@ -1,0 +1,457 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de menú del restaurante
+.restaurant-menu {
+  padding-bottom: $spacing-xl;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Barra de búsqueda y filtros
+.search-filters-bar {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+  background-color: $white;
+  padding: $spacing-sm 0;
+  border-bottom: 1px solid rgba($blue-primary, 0.1);
+}
+
+// Caja de búsqueda
+.search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: rgba($light-gray, 0.3);
+  border-radius: $border-radius-md;
+  padding: 0 $spacing-sm;
+  
+  i {
+    color: rgba($blue-primary, 0.5);
+    margin-right: $spacing-xs;
+  }
+  
+  input {
+    flex: 1;
+    padding: $spacing-sm 0;
+    border: none;
+    background: transparent;
+    font-size: $font-size-md;
+    color: $blue-primary;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    &::placeholder {
+      color: rgba($blue-primary, 0.5);
+    }
+  }
+  
+  .clear-search {
+    background: none;
+    border: none;
+    color: rgba($blue-primary, 0.5);
+    cursor: pointer;
+    
+    &:hover {
+      color: $blue-primary;
+    }
+  }
+}
+
+// Filtros toggle
+.filters-toggle {
+  display: flex;
+  align-items: center;
+}
+
+// Botón de filtro
+.filter-button {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  background-color: rgba($light-gray, 0.3);
+  border: none;
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $blue-primary;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.5);
+  }
+  
+  &.active {
+    background-color: rgba($orange-primary, 0.1);
+    color: $orange-primary;
+  }
+  
+  i {
+    font-size: $font-size-sm;
+  }
+}
+
+// Contador de filtros
+.filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: $orange-primary;
+  color: $white;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  margin-left: $spacing-xs;
+}
+
+// Panel de filtros
+.filters-panel {
+  margin-bottom: $spacing-md;
+  @include slide-in('down');
+}
+
+// Contenido de filtros
+.filters-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+// Grupo de filtro
+.filter-group {
+  border-bottom: 1px solid rgba($blue-primary, 0.1);
+  padding-bottom: $spacing-md;
+  
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+// Título de filtro
+.filter-title {
+  margin: 0 0 $spacing-sm;
+  font-size: $font-size-md;
+  color: $blue-primary;
+}
+
+// Filtro de valoración
+.rating-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+// Botón de valoración
+.rating-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($light-gray, 0.3);
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+  color: $blue-primary;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  i {
+    color: #FFD700;
+  }
+  
+  .rating-label {
+    font-size: $font-size-xs;
+    color: rgba($blue-primary, 0.7);
+  }
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.5);
+  }
+  
+  &.active {
+    background-color: rgba($orange-primary, 0.1);
+    color: $orange-primary;
+  }
+}
+
+// Filtro de precio
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Rangos de precio
+.price-ranges {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+// Botón de rango de precio
+.price-range-button {
+  flex: 1;
+  padding: $spacing-sm;
+  background-color: rgba($light-gray, 0.3);
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $blue-primary;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.5);
+  }
+  
+  &.active {
+    background-color: rgba($orange-primary, 0.1);
+    color: $orange-primary;
+  }
+}
+
+// Filtro de favoritos
+.favorites-filter {
+  padding: $spacing-xs 0;
+}
+
+// Toggle de favoritos
+.favorites-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  
+  input {
+    margin-right: $spacing-sm;
+    accent-color: $orange-primary;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    
+    i {
+      color: $orange-primary;
+    }
+  }
+}
+
+// Acciones de filtro
+.filter-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $spacing-sm;
+}
+
+// Navegación de categorías
+.categories-nav {
+  margin-bottom: $spacing-md;
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  overflow-x: auto;
+  position: sticky;
+  top: 60px;
+  z-index: $z-index-sticky - 1;
+  
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba($light-gray, 0.3);
+    border-radius: 2px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($blue-primary, 0.2);
+    border-radius: 2px;
+  }
+}
+
+// Contenedor de categorías
+.categories-container {
+  display: flex;
+  padding: $spacing-xs;
+}
+
+// Botón de categoría
+.category-button {
+  padding: $spacing-sm $spacing-md;
+  background: none;
+  border: none;
+  border-radius: $border-radius-md;
+  white-space: nowrap;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $blue-primary;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.3);
+  }
+  
+  &.active {
+    background-color: rgba($orange-primary, 0.1);
+    color: $orange-primary;
+  }
+}
+
+// Contador de platos
+.dish-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background-color: rgba($blue-primary, 0.1);
+  font-size: $font-size-xs;
+  
+  .category-button.active & {
+    background-color: rgba($orange-primary, 0.2);
+  }
+}
+
+// Cargando categorías
+.loading-categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 $spacing-md;
+  color: $orange-primary;
+  font-size: $font-size-sm;
+}
+
+// Contenido del menú
+.menu-content {
+  margin-bottom: $spacing-lg;
+}
+
+// Cabecera de categoría
+.category-header {
+  margin-bottom: $spacing-md;
+  padding: $spacing-md;
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-md;
+  border-left: 3px solid $orange-primary;
+}
+
+// Título de categoría
+.category-title {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+}
+
+// Descripción de categoría
+.category-description {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  line-height: 1.5;
+}
+
+// Carga de platos
+.loading-dishes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-lg 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-sm;
+  
+  .loading-spinner {
+    font-size: 24px;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Sin platos
+.no-dishes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+}
+
+// Icono de sin platos
+.no-dishes-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Grid de platos
+.dishes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

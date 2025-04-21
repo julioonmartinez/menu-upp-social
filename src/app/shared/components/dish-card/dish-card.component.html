@@ -1,0 +1,73 @@
+<app-card 
+  [variant]="'elevated'" 
+  [hoverable]="interactive"
+  [padding]="'none'"
+  [borderRadius]="'md'"
+  class="dish-card"
+  [class]="'dish-card-' + size"
+  [routerLink]="interactive ? ['/profile', dish.restaurantId, 'dish', dish.id] : null"
+>
+  <div class="dish-card-content">
+    <!-- Imagen del plato -->
+    <div class="dish-image" [style.background-image]="'url(' + dish.mainImage?.url + ')'">
+      <!-- Botones de acción rápida -->
+      <div class="dish-actions">
+        <button 
+          class="action-button favorite-button" 
+          [class.active]="isFavorite"
+          (click)="onFavoriteClick($event)"
+          aria-label="Marcar como favorito"
+        >
+          <i class="fa-heart" [class]="isFavorite ? 'fa-solid' : 'fa-regular'"></i>
+        </button>
+        
+        <button 
+          class="action-button rate-button" 
+          (click)="onRateClick($event)"
+          aria-label="Valorar plato"
+        >
+          <i class="fa-solid fa-star"></i>
+        </button>
+      </div>
+      
+      <!-- Etiquetas y badges -->
+      <div class="dish-badges">
+        <span class="dish-badge" *ngIf="dish.isVegetarian">
+          <i class="fa-solid fa-leaf"></i>
+        </span>
+        
+        <span class="dish-badge" *ngIf="dish.isVegan">
+          <i class="fa-solid fa-seedling"></i>
+        </span>
+        
+        <span class="dish-badge" *ngIf="dish.isGlutenFree">
+          <i class="fa-solid fa-wheat-awn-circle-exclamation"></i>
+        </span>
+      </div>
+      
+      <!-- Valoración -->
+      <div class="dish-rating" *ngIf="dish.rating">
+        <span class="rating-value">{{ dish.rating.average.toFixed(1) }}</span>
+        <i class="fa-solid fa-star"></i>
+        <span class="rating-count">({{ dish.rating.count }})</span>
+      </div>
+    </div>
+    
+    <!-- Información del plato -->
+    <div class="dish-info">
+      <h3 class="dish-name">{{ dish.name }}</h3>
+      
+      <p class="dish-description" *ngIf="size !== 'sm' && dish.description">
+        {{ dish.description.substring(0, size === 'lg' ? 120 : 80) }}{{ dish.description.length > (size === 'lg' ? 120 : 80) ? '...' : '' }}
+      </p>
+      
+      <div class="dish-meta">
+        <span class="dish-price">{{ formatPrice() }}</span>
+        
+        <div class="dish-restaurant" *ngIf="false">
+          <!-- Esto podría mostrar el nombre del restaurante si es necesario -->
+        </div>
+      </div>
+    </div>
+  </div>
+</app-card>

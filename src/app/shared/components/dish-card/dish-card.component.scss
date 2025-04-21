@@ -1,0 +1,201 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Estilos de la tarjeta de platillo
+.dish-card {
+  display: block;
+  height: 100%;
+}
+
+// Contenido de la tarjeta
+.dish-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Imagen del platillo
+.dish-image {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: $border-radius-md $border-radius-md 0 0;
+  overflow: hidden;
+}
+
+// Acciones del platillo
+.dish-actions {
+  position: absolute;
+  top: $spacing-sm;
+  right: $spacing-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  z-index: 1;
+}
+
+// Botón de acción
+.action-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba($white, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba($blue-primary, 0.7);
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: $white;
+    transform: scale(1.05);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &.active {
+    background-color: $white;
+    color: $orange-primary;
+  }
+}
+
+// Botón de favoritos
+.favorite-button {
+  &.active {
+    color: $orange-primary;
+  }
+}
+
+// Badges de platillo
+.dish-badges {
+  position: absolute;
+  top: $spacing-sm;
+  left: $spacing-sm;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  z-index: 1;
+}
+
+// Badge individual
+.dish-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba($white, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  color: $blue-primary;
+}
+
+// Valoración del platillo
+.dish-rating {
+  position: absolute;
+  bottom: $spacing-sm;
+  left: $spacing-sm;
+  background-color: rgba($blue-primary, 0.9);
+  color: $white;
+  border-radius: $border-radius-md;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  display: flex;
+  align-items: center;
+  
+  .rating-value {
+    margin-right: $spacing-xs;
+  }
+  
+  .rating-count {
+    margin-left: $spacing-xs;
+    font-size: $font-size-xs;
+    opacity: 0.8;
+  }
+  
+  i {
+    color: #FFD700;
+  }
+}
+
+// Información del platillo
+.dish-info {
+  padding: $spacing-md;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+// Nombre del platillo
+.dish-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-md;
+  
+  // Limitar a dos líneas
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  min-height: 2.6em;
+}
+
+// Descripción del platillo
+.dish-description {
+  margin: 0 0 $spacing-sm;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  line-height: 1.4;
+  
+  // Flex para que ocupe espacio disponible
+  flex: 1;
+}
+
+// Metadatos del platillo
+.dish-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+// Precio del platillo
+.dish-price {
+  font-weight: $font-weight-semibold;
+  color: $orange-primary;
+}
+
+// Restaurante del platillo
+.dish-restaurant {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.6);
+}
+
+// Variantes de tamaño
+.dish-card-sm {
+  .dish-image {
+    height: 140px;
+  }
+}
+
+.dish-card-md {
+  .dish-image {
+    height: 180px;
+  }
+}
+
+.dish-card-lg {
+  .dish-image {
+    height: 220px;
+  }
+  
+  .dish-name {
+    font-size: $font-size-lg;
+  }
+}

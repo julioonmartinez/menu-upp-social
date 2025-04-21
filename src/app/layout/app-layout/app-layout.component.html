@@ -1,0 +1,62 @@
+<div class="app-layout" [class.sidebar-open]="isSidebarOpen">
+    <!-- Header principal -->
+    <header class="app-header">
+      <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+          <span class="logo-menu">MENU</span>
+          <span class="logo-upp">UPP</span>
+        </div>
+        
+        <!-- Botones de acción en header -->
+        <div class="header-actions">
+          <!-- Botón de notificaciones -->
+          <button class="icon-button" routerLink="/app/notifications">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+          </button>
+          
+          <!-- Botón de menú móvil -->
+          <button class="icon-button menu-toggle" (click)="toggleSidebar()">
+            <i class="fa-solid" [class.fa-bars]="!isSidebarOpen" [class.fa-xmark]="isSidebarOpen"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Contenedor principal -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+    
+    <!-- Sidebar para desktop y tablet -->
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <nav class="sidebar-nav">
+          <ul>
+            <li *ngFor="let item of menuItems">
+              <a [routerLink]="item.route" routerLinkActive="active">
+                <i class="fa-solid fa-{{ item.icon }}"></i>
+                <span>{{ item.label }}</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+    
+    <!-- Bottom navigation para móvil -->
+    <nav class="bottom-nav">
+      <ul>
+        <li *ngFor="let item of menuItems">
+          <a [routerLink]="item.route" routerLinkActive="active">
+            <i class="fa-solid fa-{{ item.icon }}"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Overlay para sidebar en móvil -->
+    <div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
+  </div>

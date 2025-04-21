@@ -1,0 +1,202 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Tarjeta de reseña
+.review-card {
+  margin-bottom: $spacing-md;
+  
+  &.review-card-compact {
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Contenido de la reseña
+.review-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Header de la reseña
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  
+  .review-card-compact & {
+    align-items: center;
+  }
+}
+
+// Información del usuario
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+// Avatar del usuario
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: $spacing-sm;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .review-card-compact & {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+// Detalles del usuario
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+// Nombre del usuario
+.user-name {
+  font-weight: $font-weight-semibold;
+  margin-bottom: 2px;
+  
+  a {
+    color: $blue-primary;
+    text-decoration: none;
+    
+    &:hover {
+      color: $orange-primary;
+    }
+  }
+  
+  .review-card-compact & {
+    font-size: $font-size-sm;
+  }
+}
+
+// Fecha de la reseña
+.review-date {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.6);
+}
+
+// Valoración con estrellas
+.star-rating {
+  color: #FFD700;
+  font-size: $font-size-md;
+  
+  .review-card-compact & {
+    font-size: $font-size-sm;
+  }
+  
+  i {
+    margin-right: 2px;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+// Cuerpo de la reseña
+.review-body {
+  .review-card-compact & {
+    display: none;
+  }
+}
+
+// Texto de la reseña
+.review-text {
+  margin: 0;
+  line-height: 1.5;
+  color: $blue-primary;
+}
+
+// Imágenes de la reseña
+.review-images {
+  margin-top: $spacing-xs;
+  
+  .review-card-compact & {
+    display: none;
+  }
+}
+
+// Grid de imágenes
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-xs;
+}
+
+// Imagen individual
+.review-image {
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  transition: transform $transition-fast;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+// Acciones de la reseña
+.review-actions {
+  display: flex;
+  gap: $spacing-md;
+  
+  .review-card-compact & {
+    gap: $spacing-sm;
+  }
+}
+
+// Botón de acción
+.action-button {
+  background: none;
+  border: none;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs 0;
+  cursor: pointer;
+  transition: color $transition-fast;
+  
+  &:hover {
+    color: $blue-primary;
+  }
+  
+  i {
+    font-size: $font-size-md;
+  }
+  
+  .review-card-compact & {
+    font-size: $font-size-xs;
+    
+    i {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+// Botón de me gusta
+.like-button {
+  &.active {
+    color: $orange-primary;
+  }
+}
+
+// Botón de responder
+.reply-button {
+  &.active {
+    color: $orange-primary;
+  }
+}

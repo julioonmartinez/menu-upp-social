@@ -1,0 +1,26 @@
+<div class="form-group">
+    <label *ngIf="label" [for]="id" class="input-label">
+      {{ label }}
+      <span class="required-mark" *ngIf="required">*</span>
+    </label>
+    
+    <div class="input-container">
+      <i *ngIf="icon" class="fa-solid fa-{{ icon }} input-icon"></i>
+      
+      <input
+        [id]="id"
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        [disabled]="isDisabled"
+        [class.with-icon]="icon"
+        [class.invalid]="hasError"
+        (input)="onInput($event)"
+        (blur)="onBlur()"
+      >
+    </div>
+    
+    <div class="error-message" *ngIf="hasError">
+      {{ errorMessage }}
+    </div>
+  </div>

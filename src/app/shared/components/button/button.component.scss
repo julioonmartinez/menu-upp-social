@@ -1,0 +1,114 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.btn {
+  @include button-base;
+  position: relative;
+  
+  // Espacio para el texto e iconos
+  .btn-text {
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Estilo para iconos
+  i {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    
+    &.fa-spin-pulse {
+      margin-right: $spacing-xs;
+    }
+    
+    &:not(.fa-spin-pulse) {
+      transition: transform $transition-fast;
+    }
+  }
+  
+  // Espacio entre icono y texto
+  i + .btn-text {
+    margin-left: $spacing-xs;
+  }
+  
+  .btn-text + i {
+    margin-left: $spacing-xs;
+  }
+}
+
+// Variantes de botón
+.btn-primary {
+  @include button-primary;
+}
+
+.btn-secondary {
+  @include button-secondary;
+}
+
+.btn-tertiary {
+  @include button-tertiary;
+}
+
+// Tamaños de botón
+.btn-sm {
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-sm;
+  height: 32px;
+  
+  i:not(.fa-spin-pulse) {
+    font-size: $font-size-sm;
+  }
+}
+
+.btn-md {
+  padding: $spacing-sm $spacing-md;
+  font-size: $font-size-md;
+  height: 40px;
+  
+  i:not(.fa-spin-pulse) {
+    font-size: $font-size-md;
+  }
+}
+
+.btn-lg {
+  padding: $spacing-md $spacing-lg;
+  font-size: $font-size-lg;
+  height: 48px;
+  
+  i:not(.fa-spin-pulse) {
+    font-size: $font-size-md;
+  }
+}
+
+// Botón de ancho completo
+.btn-full-width {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+// Estado de carga
+.btn-loading {
+  cursor: wait;
+  
+  .btn-text {
+    opacity: 0.7;
+  }
+}
+
+// Efectos de hover para los iconos
+.btn:not(:disabled):hover {
+  i:not(.fa-spin-pulse) {
+    &.fa-arrow-right {
+      transform: translateX(3px);
+    }
+    
+    &.fa-arrow-left {
+      transform: translateX(-3px);
+    }
+    
+    &.fa-heart {
+      transform: scale(1.15);
+    }
+  }
+}

@@ -1,0 +1,332 @@
+<div class="route-detail-page">
+    <!-- Navegación de retorno -->
+    <div class="back-navigation">
+      <a routerLink="/app/routes" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Volver a rutas
+      </a>
+    </div>
+    
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando ruta gastronómica...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="routeError && !loading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ routeError }}</p>
+      <app-button 
+        variant="primary" 
+        (clicked)="loadRouteData()"
+      >
+        Reintentar
+      </app-button>
+    </div>
+    
+    <!-- Contenido de la ruta -->
+    <ng-container *ngIf="route && !loading && !routeError">
+      <!-- Banner de la ruta -->
+      <div class="route-banner" [style.background-image]="'url(' + route.coverImage?.url + ')'">
+        <div class="banner-content">
+          <div class="route-tags">
+            <span class="route-difficulty" *ngIf="route.difficulty">
+              {{ route.difficulty === 'easy' ? 'Fácil' : (route.difficulty === 'medium' ? 'Media' : 'Difícil') }}
+            </span>
+            
+            <span class="route-tag" *ngFor="let tag of route.tags?.slice(0, 3)">
+              {{ tag }}
+            </span>
+          </div>
+          
+          <h1 class="route-name">{{ route.name }}</h1>
+          
+          <div class="route-meta">
+            <!-- Creador -->
+            <div class="route-creator" *ngIf="route.creatorName">
+              <div class="creator-avatar" *ngIf="route.creatorImage?.url">
+                <img [src]="route.creatorImage?.url" [alt]="route.creatorName">
+              </div>
+              <span>Creada por <a [routerLink]="['/profile', route.creatorId]">{{ route.creatorName }}</a></span>
+            </div>
+            
+            <!-- Estadísticas -->
+            <div class="route-stats">
+              <div class="route-stat">
+                <i class="fa-solid fa-utensils"></i>
+                <span>{{ route.totalRestaurants || route.stops?.length || 0 }} restaurantes</span>
+              </div>
+              
+              <div class="route-stat">
+                <i class="fa-solid fa-clock"></i>
+                <span>{{ formatDuration(route.estimatedTime) }}</span>
+              </div>
+              
+              <div class="route-stat">
+                <i class="fa-solid fa-route"></i>
+                <span>{{ route.distance }} km</span>
+              </div>
+              
+              <div class="route-stat">
+                <i class="fa-solid fa-star"></i>
+                <span>{{ route.avgRating?.toFixed(1) || '—' }} ({{ reviews.length }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contenido principal -->
+      <div class="route-content">
+        <!-- Columna principal -->
+        <div class="main-column">
+          <!-- Descripción -->
+          <section class="route-section">
+            <h2 class="section-title">Descripción</h2>
+            <p class="route-description">{{ route.description }}</p>
+          </section>
+          
+          <!-- Paradas de la ruta -->
+          <section class="route-section">
+            <h2 class="section-title">Paradas</h2>
+            
+            <div class="stops-timeline">
+              <div 
+                *ngFor="let stop of route.stops" 
+                class="stop-item"
+                [class.stop-completed]="stop.isCompleted"
+              >
+                <!-- Indicador de orden -->
+                <div class="stop-indicator">
+                  <div class="stop-order">{{ stop.order }}</div>
+                  <div class="timeline-line" *ngIf="!isLastStop(stop)"></div>
+                </div>
+                
+                <!-- Contenido de la parada -->
+                <app-card class="stop-card" variant="elevated" padding="md">
+                  <div class="stop-content">
+                    <!-- Header de la parada -->
+                    <div class="stop-header">
+                      <div class="restaurant-info">
+                        <!-- Logo del restaurante -->
+                        <div class="restaurant-logo" *ngIf="stop.restaurantImage?.url">
+                          <img [src]="stop.restaurantImage?.url" [alt]="stop.restaurantName">
+                        </div>
+                        
+                        <!-- Información básica -->
+                        <div class="restaurant-details">
+                          <h3 class="restaurant-name">
+                            <a [routerLink]="['/profile', stop.restaurantId]">
+                              {{ stop.restaurantName }}
+                            </a>
+                          </h3>
+                          
+                          <div class="restaurant-address" *ngIf="stop.restaurantAddress">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <a [href]="getGoogleMapsLink(stop.restaurantAddress)" target="_blank">
+                              {{ stop.restaurantAddress }}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Estado de completado -->
+                      <div class="completion-status" *ngIf="route.completionStatus?.isStarted">
+                        <div class="status-badge" [class.completed]="stop.isCompleted">
+                          <i class="fa-solid" [class]="stop.isCompleted ? 'fa-check' : 'fa-hourglass-half'"></i>
+                          {{ stop.isCompleted ? 'Completado' : 'Pendiente' }}
+                        </div>
+                        
+                        <div class="completion-date" *ngIf="stop.isCompleted && stop.completedDate">
+                          {{ formatDate(stop.completedDate) }}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Plato recomendado -->
+                    <div class="recommended-dish" *ngIf="stop.dishName">
+                      <h4 class="dish-title">Plato recomendado</h4>
+                      
+                      <div class="dish-card">
+                        <div class="dish-image" *ngIf="stop.dishImage?.url">
+                          <img [src]="stop.dishImage?.url" [alt]="stop.dishName">
+                        </div>
+                        
+                        <div class="dish-info">
+                          <div class="dish-name">{{ stop.dishName }}</div>
+                          <div class="dish-price" *ngIf="stop.dishPrice">{{ stop.dishPrice.toFixed(2) }} €</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Notas -->
+                    <div class="stop-notes" *ngIf="stop.notes">
+                      <h4 class="notes-title">Notas</h4>
+                      <p>{{ stop.notes }}</p>
+                    </div>
+                  </div>
+                </app-card>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Reseñas -->
+          <section class="route-section">
+            <h2 class="section-title">Reseñas</h2>
+            
+            <!-- Estado de carga de reseñas -->
+            <div class="loading-reviews" *ngIf="loadingReviews">
+              <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+              </div>
+              <p>Cargando reseñas...</p>
+            </div>
+            
+            <!-- Sin reseñas -->
+            <div class="no-reviews" *ngIf="!loadingReviews && reviews.length === 0">
+              <p>Aún no hay reseñas para esta ruta.</p>
+              
+              <app-button
+                variant="tertiary"
+                icon="comment"
+              >
+                Sé el primero en comentar
+              </app-button>
+            </div>
+            
+            <!-- Lista de reseñas -->
+            <div class="reviews-list" *ngIf="!loadingReviews && reviews.length > 0">
+              <app-card
+                *ngFor="let review of reviews"
+                variant="elevated"
+                padding="md"
+                class="review-card"
+              >
+                <div class="review-content">
+                  <!-- Header de la reseña -->
+                  <div class="review-header">
+                    <!-- Información del usuario -->
+                    <div class="review-user">
+                      <div class="user-avatar" *ngIf="review.userImage?.url">
+                        <img [src]="review.userImage?.url" [alt]="review.userName">
+                      </div>
+                      
+                      <div class="user-info">
+                        <div class="user-name">
+                          <a [routerLink]="['/profile', review.userId]">
+                            {{ review.userName }}
+                          </a>
+                        </div>
+                        
+                        <div class="review-date" *ngIf="review.createdAt">
+                          {{ formatDate(review.createdAt) }}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Valoración en estrellas -->
+                    <div class="review-rating">
+                      <i 
+                        *ngFor="let star of [0, 1, 2, 3, 4]"
+                        class="fa-star"
+                        [class.fa-solid]="star < review.rating"
+                        [class.fa-regular]="star >= review.rating"
+                      ></i>
+                    </div>
+                  </div>
+                  
+                  <!-- Comentario -->
+                  <div class="review-comment" *ngIf="review.comment">
+                    <p>{{ review.comment }}</p>
+                  </div>
+                  
+                  <!-- Interacciones -->
+                  <div class="review-actions">
+                    <button class="like-button">
+                      <i class="fa-regular fa-thumbs-up"></i>
+                      <span>{{ review.likes || 0 }}</span>
+                    </button>
+                  </div>
+                </div>
+              </app-card>
+            </div>
+          </section>
+        </div>
+        
+        <!-- Columna lateral -->
+        <div class="side-column">
+          <!-- Componente de progreso -->
+          <app-route-progress
+            *ngIf="route?.completionStatus || !route.completionStatus?.isStarted"
+            [completionStatus]="route.completionStatus || { isStarted: false, completedStops: 0, totalStops: route.stops.length, progress: 0 }"
+            [stops]="route.stops"
+            [loading]="loadingAction"
+            (startRoute)="startRoute()"
+            (completeStop)="completeStop($event)"
+          ></app-route-progress>
+          
+          <!-- Creador de la ruta -->
+          <app-card variant="elevated" padding="md" class="creator-card" *ngIf="route.creatorName">
+            <h3 class="card-title">Creado por</h3>
+            
+            <div class="creator-profile">
+              <div class="creator-avatar-large" *ngIf="route.creatorImage?.url">
+                <img [src]="route.creatorImage?.url" [alt]="route.creatorName">
+              </div>
+              
+              <div class="creator-info">
+                <div class="creator-name">{{ route.creatorName }}</div>
+                <app-button
+                  variant="tertiary"
+                  size="sm"
+                  icon="user-plus"
+                  [routerLink]="['/profile', route.creatorId]"
+                >
+                  Ver perfil
+                </app-button>
+              </div>
+            </div>
+          </app-card>
+          
+          <!-- Acciones de la ruta -->
+          <app-card variant="elevated" padding="md" class="actions-card">
+            <h3 class="card-title">Acciones</h3>
+            
+            <div class="route-actions">
+              <app-button
+                variant="tertiary"
+                icon="heart"
+                [fullWidth]="true"
+                class="action-button"
+              >
+                Guardar ruta
+              </app-button>
+              
+              <app-button
+                variant="tertiary"
+                icon="share-nodes"
+                [fullWidth]="true"
+                class="action-button"
+              >
+                Compartir
+              </app-button>
+              
+              <app-button
+                variant="tertiary"
+                icon="comment"
+                [fullWidth]="true"
+                class="action-button"
+              >
+                Escribir reseña
+              </app-button>
+            </div>
+          </app-card>
+        </div>
+      </div>
+    </ng-container>
+  </div>

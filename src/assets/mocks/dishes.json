@@ -1,0 +1,153 @@
+[
+    {
+      "id": "dish1",
+      "name": "Croquetas caseras de jamón ibérico",
+      "description": "Cremosas croquetas elaboradas con bechamel artesanal y jamón ibérico de bellota cortado a cuchillo.",
+      "price": 9.50,
+      "currency": "EUR",
+      "images": [
+        {
+          "url": "assets/images/dishes/croquetas1.jpg",
+          "alt": "Croquetas de jamón ibérico"
+        },
+        {
+          "url": "assets/images/dishes/croquetas2.jpg",
+          "alt": "Detalle de croquetas"
+        }
+      ],
+      "mainImage": {
+        "url": "assets/images/dishes/croquetas_main.jpg",
+        "alt": "Croquetas de jamón ibérico"
+      },
+      "restaurantId": "rest1",
+      "categoryId": "cat1",
+      "ingredients": ["Leche", "Harina", "Mantequilla", "Jamón ibérico", "Nuez moscada", "Pan rallado", "Huevo"],
+      "allergens": ["Gluten", "Lácteos", "Huevo"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "rating": {
+        "average": 4.8,
+        "count": 45
+      },
+      "reviews": [
+        {
+          "id": "rev1",
+          "userId": "user1",
+          "userName": "María López",
+          "userImage": {
+            "url": "assets/images/users/profile1.jpg",
+            "alt": "María López"
+          },
+          "rating": 5,
+          "comment": "Las mejores croquetas que he probado en Madrid. Cremosas por dentro y crujientes por fuera. Se nota la calidad del jamón.",
+          "createdAt": "2023-05-18T19:30:00Z",
+          "likes": 12
+        }
+      ],
+      "favorites": 28,
+      "featured": true,
+      "available": true,
+      "createdAt": "2023-01-15T10:20:00Z",
+      "updatedAt": "2023-06-20T14:30:00Z"
+    },
+    {
+      "id": "dish2",
+      "name": "Tabla de quesos artesanos",
+      "description": "Selección de quesos nacionales de diferentes regiones y maduraciones, acompañados de uvas, nueces y mermelada casera de higos.",
+      "price": 14.80,
+      "currency": "EUR",
+      "images": [
+        {
+          "url": "assets/images/dishes/quesos1.jpg",
+          "alt": "Tabla de quesos"
+        }
+      ],
+      "mainImage": {
+        "url": "assets/images/dishes/quesos_main.jpg",
+        "alt": "Tabla de quesos artesanos"
+      },
+      "restaurantId": "rest1",
+      "categoryId": "cat1",
+      "ingredients": ["Queso manchego", "Queso idiazábal", "Queso cabrales", "Queso mahón", "Uvas", "Nueces", "Mermelada de higos"],
+      "allergens": ["Lácteos", "Frutos secos"],
+      "isVegetarian": true,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+        "average": 4.6,
+        "count": 32
+      },
+      "favorites": 19,
+      "featured": false,
+      "available": true,
+      "createdAt": "2023-01-15T10:25:00Z",
+      "updatedAt": "2023-06-15T11:10:00Z"
+    },
+    {
+      "id": "dish11",
+      "name": "Nigiri de salmón",
+      "description": "Base de arroz de sushi con corte de salmón noruego premium.",
+      "price": 3.50,
+      "currency": "EUR",
+      "images": [
+        {
+          "url": "assets/images/dishes/nigiri1.jpg",
+          "alt": "Nigiri de salmón"
+        }
+      ],
+      "mainImage": {
+        "url": "assets/images/dishes/nigiri_main.jpg",
+        "alt": "Nigiri de salmón"
+      },
+      "restaurantId": "rest2",
+      "categoryId": "cat4",
+      "ingredients": ["Arroz de sushi", "Salmón", "Wasabi", "Salsa de soja"],
+      "allergens": ["Pescado", "Gluten", "Soja"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "rating": {
+        "average": 4.7,
+        "count": 58
+      },
+      "favorites": 35,
+      "featured": true,
+      "available": true,
+      "createdAt": "2023-02-10T09:15:00Z",
+      "updatedAt": "2023-06-18T13:40:00Z"
+    },
+    {
+      "id": "dish20",
+      "name": "Tagliatelle al ragù bolognese",
+      "description": "Pasta fresca hecha a mano con salsa boloñesa tradicional cocinada a fuego lento durante 6 horas. Servido con queso parmesano rallado.",
+      "price": 16.50,
+      "currency": "EUR",
+      "images": [
+        {
+          "url": "assets/images/dishes/pasta1.jpg",
+          "alt": "Tagliatelle bolognese"
+        }
+      ],
+      "mainImage": {
+        "url": "assets/images/dishes/pasta_main.jpg",
+        "alt": "Tagliatelle al ragù bolognese"
+      },
+      "restaurantId": "rest3",
+      "categoryId": "cat6",
+      "ingredients": ["Harina", "Huevo", "Carne de ternera", "Carne de cerdo", "Zanahoria", "Apio", "Cebolla", "Tomate", "Vino tinto", "Queso parmesano"],
+      "allergens": ["Gluten", "Huevo", "Lácteos"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "rating": {
+        "average": 4.9,
+        "count": 41
+      },
+      "favorites": 32,
+      "featured": true,
+      "available": true,
+      "createdAt": "2023-01-20T11:30:00Z",
+      "updatedAt": "2023-06-22T15:20:00Z"
+    }
+  ]
