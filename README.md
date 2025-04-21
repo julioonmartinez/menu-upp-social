@@ -12,7 +12,7 @@ Plataforma social gastronómica construida con Angular. Este proyecto transforma
 
 ## Stack Tecnológico
 
-- **Framework**: Angular 17+ con enfoque standalone
+- **Framework**: Angular 19+ con enfoque standalone
 - **Estilos**: SCSS con patrón 7-1
 - **Estado**: Signals de Angular
 - **Iconografía**: Font Awesome 6
@@ -23,7 +23,7 @@ Plataforma social gastronómica construida con Angular. Este proyecto transforma
 
 - Node.js (v18+)
 - npm (v9+)
-- Angular CLI (v17+)
+- Angular CLI (v19+)
 
 ## Instalación
 
