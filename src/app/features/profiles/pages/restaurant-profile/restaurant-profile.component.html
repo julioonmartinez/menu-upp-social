@@ -24,7 +24,7 @@
     <!-- Contenido del perfil -->
     <ng-container *ngIf="!loading && !error && isRestaurant">
       <!-- Header del perfil -->
-      <app-profile-header
+      <!-- <app-profile-header
         [profileType]="'restaurant'"
         [name]="restaurantName"
         [username]="restaurantUsername"
@@ -38,10 +38,13 @@
         [loading]="loadingFollow"
         (followClicked)="onFollowClick()"
         (shareClicked)="onShareClick()"
-      ></app-profile-header>
-      
+      ></app-profile-header> -->
+      <div class="profile-info">
+        <p class="profile-description" *ngIf="restaurant?.description">{{ restaurant?.description }}</p>
+
+      </div>
       <!-- Menú de navegación -->
-      <div class="profile-nav">
+      <!-- <div class="profile-nav">
         <a routerLink="/profile/{{ restaurantUsername }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <i class="fa-solid fa-home"></i>
           Inicio
@@ -67,7 +70,7 @@
           Enlaces
         </a>
       </div>
-      
+       -->
       <!-- Sección principal -->
       <div class="profile-content">
         <!-- Platos destacados -->
@@ -82,7 +85,7 @@
               iconPosition="right"
               [routerLink]="['/profile', restaurantUsername, 'menu']"
             >
-              Ver menú completo
+              Ver menú
             </app-button>
           </div>
           

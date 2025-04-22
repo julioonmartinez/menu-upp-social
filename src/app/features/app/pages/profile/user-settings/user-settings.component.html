@@ -1,0 +1,367 @@
+<div class="settings-page">
+    <header class="page-header">
+      <h1>Configuración</h1>
+      <p class="page-description">
+        Administra tus preferencias de notificaciones, privacidad y cuenta.
+      </p>
+    </header>
+    
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="isLoading()">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando configuración...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error() && !isLoading()">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error() }}</p>
+      <app-button 
+        variant="primary" 
+        (clicked)="loadUserData()"
+      >
+        Reintentar
+      </app-button>
+    </div>
+    
+    <!-- Mensaje de éxito -->
+    <div class="success-message" *ngIf="success() && !isLoading()">
+      <div class="success-icon">
+        <i class="fa-solid fa-check-circle"></i>
+      </div>
+      <p>{{ success() }}</p>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="settings-content" *ngIf="user() && !isLoading() && !error()">
+      <!-- Sección de notificaciones -->
+      <app-card variant="elevated" padding="md" class="settings-card">
+        <h2 class="card-title">Notificaciones</h2>
+        
+        <div class="settings-group">
+          <!-- Notificaciones por email -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Notificaciones por correo electrónico</div>
+              <div class="setting-description">Recibe actualizaciones importantes en tu correo electrónico</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="notificationSettings().emailNotifications"
+                  (change)="onCheckboxChange($event, 'emailNotifications')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Notificaciones push -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Notificaciones push</div>
+              <div class="setting-description">Recibe notificaciones en tiempo real en tu dispositivo</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="notificationSettings().pushNotifications"
+                  (change)="onCheckboxChange($event, 'pushNotifications')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Resumen de actividad -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Resumen de actividad</div>
+              <div class="setting-description">Recibe un resumen semanal de la actividad en tu cuenta</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="notificationSettings().activityDigest"
+                  (change)="onCheckboxChange($event, 'activityDigest')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Nuevos seguidores -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Nuevos seguidores</div>
+              <div class="setting-description">Recibe notificaciones cuando alguien te sigue</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="notificationSettings().newFollowers"
+                  (change)="onCheckboxChange($event, 'newFollowers')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Menciones -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Menciones</div>
+              <div class="setting-description">Recibe notificaciones cuando alguien te menciona</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="notificationSettings().mentions"
+                  (change)="onCheckboxChange($event, 'mentions')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Sistema -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Notificaciones del sistema</div>
+              <div class="setting-description">Recibe actualizaciones importantes sobre la plataforma</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="notificationSettings().system"
+                  (change)="onCheckboxChange($event, 'system')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-actions">
+          <app-button 
+            variant="primary" 
+            [loading]="isSaving()"
+            (clicked)="saveNotificationSettings()"
+          >
+            Guardar cambios
+          </app-button>
+        </div>
+      </app-card>
+      
+      <!-- Sección de privacidad -->
+      <app-card variant="elevated" padding="md" class="settings-card">
+        <h2 class="card-title">Privacidad</h2>
+        
+        <div class="settings-group">
+          <!-- Perfil público -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Perfil público</div>
+              <div class="setting-description">Permite que cualquiera pueda ver tu perfil</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="privacySettings().publicProfile"
+                  (change)="onPrivacyCheckboxChange($event, 'publicProfile')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Mostrar actividad -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Mostrar actividad</div>
+              <div class="setting-description">Permite que otros usuarios vean tu actividad reciente</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="privacySettings().showActivity"
+                  (change)="onPrivacyCheckboxChange($event, 'showActivity')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Mostrar seguidores -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Mostrar seguidores</div>
+              <div class="setting-description">Permite que otros usuarios vean quién te sigue</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="privacySettings().showFollowers"
+                  (change)="onPrivacyCheckboxChange($event, 'showFollowers')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Mostrar lugares visitados -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Mostrar lugares visitados</div>
+              <div class="setting-description">Permite que otros usuarios vean qué restaurantes has visitado</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="privacySettings().showVisitedPlaces"
+                  (change)="onPrivacyCheckboxChange($event, 'showVisitedPlaces')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Permitir etiquetado -->
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-name">Permitir etiquetado</div>
+              <div class="setting-description">Permite que otros usuarios te etiqueten en reseñas y publicaciones</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input 
+                  type="checkbox" 
+                  [checked]="privacySettings().allowTagging"
+                  (change)="onPrivacyCheckboxChange($event, 'allowTagging')"
+                >
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-actions">
+          <app-button 
+            variant="primary" 
+            [loading]="isSaving()"
+            (clicked)="savePrivacySettings()"
+          >
+            Guardar cambios
+          </app-button>
+        </div>
+      </app-card>
+      
+      <!-- Sección de cuenta -->
+      <app-card variant="elevated" padding="md" class="settings-card">
+        <h2 class="card-title">Cuenta</h2>
+        
+        <!-- Información de cuenta -->
+        <div class="account-details">
+          <div class="detail-item">
+            <div class="detail-label">Correo electrónico</div>
+            <div class="detail-value">{{ user()?.email }}</div>
+          </div>
+          
+          <div class="detail-item">
+            <div class="detail-label">Nombre</div>
+            <div class="detail-value">{{ user()?.name }} {{ user()?.lastName }}</div>
+          </div>
+          
+          <div class="detail-item">
+            <div class="detail-label">Nombre de usuario</div>
+            <div class="detail-value">{{ user()?.username }}</div>
+          </div>
+          
+          <div class="detail-item">
+            <div class="detail-label">Miembro desde</div>
+            <div class="detail-value">{{ user()?.createdAt | date:'longDate' }}</div>
+          </div>
+        </div>
+        
+        <div class="account-actions">
+          <app-button 
+            variant="secondary" 
+            icon="user-pen"
+            routerLink="/app/profile/edit"
+          >
+            Editar perfil
+          </app-button>
+          
+          <app-button 
+            variant="primary" 
+            icon="arrow-right-from-bracket"
+            (clicked)="logout()"
+          >
+            Cerrar sesión
+          </app-button>
+        </div>
+      </app-card>
+      
+      <!-- Sección de peligro -->
+      <app-card variant="elevated" padding="md" class="settings-card danger-card">
+        <h2 class="card-title danger-title">Zona de peligro</h2>
+        
+        <p class="danger-description">
+          Las siguientes acciones son permanentes y no se pueden deshacer.
+          Por favor, piénsalo bien antes de continuar.
+        </p>
+        
+        <!-- Confirmación de eliminación -->
+        <div class="delete-confirm" *ngIf="showDeleteConfirm()">
+          <div class="confirm-message">
+            <div class="confirm-icon">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <p>¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es permanente y no se puede deshacer.</p>
+          </div>
+          
+          <div class="confirm-actions">
+            <app-button 
+              variant="tertiary" 
+              (clicked)="toggleDeleteConfirm()"
+            >
+              Cancelar
+            </app-button>
+            
+            <app-button 
+              variant="secondary" 
+              [loading]="isDeleting()"
+              (clicked)="deleteAccount()"
+            >
+              Sí, eliminar mi cuenta
+            </app-button>
+          </div>
+        </div>
+        
+        <!-- Botón para mostrar confirmación -->
+        <div class="danger-actions" *ngIf="!showDeleteConfirm()">
+          <app-button 
+            variant="secondary" 
+            icon="trash"
+            (clicked)="toggleDeleteConfirm()"
+          >
+            Eliminar cuenta
+          </app-button>
+        </div>
+      </app-card>
+    </div>
+  </div>

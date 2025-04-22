@@ -1,0 +1,144 @@
+<div class="restaurant-links">
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando enlaces del restaurante...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error && !loading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error }}</p>
+      <app-button 
+        variant="primary" 
+        [routerLink]="['/profile', restaurantUsername]"
+      >
+        Volver al perfil
+      </app-button>
+    </div>
+    
+    <!-- Contenido de enlaces -->
+    <ng-container *ngIf="!loading && !error && isRestaurant">
+      <h1 class="section-title">Enlaces y Contacto</h1>
+      
+      <!-- Sección de enlaces sociales -->
+      <section class="links-section" *ngIf="socialLinks && socialLinks.length > 0">
+        <h2 class="subsection-title">Redes Sociales</h2>
+        
+        <div class="links-grid">
+          <app-card 
+            *ngFor="let link of socialLinks"
+            [variant]="'elevated'" 
+            [hoverable]="true"
+            [padding]="'md'"
+            class="link-card"
+            (click)="openLink(link.url)"
+          >
+            <div class="link-content">
+              <div class="link-icon">
+                <i [class]="link.icon || getPlatformIcon(link.platform)"></i>
+              </div>
+              <div class="link-info">
+                <h3 class="link-name">{{ getPlatformName(link.platform) }}</h3>
+                <p class="link-url">{{ formatUrl(link.url) }}</p>
+              </div>
+              <div class="link-action">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </div>
+          </app-card>
+        </div>
+      </section>
+      
+      <!-- Sección de contacto -->
+      <section class="links-section">
+        <h2 class="subsection-title">Contacto</h2>
+        
+        <div class="links-grid">
+          <!-- Sitio web -->
+          <app-card 
+            *ngIf="hasWebsite"
+            [variant]="'elevated'" 
+            [hoverable]="true"
+            [padding]="'md'"
+            class="link-card"
+            (click)="openLink(websiteUrl)"
+          >
+            <div class="link-content">
+              <div class="link-icon">
+                <i class="fa-solid fa-globe"></i>
+              </div>
+              <div class="link-info">
+                <h3 class="link-name">Sitio Web</h3>
+                <p class="link-url">{{ formatUrl(websiteUrl) }}</p>
+              </div>
+              <div class="link-action">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </div>
+          </app-card>
+          
+          <!-- Email -->
+          <app-card 
+            *ngIf="contactEmail"
+            [variant]="'elevated'" 
+            [hoverable]="true"
+            [padding]="'md'"
+            class="link-card"
+            (click)="openLink('mailto:' + contactEmail)"
+          >
+            <div class="link-content">
+              <div class="link-icon">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div class="link-info">
+                <h3 class="link-name">Email</h3>
+                <p class="link-url">{{ contactEmail }}</p>
+              </div>
+              <div class="link-action">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </div>
+          </app-card>
+          
+          <!-- Teléfono -->
+          <app-card 
+            *ngIf="contactPhone"
+            [variant]="'elevated'" 
+            [hoverable]="true"
+            [padding]="'md'"
+            class="link-card"
+            (click)="openLink('tel:' + contactPhone)"
+          >
+            <div class="link-content">
+              <div class="link-icon">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="link-info">
+                <h3 class="link-name">Teléfono</h3>
+                <p class="link-url">{{ contactPhone }}</p>
+              </div>
+              <div class="link-action">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </div>
+          </app-card>
+        </div>
+      </section>
+      
+      <!-- Botón para volver -->
+      <div class="action-buttons">
+        <app-button 
+          [variant]="'primary'" 
+          [icon]="'arrow-left'"
+          [routerLink]="['/profile', restaurantUsername]"
+        >
+          Volver al perfil
+        </app-button>
+      </div>
+    </ng-container>
+  </div>

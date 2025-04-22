@@ -1,0 +1,303 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de configuración
+.settings-page {
+  padding-bottom: $spacing-xl;
+}
+
+// Encabezado de página
+.page-header {
+  margin-bottom: $spacing-lg;
+  
+  h1 {
+    margin-bottom: $spacing-xs;
+  }
+}
+
+// Descripción de la página
+.page-description {
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-md;
+  max-width: 800px;
+  line-height: 1.5;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Mensaje de éxito
+.success-message {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm $spacing-md;
+  background-color: rgba(#28A745, 0.1);
+  border-left: 4px solid #28A745;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
+  
+  .success-icon {
+    color: #28A745;
+    font-size: $font-size-lg;
+    margin-right: $spacing-sm;
+  }
+  
+  p {
+    margin: 0;
+    color: rgba($blue-primary, 0.8);
+  }
+}
+
+// Contenido de configuración
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+// Tarjeta de configuración
+.settings-card {
+  overflow: hidden;
+}
+
+// Título de tarjeta
+.card-title {
+  margin-top: 0;
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid rgba($blue-primary, 0.1);
+}
+
+// Grupo de configuraciones
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+// Elemento de configuración
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  
+  @include respond-to('md') {
+    align-items: center;
+  }
+}
+
+// Información de configuración
+.setting-info {
+  padding-right: $spacing-md;
+}
+
+// Nombre de configuración
+.setting-name {
+  font-weight: $font-weight-medium;
+  margin-bottom: 4px;
+}
+
+// Descripción de configuración
+.setting-description {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.6);
+}
+
+// Control de configuración
+.setting-control {
+  flex-shrink: 0;
+}
+
+// Toggle switch
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 26px;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    &:checked + .toggle-slider {
+      background-color: $orange-primary;
+      
+      &:before {
+        transform: translateX(26px);
+      }
+    }
+    
+    &:focus + .toggle-slider {
+      box-shadow: 0 0 1px $orange-primary;
+    }
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($blue-primary, 0.3);
+    transition: .4s;
+    border-radius: 34px;
+    
+    &:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+}
+
+// Acciones de tarjeta
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Detalles de cuenta
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+// Elemento de detalle
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+// Etiqueta de detalle
+.detail-label {
+  font-weight: $font-weight-medium;
+  color: rgba($blue-primary, 0.7);
+  
+  @include respond-to('md') {
+    flex-basis: 30%;
+  }
+}
+
+// Valor de detalle
+.detail-value {
+  @include respond-to('md') {
+    flex-basis: 70%;
+  }
+}
+
+// Acciones de cuenta
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  justify-content: flex-end;
+}
+
+// Tarjeta de peligro
+.danger-card {
+  border: 1px solid rgba(#DC3545, 0.2);
+}
+
+// Título de peligro
+.danger-title {
+  color: #DC3545;
+}
+
+// Descripción de peligro
+.danger-description {
+  margin-bottom: $spacing-md;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Confirmación de eliminación
+.delete-confirm {
+  background-color: rgba(#DC3545, 0.05);
+  border-radius: $border-radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+// Mensaje de confirmación
+.confirm-message {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+  
+  .confirm-icon {
+    color: #DC3545;
+    font-size: $font-size-lg;
+    flex-shrink: 0;
+  }
+  
+  p {
+    margin: 0;
+    color: rgba($blue-primary, 0.8);
+  }
+}
+
+// Acciones de confirmación
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+}
+
+// Acciones de peligro
+.danger-actions {
+  display: flex;
+  justify-content: flex-end;
+}

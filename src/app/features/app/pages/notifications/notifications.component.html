@@ -1,0 +1,113 @@
+<div class="notifications-page">
+    <header class="page-header">
+      <div class="header-content">
+        <h1>Notificaciones</h1>
+        
+        <!-- Botón para marcar todas como leídas -->
+        <app-button
+          *ngIf="hasUnreadNotifications()"
+          variant="tertiary"
+          size="sm"
+          (clicked)="markAllAsRead()"
+        >
+          Marcar todo como leído
+        </app-button>
+      </div>
+      
+      <!-- Contador de notificaciones -->
+      <div class="notification-counter" *ngIf="hasUnreadNotifications()">
+        <span>{{ getUnreadCount() }} no leídas</span>
+      </div>
+    </header>
+    
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="isLoading()">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando notificaciones...</p>
+    </div>
+    
+    <!-- Lista de notificaciones -->
+    <div class="notifications-list" *ngIf="!isLoading()">
+      <!-- Estado vacío -->
+      <div class="empty-state" *ngIf="notifications().length === 0">
+        <div class="empty-icon">
+          <i class="fa-solid fa-bell-slash"></i>
+        </div>
+        <p>No tienes notificaciones</p>
+        <app-button
+          variant="primary"
+          icon="compass"
+          routerLink="/app/explore"
+        >
+          Explorar
+        </app-button>
+      </div>
+      
+      <!-- Notificaciones -->
+      <app-card
+        *ngFor="let notification of notifications()"
+        variant="elevated"
+        padding="md"
+        class="notification-card"
+        [class.unread]="!notification.read"
+        [routerLink]="getNotificationRoute(notification)"
+      >
+        <div class="notification-content">
+          <!-- Icono de notificación -->
+          <div class="notification-icon" [ngClass]="getNotificationColor(notification.type)">
+            <i [class]="getNotificationIcon(notification.type)"></i>
+          </div>
+          
+          <!-- Avatar del usuario (si existe) -->
+          <div class="user-avatar" *ngIf="notification.fromUser">
+            <img [src]="notification.fromUser.image" [alt]="notification.fromUser.name">
+          </div>
+          
+          <!-- Contenido de la notificación -->
+          <div class="notification-text">
+            <!-- Usuario que realiza la acción -->
+            <span class="user-name" *ngIf="notification.fromUser">
+              {{ notification.fromUser.name }}
+            </span>
+            
+            <!-- Acción -->
+            <span class="notification-action">
+              {{ notification.content }}
+            </span>
+            
+            <!-- Objetivo de la acción -->
+            <span class="target-name" *ngIf="notification.targetName">
+              {{ notification.targetName }}
+            </span>
+            
+            <!-- Fecha -->
+            <div class="notification-date">
+              {{ formatNotificationDate(notification.createdAt) }}
+            </div>
+          </div>
+          
+          <!-- Botones de acción -->
+          <div class="notification-actions" (click)="$event.stopPropagation()">
+            <!-- Marcar como leída/no leída -->
+            <button 
+              class="action-button"
+              (click)="markAsRead(notification.id)"
+              *ngIf="!notification.read"
+            >
+              <i class="fa-solid fa-check"></i>
+            </button>
+            
+            <!-- Eliminar notificación -->
+            <button 
+              class="action-button delete-button"
+              (click)="removeNotification(notification.id)"
+            >
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>

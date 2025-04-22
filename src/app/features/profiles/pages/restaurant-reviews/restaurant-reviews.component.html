@@ -1,0 +1,223 @@
+<div class="restaurant-reviews">
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando información del restaurante...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error && !loading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error }}</p>
+      <app-button 
+        variant="primary" 
+        [routerLink]="['/profile', restaurantUsername]"
+      >
+        Volver al perfil
+      </app-button>
+    </div>
+    
+    <!-- Contenido de reseñas -->
+    <ng-container *ngIf="!loading && !error && isRestaurant">
+      <h1 class="section-title">Reseñas</h1>
+      
+      <!-- Resumen de reseñas -->
+      <div class="reviews-summary">
+        <app-card [variant]="'elevated'" [padding]="'md'">
+          <div class="summary-content">
+            <!-- Valoración promedio -->
+            <div class="average-rating">
+              <div class="big-rating">{{ reviewStats.average.toFixed(1) }}</div>
+              <div class="stars">
+                <i 
+                  *ngFor="let star of [1, 2, 3, 4, 5]"
+                  class="fa-star"
+                  [class.fa-solid]="star <= reviewStats.average"
+                  [class.fa-regular]="star > reviewStats.average"
+                ></i>
+              </div>
+              <div class="total-reviews">{{ reviewStats.total }} reseñas</div>
+            </div>
+            
+            <!-- Distribución de valoraciones -->
+            <div class="rating-bars">
+              <div class="rating-bar" *ngFor="let count of reviewStats.distribution.slice().reverse(); let i = index">
+                <div class="bar-label">{{ 5 - i }}</div>
+                <div class="bar-container">
+                  <div 
+                    class="bar-fill" 
+                    [style.width.%]="reviewStats.total ? (count / reviewStats.total) * 100 : 0"
+                  ></div>
+                </div>
+                <div class="bar-count">{{ count }}</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Botón para añadir reseña -->
+          <div class="add-review-button">
+            <app-button 
+              variant="primary" 
+              size="md"
+              icon="star"
+              (clicked)="toggleAddReview()"
+              *ngIf="!showAddReview"
+            >
+              Escribir una reseña
+            </app-button>
+          </div>
+        </app-card>
+      </div>
+      
+      <!-- Formulario de reseña -->
+      <div class="review-form-section" *ngIf="showAddReview">
+        <app-card [variant]="'elevated'" [padding]="'md'">
+          <h2 class="form-title">Valorar "{{ restaurantName }}"</h2>
+          
+          <div class="review-form">
+            <div class="rating-input">
+              <label>Tu valoración:</label>
+              <div class="rating-stars">
+                <i 
+                  *ngFor="let star of [1, 2, 3, 4, 5]"
+                  class="fa-star"
+                  [class.fa-solid]="star <= ratingValue"
+                  [class.fa-regular]="star > ratingValue"
+                  (click)="ratingValue = star"
+                ></i>
+              </div>
+            </div>
+            
+            <div class="comment-input">
+              <label for="review-comment">Tu comentario:</label>
+              <textarea 
+                id="review-comment" 
+                rows="4"
+                placeholder="Comparte tu experiencia en este restaurante..."
+                [(ngModel)]="reviewComment"
+              ></textarea>
+            </div>
+            
+            <div class="form-actions">
+              <app-button
+                variant="tertiary"
+                (clicked)="toggleAddReview()"
+              >
+                Cancelar
+              </app-button>
+              
+              <app-button
+                variant="primary"
+                [loading]="loadingAddReview"
+                [disabled]="!reviewComment.trim()"
+                (clicked)="submitReview()"
+              >
+                Publicar reseña
+              </app-button>
+            </div>
+          </div>
+        </app-card>
+      </div>
+      
+      <!-- Filtros de reseñas -->
+      <div class="reviews-filters">
+        <div class="filter-group">
+          <label>Ordenar por:</label>
+          <div class="sort-options">
+            <button 
+              class="sort-button" 
+              [class.active]="activeSortOption === 'recent'"
+              (click)="setSortOption('recent')"
+            >
+              Más recientes
+            </button>
+            <button 
+              class="sort-button" 
+              [class.active]="activeSortOption === 'rating-high'"
+              (click)="setSortOption('rating-high')"
+            >
+              Mayor valoración
+            </button>
+            <button 
+              class="sort-button" 
+              [class.active]="activeSortOption === 'rating-low'"
+              (click)="setSortOption('rating-low')"
+            >
+              Menor valoración
+            </button>
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <label>Filtrar por:</label>
+          <div class="rating-filters">
+            <button 
+              class="filter-button" 
+              [class.active]="activeRatingFilter === null"
+              (click)="setRatingFilter(null)"
+            >
+              Todas
+            </button>
+            <button 
+              *ngFor="let rating of [5, 4, 3, 2, 1]"
+              class="filter-button" 
+              [class.active]="activeRatingFilter === rating"
+              (click)="setRatingFilter(rating)"
+            >
+              {{ rating }} <i class="fa-solid fa-star"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Estado de carga de reseñas -->
+      <div class="loading-reviews" *ngIf="loadingReviews">
+        <div class="loading-spinner">
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </div>
+        <p>Cargando reseñas...</p>
+      </div>
+      
+      <!-- Sin reseñas -->
+      <div class="no-reviews" *ngIf="!loadingReviews && reviewStats.total === 0">
+        <div class="no-reviews-icon">
+          <i class="fa-regular fa-comment"></i>
+        </div>
+        <p>Aún no hay reseñas para este restaurante.</p>
+        
+        <app-button
+          variant="primary"
+          icon="star"
+          (clicked)="toggleAddReview()"
+          *ngIf="!showAddReview"
+        >
+          Sé el primero en valorarlo
+        </app-button>
+      </div>
+      
+      <!-- Lista de reseñas -->
+      <div class="reviews-list" *ngIf="!loadingReviews && reviews.length > 0">
+        <app-review-card
+          *ngFor="let review of reviews"
+          [review]="review"
+          (likeClicked)="onReviewLike($event)"
+          (replyClicked)="onReviewReply($event)"
+        ></app-review-card>
+      </div>
+      
+      <!-- Botón para volver -->
+      <div class="action-buttons">
+        <app-button 
+          [variant]="'primary'" 
+          [icon]="'arrow-left'"
+          [routerLink]="['/profile', restaurantUsername]"
+        >
+          Volver al perfil
+        </app-button>
+      </div>
+    </ng-container>
+  </div>

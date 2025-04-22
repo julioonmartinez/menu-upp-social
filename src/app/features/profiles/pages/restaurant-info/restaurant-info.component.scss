@@ -1,0 +1,264 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de información del restaurante
+.restaurant-info {
+  padding-bottom: $spacing-xl;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Título de sección
+.section-title {
+  margin-bottom: $spacing-lg;
+  font-size: $font-size-xl;
+  color: $blue-primary;
+}
+
+// Título de subsección
+.subsection-title {
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+  font-weight: $font-weight-semibold;
+}
+
+// Sección de información
+.info-section {
+  margin-bottom: $spacing-lg;
+}
+
+// Sección con grid
+.info-section-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Contenido de descripción
+.description-content {
+  p {
+    margin: 0;
+    line-height: 1.6;
+    color: $blue-primary;
+  }
+}
+
+// Contenido de horario
+.schedule-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  
+  @include respond-to('sm') {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Día del horario
+.schedule-day {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-sm;
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-sm;
+  border-left: 3px solid rgba($blue-primary, 0.2);
+  
+  &:nth-child(odd) {
+    background-color: rgba($light-gray, 0.2);
+  }
+}
+
+// Nombre del día
+.day-name {
+  font-weight: $font-weight-semibold;
+  margin-bottom: $spacing-xs;
+  color: $blue-primary;
+}
+
+// Horas del día
+.day-hours {
+  font-weight: $font-weight-medium;
+  color: $orange-primary;
+}
+
+// Mensaje de cerrado
+.day-closed {
+  color: rgba($blue-primary, 0.5);
+  font-style: italic;
+}
+
+// Contenido de ubicación
+.location-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+// Información de dirección
+.address-info {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-sm;
+}
+
+// Icono de dirección
+.address-icon {
+  font-size: $font-size-lg;
+  color: $orange-primary;
+  margin-top: 2px;
+}
+
+// Texto de dirección
+.address-text {
+  line-height: 1.5;
+  flex: 1;
+}
+
+// Contenido de características
+.features-content {
+  
+}
+
+// Lista de características
+.features-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-sm;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Ítem de característica
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+// Icono de característica
+.feature-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: $border-radius-round;
+  background-color: rgba($orange-primary, 0.1);
+  color: $orange-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+}
+
+// Texto de característica
+.feature-text {
+  font-size: $font-size-sm;
+}
+
+// Contenido de tipo de cocina
+.cuisine-content {
+  
+}
+
+// Tipos de cocina
+.cuisine-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+// Etiqueta de tipo de cocina
+.cuisine-tag {
+  display: inline-block;
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($light-gray, 0.2);
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  color: $blue-primary;
+}
+
+// Contenido de rango de precios
+.price-content {
+  
+}
+
+// Rango de precios
+.price-range {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  
+  @include respond-to('sm') {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+}
+
+// Etiqueta de precio
+.price-label {
+  font-weight: $font-weight-medium;
+  color: $blue-primary;
+}
+
+// Valor de precio
+.price-value {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $orange-primary;
+}
+
+// Botones de acción
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: $spacing-lg;
+}

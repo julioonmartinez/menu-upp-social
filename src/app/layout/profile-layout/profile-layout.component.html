@@ -81,10 +81,21 @@
       <nav class="profile-nav" *ngIf="!isLoading">
         <!-- Navegación para restaurantes -->
         <ng-container *ngIf="isRestaurant">
-          <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
-          <a routerLink="/profile/{{ username }}/menu" routerLinkActive="active">Menú</a>
-          <a routerLink="/profile/{{ username }}/info" routerLinkActive="active">Información</a>
-          <a routerLink="/profile/{{ username }}/reviews" routerLinkActive="active">Reseñas</a>
+          <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="fa-solid fa-home"></i>
+            Inicio</a>
+          <a routerLink="/profile/{{ username }}/menu" routerLinkActive="active">
+            <i class="fa-solid fa-utensils"></i>
+            Menú</a>
+          <a routerLink="/profile/{{ username }}/info" routerLinkActive="active">
+            <i class="fa-solid fa-circle-info"></i>
+            Información</a>
+          <a routerLink="/profile/{{ username }}/reviews" routerLinkActive="active">
+            <i class="fa-solid fa-star"></i>
+            Reseñas</a>
+            <a routerLink="/profile/{{ username }}/links" routerLinkActive="active">
+              <i class="fa-solid fa-link"></i>
+          Enlaces</a>
         </ng-container>
         
         <!-- Navegación para usuarios -->

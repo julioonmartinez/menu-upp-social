@@ -1,0 +1,231 @@
+<div class="passport-page">
+    <header class="page-header">
+      <h1>Mi Pasaporte Gastronómico</h1>
+      <p class="page-description">
+        Colecciona insignias, completa rutas y aumenta tu nivel explorando nuevos sabores.
+        Cuantos más restaurantes visites y reseñas escribas, más progresarás en tu aventura culinaria.
+      </p>
+    </header>
+    
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando tu pasaporte gastronómico...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error && !isLoading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error }}</p>
+      <app-button 
+        variant="primary" 
+        (clicked)="loadBadges()"
+      >
+        Reintentar
+      </app-button>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="passport-content" *ngIf="!isLoading && !error">
+      <!-- Tarjeta de nivel y estadísticas -->
+      <app-card variant="elevated" padding="md" class="user-stats-card">
+        <div class="card-header">
+          <h2 class="card-title">Nivel {{ userLevel }}</h2>
+          <div class="level-badge">{{ userLevel }}</div>
+        </div>
+        
+        <!-- Barra de progreso -->
+        <div class="experience-progress">
+          <div class="progress-label">
+            <span>Experiencia</span>
+            <span>{{ userExperience }} / {{ nextLevelExperience }} XP</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-bar-fill" [style.width.%]="experienceProgress"></div>
+          </div>
+        </div>
+        
+        <!-- Estadísticas de usuario -->
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+            <div class="stat-value">{{ visits }}</div>
+            <div class="stat-label">Restaurantes</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="stat-value">{{ reviews }}</div>
+            <div class="stat-label">Reseñas</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-route"></i>
+            </div>
+            <div class="stat-value">{{ routes }}</div>
+            <div class="stat-label">Rutas</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="stat-value">{{ badges.length }}</div>
+            <div class="stat-label">Insignias</div>
+          </div>
+        </div>
+      </app-card>
+      
+      <!-- Sección de insignias -->
+      <section class="badges-section">
+        <h2 class="section-title">Mis Insignias</h2>
+        
+        <!-- Filtro de categorías -->
+        <div class="category-filter">
+          <button 
+            class="category-button" 
+            [class.active]="activeCategory === 'all'"
+            (click)="filterByCategory('all')"
+          >
+            Todas
+          </button>
+          
+          <button 
+            *ngFor="let category of categories"
+            class="category-button"
+            [class.active]="activeCategory === category"
+            (click)="filterByCategory(category)"
+          >
+            {{ category | titlecase }}
+          </button>
+        </div>
+        
+        <!-- Grid de insignias -->
+        <div class="badges-grid">
+          <app-card 
+            *ngFor="let badge of filteredBadges"
+            variant="elevated" 
+            padding="sm" 
+            class="badge-card"
+            [class.badge-locked]="!isBadgeUnlocked(badge)"
+          >
+            <div class="badge-content">
+              <div class="badge-icon">
+                <img [src]="badge.imageUrl" [alt]="badge.name">
+                <div class="lock-icon" *ngIf="!isBadgeUnlocked(badge)">
+                  <i class="fa-solid fa-lock"></i>
+                </div>
+              </div>
+              
+              <div class="badge-info">
+                <h3 class="badge-name">{{ badge.name }}</h3>
+                <p class="badge-description">{{ badge.description }}</p>
+                
+                <div class="badge-date" *ngIf="isBadgeUnlocked(badge)">
+                  Conseguida: {{ formatDate(badge.dateEarned) }}
+                </div>
+                
+                <div class="badge-category">
+                  <span class="category-tag">{{ badge.category | titlecase }}</span>
+                </div>
+              </div>
+            </div>
+          </app-card>
+        </div>
+        
+        <!-- Estado vacío -->
+        <div class="empty-state" *ngIf="filteredBadges.length === 0">
+          <div class="empty-icon">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <p>No tienes insignias en esta categoría todavía</p>
+          <app-button 
+            variant="primary" 
+            icon="compass" 
+            routerLink="/app/explore"
+          >
+            Explorar Restaurantes
+          </app-button>
+        </div>
+      </section>
+      
+      <!-- Próximos desafíos -->
+      <section class="challenges-section">
+        <h2 class="section-title">Próximos Desafíos</h2>
+        
+        <div class="challenges-grid">
+          <app-card variant="elevated" padding="md" class="challenge-card">
+            <div class="challenge-content">
+              <div class="challenge-icon">
+                <i class="fa-solid fa-utensils"></i>
+              </div>
+              <div class="challenge-info">
+                <h3 class="challenge-name">Explorador Urbano</h3>
+                <p class="challenge-description">Visita 5 restaurantes más para conseguir esta insignia.</p>
+                <div class="challenge-progress">
+                  <div class="progress-label">
+                    <span>Progreso</span>
+                    <span>{{ visits }}/20</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-bar-fill" [style.width.%]="visits*5"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </app-card>
+          
+          <app-card variant="elevated" padding="md" class="challenge-card">
+            <div class="challenge-content">
+              <div class="challenge-icon">
+                <i class="fa-solid fa-pen"></i>
+              </div>
+              <div class="challenge-info">
+                <h3 class="challenge-name">Crítico Experto</h3>
+                <p class="challenge-description">Escribe 8 reseñas más para conseguir esta insignia.</p>
+                <div class="challenge-progress">
+                  <div class="progress-label">
+                    <span>Progreso</span>
+                    <span>{{ reviews }}/20</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-bar-fill" [style.width.%]="reviews*5"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </app-card>
+          
+          <app-card variant="elevated" padding="md" class="challenge-card">
+            <div class="challenge-content">
+              <div class="challenge-icon">
+                <i class="fa-solid fa-route"></i>
+              </div>
+              <div class="challenge-info">
+                <h3 class="challenge-name">Creador de Rutas</h3>
+                <p class="challenge-description">Crea 2 rutas más para conseguir esta insignia.</p>
+                <div class="challenge-progress">
+                  <div class="progress-label">
+                    <span>Progreso</span>
+                    <span>{{ routes }}/5</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-bar-fill" [style.width.%]="routes*20"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </app-card>
+        </div>
+      </section>
+    </div>
+  </div>

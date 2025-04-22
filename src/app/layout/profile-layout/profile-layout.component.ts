@@ -32,6 +32,7 @@ export class ProfileLayoutComponent implements OnInit {
     // Obtener el username de la URL
     this.route.params.subscribe(params => {
       this.username = params['username'];
+      
       this.loadProfileData();
     });
   }
@@ -41,9 +42,10 @@ export class ProfileLayoutComponent implements OnInit {
    */
   loadProfileData(): void {
     this.isLoading = true;
-    
+    console.log(this.username)
     // Intentar cargar como restaurante primero
     this.mockDataService.getRestaurantByUsername(this.username).subscribe(restaurant => {
+      console.log(restaurant)
       if (restaurant) {
         this.restaurant = restaurant;
         this.isRestaurant = true;

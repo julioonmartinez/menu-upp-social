@@ -1,0 +1,433 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de pasaporte
+.passport-page {
+  padding-bottom: $spacing-xl;
+}
+
+// Encabezado de página
+.page-header {
+  margin-bottom: $spacing-lg;
+  
+  h1 {
+    margin-bottom: $spacing-xs;
+  }
+}
+
+// Descripción de la página
+.page-description {
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-md;
+  max-width: 800px;
+  line-height: 1.5;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Tarjeta de estadísticas de usuario
+.user-stats-card {
+  margin-bottom: $spacing-lg;
+}
+
+// Encabezado de tarjeta
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+// Título de tarjeta
+.card-title {
+  margin: 0;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+}
+
+// Badge de nivel
+.level-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $orange-primary;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+}
+
+// Progreso de experiencia
+.experience-progress {
+  margin-bottom: $spacing-lg;
+}
+
+// Etiqueta de progreso
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-sm;
+  margin-bottom: 4px;
+}
+
+// Barra de progreso
+.progress-bar {
+  height: 8px;
+  background-color: rgba($light-gray, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+// Relleno de la barra de progreso
+.progress-bar-fill {
+  height: 100%;
+  background-color: $orange-primary;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+// Grid de estadísticas
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Elemento de estadística
+.stat-item {
+  text-align: center;
+  padding: $spacing-sm;
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-md;
+  transition: all $transition-normal;
+  
+  &:hover {
+    background-color: rgba($orange-primary, 0.05);
+    transform: translateY(-2px);
+  }
+}
+
+// Icono de estadística
+.stat-icon {
+  font-size: 24px;
+  color: $orange-primary;
+  margin-bottom: $spacing-sm;
+}
+
+// Valor de estadística
+.stat-value {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $blue-primary;
+  margin-bottom: $spacing-xs;
+}
+
+// Etiqueta de estadística
+.stat-label {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Sección de insignias
+.badges-section {
+  margin-bottom: $spacing-xl;
+}
+
+// Título de sección
+.section-title {
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+}
+
+// Filtro de categorías
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-md;
+  overflow-x: auto;
+  padding-bottom: $spacing-xs;
+  
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba($light-gray, 0.3);
+    border-radius: 2px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($blue-primary, 0.2);
+    border-radius: 2px;
+  }
+}
+
+// Botón de categoría
+.category-button {
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($light-gray, 0.3);
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+  color: $blue-primary;
+  cursor: pointer;
+  transition: all $transition-fast;
+  white-space: nowrap;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.5);
+  }
+  
+  &.active {
+    background-color: $orange-primary;
+    color: $white;
+  }
+}
+
+// Grid de insignias
+.badges-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Tarjeta de insignia
+.badge-card {
+  transition: all $transition-normal;
+  
+  &:hover {
+    transform: translateY(-3px);
+  }
+  
+  &.badge-locked {
+    opacity: 0.7;
+    
+    .badge-icon {
+      filter: grayscale(100%);
+    }
+  }
+}
+
+// Contenido de insignia
+.badge-content {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+// Icono de insignia
+.badge-icon {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  position: relative;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+// Icono de candado
+.lock-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($blue-primary, 0.6);
+  border-radius: $border-radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  font-size: $font-size-lg;
+}
+
+// Información de insignia
+.badge-info {
+  flex: 1;
+  min-width: 0;
+}
+
+// Nombre de insignia
+.badge-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+}
+
+// Descripción de insignia
+.badge-description {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  margin-bottom: $spacing-xs;
+}
+
+// Fecha de insignia
+.badge-date {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.5);
+  margin-bottom: $spacing-xs;
+}
+
+// Categoría de insignia
+.badge-category {
+  display: flex;
+  
+  .category-tag {
+    display: inline-block;
+    font-size: $font-size-xs;
+    background-color: rgba($light-gray, 0.3);
+    color: rgba($blue-primary, 0.7);
+    padding: 2px 6px;
+    border-radius: $border-radius-sm;
+  }
+}
+
+// Estado vacío
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+}
+
+// Icono de estado vacío
+.empty-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Sección de desafíos
+.challenges-section {
+  margin-bottom: $spacing-xl;
+}
+
+// Grid de desafíos
+.challenges-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Tarjeta de desafío
+.challenge-card {
+  transition: transform $transition-normal;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Contenido de desafío
+.challenge-content {
+  display: flex;
+  gap: $spacing-md;
+}
+
+// Icono de desafío
+.challenge-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: $border-radius-round;
+  background-color: rgba($orange-primary, 0.1);
+  color: $orange-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-md;
+  flex-shrink: 0;
+}
+
+// Información de desafío
+.challenge-info {
+  flex: 1;
+}
+
+// Nombre de desafío
+.challenge-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+}
+
+// Descripción de desafío
+.challenge-description {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  margin-bottom: $spacing-sm;
+  min-height: 2.8em;
+}
+
+// Progreso de desafío
+.challenge-progress {
+  .progress-label {
+    margin-bottom: 4px;
+  }
+  
+  .progress-bar {
+    height: 6px;
+  }
+}

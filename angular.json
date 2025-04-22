@@ -29,7 +29,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss",
@@ -37,6 +38,11 @@
               "@fortawesome/fontawesome-free/css/all.min.css"
 
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": [],
             "server": "src/main.server.ts",
             "outputMode": "server",

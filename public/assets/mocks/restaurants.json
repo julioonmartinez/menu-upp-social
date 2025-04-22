@@ -5,11 +5,11 @@
       "description": "Especialistas en carnes a la brasa y productos de temporada. En nuestro restaurante disfrutarás de los mejores cortes de carne en un ambiente acogedor y con un servicio excepcional.",
       "username": "labraseria",
       "logo": {
-        "url": "/assets/images/restaurants/logo1.jpg",
+        "url": "assets/images/restaurants/logo1.jpg",
         "alt": "Logo La Brasería Gourmet"
       },
       "coverImage": {
-        "url": "/assets/images/restaurants/cover1.jpg",
+        "url": "assets/images/restaurants/cover1.jpg",
         "alt": "Interior La Brasería Gourmet"
       },
       "address": {

@@ -118,6 +118,22 @@
   }
 }
 
+// Información del perfil
+.profile-info {
+  // grid-area: info;
+  background-color: $white;
+  padding: $spacing-md;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  margin-bottom: $spacing-md;
+}
+
+.profile-description {
+  margin: 0;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  color: rgba($blue-primary, 0.8);
+}
 // Sección de platos destacados
 .featured-dishes-section {
   @include respond-to('md') {

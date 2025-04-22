@@ -1,0 +1,419 @@
+[
+    {
+      "id": "route1",
+      "name": "Ruta de tapas por Madrid",
+      "description": "Un recorrido por los mejores bares de tapas del centro de Madrid. Descubre la auténtica cocina española a través de una experiencia gastronómica única.",
+      "creatorId": "user2",
+      "creatorName": "Carlos García",
+      "creatorImage": {
+        "url": "assets/images/users/profile2.jpg",
+        "alt": "Carlos García"
+      },
+      "coverImage": {
+        "url": "assets/images/routes/route1.jpg",
+        "alt": "Ruta de tapas por Madrid"
+      },
+      "stops": [
+        {
+          "id": "stop1",
+          "order": 1,
+          "restaurantId": "rest1",
+          "restaurantName": "La Brasería Gourmet",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo1.jpg",
+            "alt": "La Brasería Gourmet"
+          },
+          "restaurantAddress": "Calle Gran Vía, 45, Madrid",
+          "dishId": "dish1",
+          "dishName": "Croquetas caseras de jamón ibérico",
+          "dishImage": {
+            "url": "assets/images/dishes/croquetas_main.jpg",
+            "alt": "Croquetas de jamón ibérico"
+          },
+          "dishPrice": 9.50,
+          "notes": "No te pierdas estas cremosas croquetas, son la especialidad de la casa."
+        },
+        {
+          "id": "stop2",
+          "order": 2,
+          "restaurantId": "rest3",
+          "restaurantName": "Trattoria Italiana",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo3.jpg",
+            "alt": "Trattoria Italiana"
+          },
+          "restaurantAddress": "Calle Mayor, 25, Madrid",
+          "dishId": null,
+          "notes": "Aunque es un restaurante italiano, tienen unas tapas de fusión extraordinarias. Pregunta por la recomendación del día."
+        },
+        {
+          "id": "stop3",
+          "order": 3,
+          "restaurantId": "rest2",
+          "restaurantName": "Sushi Fusion",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo2.jpg",
+            "alt": "Sushi Fusion"
+          },
+          "restaurantAddress": "Calle de Serrano, 78, Madrid",
+          "dishId": "dish11",
+          "dishName": "Nigiri de salmón",
+          "dishImage": {
+            "url": "assets/images/dishes/nigiri_main.jpg",
+            "alt": "Nigiri de salmón"
+          },
+          "dishPrice": 3.50,
+          "notes": "Para cerrar la ruta, un toque internacional con este exquisito nigiri de salmón."
+        }
+      ],
+      "tags": ["Tapas", "Española", "Centro", "Internacional"],
+      "difficulty": "easy",
+      "estimatedTime": 120,
+      "distance": 1.2,
+      "likes": 34,
+      "followers": 28,
+      "completed": 15,
+      "isPublic": true,
+      "city": "Madrid",
+      "country": "España",
+      "totalRestaurants": 3,
+      "totalDishes": 2,
+      "avgRating": 4.7,
+      "category": "tapas",
+      "createdAt": "2023-04-15T10:30:00Z",
+      "updatedAt": "2023-06-20T14:45:00Z",
+      "completionStatus": {
+        "isStarted": true,
+        "completedStops": 1,
+        "totalStops": 3,
+        "progress": 33,
+        "startedDate": "2023-06-21T19:30:00Z",
+        "lastVisitDate": "2023-06-21T19:30:00Z"
+      }
+    },
+    {
+      "id": "route2",
+      "name": "Ruta de sushi en Madrid",
+      "description": "Descubre los mejores lugares para degustar sushi auténtico en Madrid. Una experiencia que te transportará al Japón más tradicional sin salir de la ciudad.",
+      "creatorId": "user1",
+      "creatorName": "María López",
+      "creatorImage": {
+        "url": "assets/images/users/profile1.jpg",
+        "alt": "María López"
+      },
+      "coverImage": {
+        "url": "assets/images/routes/route2.jpg",
+        "alt": "Ruta de sushi en Madrid"
+      },
+      "stops": [
+        {
+          "id": "stop4",
+          "order": 1,
+          "restaurantId": "rest2",
+          "restaurantName": "Sushi Fusion",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo2.jpg",
+            "alt": "Sushi Fusion"
+          },
+          "restaurantAddress": "Calle de Serrano, 78, Madrid",
+          "dishId": "dish11",
+          "dishName": "Nigiri de salmón",
+          "dishImage": {
+            "url": "assets/images/dishes/nigiri_main.jpg",
+            "alt": "Nigiri de salmón"
+          },
+          "dishPrice": 3.50,
+          "notes": "Imprescindible empezar por este clásico para apreciar la calidad del pescado."
+        },
+        {
+          "id": "stop5",
+          "order": 2,
+          "restaurantId": "rest2",
+          "restaurantName": "Sushi Fusion",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo2.jpg",
+            "alt": "Sushi Fusion"
+          },
+          "restaurantAddress": "Calle de Serrano, 78, Madrid",
+          "dishId": "dish12",
+          "dishName": "Maki California",
+          "dishImage": {
+            "url": "assets/images/dishes/maki_main.jpg",
+            "alt": "Maki California"
+          },
+          "dishPrice": 8.90,
+          "notes": "Una opción más occidental pero muy sabrosa."
+        }
+      ],
+      "tags": ["Japonesa", "Sushi", "Gourmet"],
+      "difficulty": "medium",
+      "estimatedTime": 90,
+      "distance": 0.5,
+      "likes": 19,
+      "followers": 13,
+      "completed": 8,
+      "isPublic": true,
+      "city": "Madrid",
+      "country": "España",
+      "totalRestaurants": 1,
+      "totalDishes": 2,
+      "avgRating": 4.5,
+      "category": "internacional",
+      "createdAt": "2023-05-10T15:45:00Z",
+      "updatedAt": "2023-06-18T11:30:00Z",
+      "completionStatus": {
+        "isStarted": true,
+        "completedStops": 2,
+        "totalStops": 2,
+        "progress": 100,
+        "startedDate": "2023-06-15T20:15:00Z",
+        "lastVisitDate": "2023-06-16T21:20:00Z",
+        "completedDate": "2023-06-16T21:20:00Z"
+      }
+    },
+    {
+      "id": "route3",
+      "name": "Tour gastro italiano en Barcelona",
+      "description": "Un recorrido por los mejores restaurantes italianos de Barcelona. Pasta fresca, pizzas artesanales y postres tradicionales italianos te esperan en esta ruta.",
+      "creatorId": "user3",
+      "creatorName": "Ana Martínez",
+      "creatorImage": {
+        "url": "assets/images/users/profile3.jpg",
+        "alt": "Ana Martínez"
+      },
+      "coverImage": {
+        "url": "assets/images/routes/route3.jpg",
+        "alt": "Tour gastro italiano en Barcelona"
+      },
+      "stops": [
+        {
+          "id": "stop6",
+          "order": 1,
+          "restaurantId": "rest3",
+          "restaurantName": "Trattoria Italiana",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo3.jpg",
+            "alt": "Trattoria Italiana"
+          },
+          "restaurantAddress": "Calle Mayor, 25, Madrid",
+          "dishId": "dish20",
+          "dishName": "Tagliatelle al ragù bolognese",
+          "dishImage": {
+            "url": "assets/images/dishes/pasta_main.jpg",
+            "alt": "Tagliatelle al ragù bolognese"
+          },
+          "dishPrice": 16.50,
+          "notes": "Pasta fresca hecha a mano con salsa boloñesa tradicional. Un clásico imperdible."
+        },
+        {
+          "id": "stop7",
+          "order": 2,
+          "restaurantId": "rest3",
+          "restaurantName": "Trattoria Italiana",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo3.jpg",
+            "alt": "Trattoria Italiana"
+          },
+          "restaurantAddress": "Calle Mayor, 25, Madrid",
+          "dishId": "dish23",
+          "dishName": "Pizza Margherita",
+          "dishImage": {
+            "url": "assets/images/dishes/pizza_main.jpg",
+            "alt": "Pizza Margherita"
+          },
+          "dishPrice": 12.50,
+          "notes": "La clásica pizza italiana con masa fina y crujiente."
+        },
+        {
+          "id": "stop8",
+          "order": 3,
+          "restaurantId": "rest3",
+          "restaurantName": "Trattoria Italiana",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo3.jpg",
+            "alt": "Trattoria Italiana"
+          },
+          "restaurantAddress": "Calle Mayor, 25, Madrid",
+          "dishId": "dish26",
+          "dishName": "Tiramisú",
+          "dishImage": {
+            "url": "assets/images/dishes/tiramisu_main.jpg",
+            "alt": "Tiramisú"
+          },
+          "dishPrice": 7.50,
+          "notes": "El postre italiano por excelencia, elaborado según la receta tradicional."
+        }
+      ],
+      "tags": ["Italiana", "Pasta", "Pizza", "Postres"],
+      "difficulty": "medium",
+      "estimatedTime": 150,
+      "distance": 0.2,
+      "likes": 27,
+      "followers": 21,
+      "completed": 12,
+      "isPublic": true,
+      "city": "Barcelona",
+      "country": "España",
+      "totalRestaurants": 1,
+      "totalDishes": 3,
+      "avgRating": 4.3,
+      "category": "italiana",
+      "createdAt": "2023-03-20T12:15:00Z",
+      "updatedAt": "2023-06-10T09:20:00Z"
+    },
+    {
+      "id": "route4",
+      "name": "Ruta de vinos y tapas en Sevilla",
+      "description": "Disfruta de la combinación perfecta entre los mejores vinos andaluces y tapas tradicionales sevillanas. Un recorrido por las tabernas con más solera de la ciudad.",
+      "creatorId": "user2",
+      "creatorName": "Carlos García",
+      "creatorImage": {
+        "url": "assets/images/users/profile2.jpg",
+        "alt": "Carlos García"
+      },
+      "coverImage": {
+        "url": "assets/images/routes/route4.jpg",
+        "alt": "Ruta de vinos y tapas en Sevilla"
+      },
+      "stops": [
+        {
+          "id": "stop9",
+          "order": 1,
+          "restaurantId": "rest1",
+          "restaurantName": "La Brasería Gourmet",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo1.jpg",
+            "alt": "La Brasería Gourmet"
+          },
+          "restaurantAddress": "Calle Gran Vía, 45, Madrid",
+          "dishId": "dish1",
+          "dishName": "Croquetas caseras de jamón ibérico",
+          "dishImage": {
+            "url": "assets/images/dishes/croquetas_main.jpg",
+            "alt": "Croquetas de jamón ibérico"
+          },
+          "dishPrice": 9.50,
+          "notes": "Acompañadas de una copa de fino jerezano."
+        },
+        {
+          "id": "stop10",
+          "order": 2,
+          "restaurantId": "rest1",
+          "restaurantName": "La Brasería Gourmet",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo1.jpg",
+            "alt": "La Brasería Gourmet"
+          },
+          "restaurantAddress": "Calle Gran Vía, 45, Madrid",
+          "dishId": "dish2",
+          "dishName": "Tabla de quesos artesanos",
+          "dishImage": {
+            "url": "assets/images/dishes/quesos_main.jpg",
+            "alt": "Tabla de quesos artesanos"
+          },
+          "dishPrice": 14.80,
+          "notes": "Perfecta con un vino tinto de la tierra."
+        }
+      ],
+      "tags": ["Vinos", "Tapas", "Andalucía", "Tradicional"],
+      "difficulty": "easy",
+      "estimatedTime": 100,
+      "distance": 0.8,
+      "likes": 32,
+      "followers": 24,
+      "completed": 18,
+      "isPublic": true,
+      "city": "Sevilla",
+      "country": "España",
+      "totalRestaurants": 1,
+      "totalDishes": 2,
+      "avgRating": 4.6,
+      "category": "tapas",
+      "createdAt": "2023-02-05T18:30:00Z",
+      "updatedAt": "2023-06-15T16:40:00Z"
+    },
+    {
+      "id": "route5",
+      "name": "Ruta de alta cocina en Valencia",
+      "description": "Una experiencia gastronómica de alto nivel por los restaurantes más innovadores de Valencia. Cocina de autor con toques valencianos tradicionales.",
+      "creatorId": "user1",
+      "creatorName": "María López",
+      "creatorImage": {
+        "url": "assets/images/users/profile1.jpg",
+        "alt": "María López"
+      },
+      "coverImage": {
+        "url": "assets/images/routes/route5.jpg",
+        "alt": "Ruta de alta cocina en Valencia"
+      },
+      "stops": [
+        {
+          "id": "stop11",
+          "order": 1,
+          "restaurantId": "rest1",
+          "restaurantName": "La Brasería Gourmet",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo1.jpg",
+            "alt": "La Brasería Gourmet"
+          },
+          "restaurantAddress": "Calle Gran Vía, 45, Madrid",
+          "dishId": null,
+          "notes": "Comenzamos con un aperitivo en la barra. Pide la recomendación del chef."
+        },
+        {
+          "id": "stop12",
+          "order": 2,
+          "restaurantId": "rest3",
+          "restaurantName": "Trattoria Italiana",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo3.jpg",
+            "alt": "Trattoria Italiana"
+          },
+          "restaurantAddress": "Calle Mayor, 25, Madrid",
+          "dishId": "dish20",
+          "dishName": "Tagliatelle al ragù bolognese",
+          "dishImage": {
+            "url": "assets/images/dishes/pasta_main.jpg",
+            "alt": "Tagliatelle al ragù bolognese"
+          },
+          "dishPrice": 16.50,
+          "notes": "Primera parada, una versión modernizada del clásico italiano."
+        },
+        {
+          "id": "stop13",
+          "order": 3,
+          "restaurantId": "rest2",
+          "restaurantName": "Sushi Fusion",
+          "restaurantImage": {
+            "url": "assets/images/restaurants/logo2.jpg",
+            "alt": "Sushi Fusion"
+          },
+          "restaurantAddress": "Calle de Serrano, 78, Madrid",
+          "dishId": "dish11",
+          "dishName": "Nigiri de salmón",
+          "dishImage": {
+            "url": "assets/images/dishes/nigiri_main.jpg",
+            "alt": "Nigiri de salmón"
+          },
+          "dishPrice": 3.50,
+          "notes": "Para finalizar, un postre de autor inspirado en técnicas japonesas."
+        }
+      ],
+      "tags": ["Gourmet", "Alta cocina", "Innovación", "Degustación"],
+      "difficulty": "hard",
+      "estimatedTime": 180,
+      "distance": 1.5,
+      "likes": 21,
+      "followers": 15,
+      "completed": 7,
+      "isPublic": true,
+      "city": "Valencia",
+      "country": "España",
+      "totalRestaurants": 3,
+      "totalDishes": 2,
+      "avgRating": 4.9,
+      "category": "gourmet",
+      "createdAt": "2023-04-30T19:45:00Z",
+      "updatedAt": "2023-06-22T17:30:00Z"
+    }
+  ]

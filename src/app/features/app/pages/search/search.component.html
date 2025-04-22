@@ -1,0 +1,207 @@
+<div class="search-page">
+    <header class="page-header">
+      <h1>Buscar</h1>
+      <p class="page-description">
+        Encuentra restaurantes, platos y rutas gastronómicas de tu interés.
+      </p>
+    </header>
+    
+    <!-- Formulario de búsqueda -->
+    <div class="search-form">
+      <div class="search-input-container">
+        <div class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Buscar restaurantes, platos, rutas..." 
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+        >
+        
+        <button class="clear-button" *ngIf="searchQuery().length > 0" (click)="clearSearch()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      
+      <app-button 
+        variant="primary" 
+        icon="magnifying-glass"
+        [loading]="isSearching()"
+        (clicked)="onSearch()"
+      >
+        Buscar
+      </app-button>
+    </div>
+    
+    <!-- Filtros de búsqueda -->
+    <div class="search-filters">
+      <button 
+        class="filter-button" 
+        [class.active]="isSearchTypeActive('all')"
+        (click)="setSearchType('all')"
+      >
+        <i class="fa-solid fa-bars"></i>
+        <span>Todo</span>
+      </button>
+      
+      <button 
+        class="filter-button" 
+        [class.active]="isSearchTypeActive('restaurants')"
+        (click)="setSearchType('restaurants')"
+      >
+        <i class="fa-solid fa-store"></i>
+        <span>Restaurantes</span>
+      </button>
+      
+      <button 
+        class="filter-button" 
+        [class.active]="isSearchTypeActive('dishes')"
+        (click)="setSearchType('dishes')"
+      >
+        <i class="fa-solid fa-utensils"></i>
+        <span>Platos</span>
+      </button>
+      
+      <button 
+        class="filter-button" 
+        [class.active]="isSearchTypeActive('routes')"
+        (click)="setSearchType('routes')"
+      >
+        <i class="fa-solid fa-route"></i>
+        <span>Rutas</span>
+      </button>
+    </div>
+    
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="isSearching()">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Buscando resultados...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error() && !isSearching()">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error() }}</p>
+      <app-button 
+        variant="primary" 
+        (clicked)="onSearch()"
+      >
+        Reintentar
+      </app-button>
+    </div>
+    
+    <!-- Estado inicial (sin búsqueda) -->
+    <div class="initial-state" *ngIf="!hasSearched() && !isSearching()">
+      <div class="initial-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <p>Busca restaurantes, platos o rutas gastronómicas que te interesen</p>
+    </div>
+    
+    <!-- Estado sin resultados -->
+    <div class="no-results-state" *ngIf="hasSearched() && !isSearching() && !hasResults && !error()">
+      <div class="no-results-icon">
+        <i class="fa-solid fa-face-frown"></i>
+      </div>
+      <p>No se encontraron resultados para "<strong>{{ searchQuery() }}</strong>"</p>
+      <p class="no-results-suggestion">Intenta con otros términos o filtros de búsqueda</p>
+    </div>
+    
+    <!-- Resultados de búsqueda -->
+    <div class="search-results" *ngIf="hasSearched() && !isSearching() && hasResults">
+      <!-- Restaurantes -->
+      <section class="results-section" *ngIf="restaurants().length > 0 && (searchType() === 'all' || searchType() === 'restaurants')">
+        <h2 class="section-title">Restaurantes</h2>
+        
+        <div class="restaurant-results">
+          <app-card 
+            *ngFor="let restaurant of restaurants()"
+            variant="elevated"
+            [hoverable]="true"
+            padding="md"
+            class="restaurant-card"
+            [routerLink]="['/profile', restaurant.username]"
+          >
+            <div class="restaurant-content">
+              <!-- Imagen del restaurante -->
+              <div class="restaurant-image" *ngIf="restaurant.coverImage?.url">
+                <img [src]="restaurant.coverImage?.url" [alt]="restaurant.name">
+              </div>
+              
+              <!-- Logo del restaurante -->
+              <div class="restaurant-logo" *ngIf="restaurant.logo?.url">
+                <img [src]="restaurant.logo?.url" [alt]="restaurant.name">
+              </div>
+              
+              <!-- Información del restaurante -->
+              <div class="restaurant-info">
+                <h3 class="restaurant-name">{{ restaurant.name }}</h3>
+                
+                <div class="restaurant-meta">
+                  <!-- Categorías de cocina -->
+                  <div class="restaurant-cuisines" *ngIf="restaurant.cuisineType?.length">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span *ngFor="let cuisine of restaurant.cuisineType; let last = last">
+                      {{ cuisine }}{{ !last ? ', ' : '' }}
+                    </span>
+                  </div>
+                  
+                  <!-- Valoración -->
+                  <div class="restaurant-rating" *ngIf="restaurant.rating">
+                    <i class="fa-solid fa-star"></i>
+                    <span>{{ restaurant.rating.average.toFixed(1) }}</span>
+                    <span class="rating-count">({{ restaurant.rating.count }})</span>
+                  </div>
+                  
+                  <!-- Rango de precios -->
+                  <div class="restaurant-price" *ngIf="restaurant.priceRange">
+                    <span>{{ restaurant.priceRange }}</span>
+                  </div>
+                </div>
+                
+                <!-- Descripción -->
+                <p class="restaurant-description" *ngIf="restaurant.description">
+                  {{ restaurant.description.substring(0, 150) }}{{ restaurant.description.length > 150 ? '...' : '' }}
+                </p>
+              </div>
+            </div>
+          </app-card>
+        </div>
+      </section>
+      
+      <!-- Platos -->
+      <section class="results-section" *ngIf="dishes().length > 0 && (searchType() === 'all' || searchType() === 'dishes')">
+        <h2 class="section-title">Platos</h2>
+        
+        <div class="dish-results">
+          <app-dish-card 
+            *ngFor="let dish of dishes()"
+            [dish]="dish"
+            [interactive]="true"
+            (favoriteClicked)="onDishFavorite($event)"
+            (rateClicked)="onDishRate($event)"
+          ></app-dish-card>
+        </div>
+      </section>
+      
+      <!-- Rutas -->
+      <section class="results-section" *ngIf="routes().length > 0 && (searchType() === 'all' || searchType() === 'routes')">
+        <h2 class="section-title">Rutas Gastronómicas</h2>
+        
+        <div class="route-results">
+          <app-route-card 
+            *ngFor="let route of routes()"
+            [route]="route"
+            [interactive]="true"
+          ></app-route-card>
+        </div>
+      </section>
+    </div>
+  </div>

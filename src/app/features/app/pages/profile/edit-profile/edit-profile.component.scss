@@ -1,0 +1,285 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de edición de perfil
+.edit-profile-page {
+  padding-bottom: $spacing-xl;
+}
+
+// Encabezado de página
+.page-header {
+  margin-bottom: $spacing-lg;
+  
+  h1 {
+    margin-bottom: $spacing-xs;
+  }
+}
+
+// Descripción de la página
+.page-description {
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-md;
+  max-width: 800px;
+  line-height: 1.5;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Mensaje de error
+.error-message {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm $spacing-md;
+  background-color: rgba(#DC3545, 0.1);
+  border-left: 4px solid #DC3545;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
+  
+  .error-icon {
+    color: #DC3545;
+    font-size: $font-size-lg;
+    margin-right: $spacing-sm;
+  }
+  
+  p {
+    margin: 0;
+    color: rgba($blue-primary, 0.8);
+  }
+}
+
+// Formulario de edición
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+// Título de tarjeta
+.card-title {
+  margin-top: 0;
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid rgba($blue-primary, 0.1);
+}
+
+// Tarjeta de imagen de perfil
+.profile-image-card {
+  overflow: hidden;
+}
+
+// Contenedor de imagen de perfil
+.profile-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+// Previsualización de imagen
+.profile-image-preview {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Botón para eliminar imagen
+.remove-image-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba($blue-primary, 0.8);
+  color: $white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: $font-size-xs;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: $blue-primary;
+  }
+}
+
+// Acciones de imagen de perfil
+.profile-image-actions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  
+  @include respond-to('md') {
+    flex: 1;
+    padding-left: $spacing-md;
+  }
+}
+
+// Botón de carga de archivo
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  background-color: rgba($blue-primary, 0.1);
+  color: $blue-primary;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  transition: all $transition-fast;
+  font-weight: $font-weight-medium;
+  
+  &:hover {
+    background-color: rgba($blue-primary, 0.2);
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  i {
+    font-size: $font-size-sm;
+  }
+}
+
+// Texto de ayuda para la imagen
+.image-help-text {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.6);
+  margin: 0;
+}
+
+// Tarjeta de información personal
+.personal-info-card {
+  overflow: hidden;
+}
+
+// Grid de formulario
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+// Grupo de formulario
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+// Etiqueta de formulario
+.form-label {
+  font-weight: $font-weight-medium;
+  color: $blue-primary;
+}
+
+// Input con prefijo
+.input-with-prefix {
+  position: relative;
+  
+  .input-prefix {
+    position: absolute;
+    left: $spacing-sm;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba($blue-primary, 0.5);
+  }
+  
+  .form-input.with-prefix {
+    padding-left: 25px;
+  }
+}
+
+// Input de formulario
+.form-input {
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid rgba($blue-primary, 0.2);
+  border-radius: $border-radius-md;
+  font-size: $font-size-md;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+  
+  &:focus {
+    outline: none;
+    border-color: $orange-primary;
+    box-shadow: 0 0 0 3px rgba($orange-primary, 0.1);
+  }
+  
+  &:disabled {
+    background-color: rgba($light-gray, 0.5);
+    cursor: not-allowed;
+  }
+}
+
+// Textarea de formulario
+.form-textarea {
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid rgba($blue-primary, 0.2);
+  border-radius: $border-radius-md;
+  font-size: $font-size-md;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+  resize: vertical;
+  min-height: 100px;
+  
+  &:focus {
+    outline: none;
+    border-color: $orange-primary;
+    box-shadow: 0 0 0 3px rgba($orange-primary, 0.1);
+  }
+}
+
+// Texto de ayuda para inputs
+.input-help-text {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.6);
+  margin: 0;
+}
+
+// Acciones del formulario
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+  margin-top: $spacing-md;
+}

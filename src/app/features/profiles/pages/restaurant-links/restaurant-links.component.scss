@@ -1,0 +1,178 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de enlaces del restaurante
+.restaurant-links {
+  padding-bottom: $spacing-xl;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Título de sección
+.section-title {
+  margin-bottom: $spacing-lg;
+  font-size: $font-size-xl;
+  color: $blue-primary;
+}
+
+// Título de subsección
+.subsection-title {
+  margin-bottom: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+  position: relative;
+  padding-left: $spacing-md;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    background-color: $orange-primary;
+    border-radius: 2px;
+  }
+}
+
+// Sección de enlaces
+.links-section {
+  margin-bottom: $spacing-xl;
+}
+
+// Grid de enlaces
+.links-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Tarjeta de enlace
+.link-card {
+  cursor: pointer;
+  transition: transform $transition-fast;
+  
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+// Contenido del enlace
+.link-content {
+  display: flex;
+  align-items: center;
+}
+
+// Icono del enlace
+.link-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: $border-radius-round;
+  background-color: rgba($light-gray, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-md;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+  flex-shrink: 0;
+  
+  // Estilos específicos para plataformas
+  .fa-instagram {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .fa-facebook {
+    color: #1877F2;
+  }
+  
+  .fa-twitter {
+    color: #1DA1F2;
+  }
+  
+  .fa-tiktok {
+    color: #000000;
+  }
+}
+
+// Información del enlace
+.link-info {
+  flex: 1;
+}
+
+// Nombre del enlace
+.link-name {
+  margin: 0 0 $spacing-xs;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+}
+
+// URL del enlace
+.link-url {
+  margin: 0;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Acción del enlace
+.link-action {
+  color: $orange-primary;
+  margin-left: $spacing-sm;
+  font-size: $font-size-sm;
+  flex-shrink: 0;
+}
+
+// Botones de acción
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: $spacing-lg;
+}

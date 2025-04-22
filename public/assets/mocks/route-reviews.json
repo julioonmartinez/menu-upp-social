@@ -1,0 +1,142 @@
+[
+    {
+      "id": "rev1",
+      "userId": "user1",
+      "userName": "María López",
+      "userImage": {
+        "url": "assets/images/users/profile1.jpg",
+        "alt": "María López"
+      },
+      "routeId": "route1",
+      "rating": 5,
+      "comment": "Una ruta fantástica para descubrir los sabores más auténticos de Madrid. Las croquetas de La Brasería son absolutamente increíbles, y el contraste con el nigiri de salmón al final es muy refrescante. Totalmente recomendable.",
+      "createdAt": "2023-05-20T14:30:00Z",
+      "likes": 8
+    },
+    {
+      "id": "rev2",
+      "userId": "user3",
+      "userName": "Ana Martínez",
+      "userImage": {
+        "url": "assets/images/users/profile3.jpg",
+        "alt": "Ana Martínez"
+      },
+      "routeId": "route1",
+      "rating": 4,
+      "comment": "Muy buena selección de restaurantes, aunque eché en falta alguna opción vegetariana. El ambiente de todos los sitios es genial y las distancias son perfectas para ir paseando.",
+      "createdAt": "2023-05-25T18:15:00Z",
+      "likes": 3
+    },
+    {
+      "id": "rev3",
+      "userId": "user2",
+      "userName": "Carlos García",
+      "userImage": {
+        "url": "assets/images/users/profile2.jpg",
+        "alt": "Carlos García"
+      },
+      "routeId": "route2",
+      "rating": 5,
+      "comment": "Aunque sólo se visita un restaurante, la experiencia es increíble. La calidad del sushi es excepcional y probar diferentes elaboraciones en el mismo lugar te permite apreciar realmente el arte del sushi.",
+      "createdAt": "2023-06-10T20:45:00Z",
+      "likes": 11
+    },
+    {
+      "id": "rev4",
+      "userId": "user1",
+      "userName": "María López",
+      "userImage": {
+        "url": "assets/images/users/profile1.jpg",
+        "alt": "María López"
+      },
+      "routeId": "route3",
+      "rating": 4,
+      "comment": "Una auténtica inmersión en la gastronomía italiana. La pasta casera es espectacular, y el tiramisú el mejor que he probado en Barcelona. El único inconveniente es que acabas demasiado lleno si haces toda la ruta de una vez.",
+      "createdAt": "2023-04-15T21:20:00Z",
+      "likes": 6
+    },
+    {
+      "id": "rev5",
+      "userId": "user3",
+      "userName": "Ana Martínez",
+      "userImage": {
+        "url": "assets/images/users/profile3.jpg",
+        "alt": "Ana Martínez"
+      },
+      "routeId": "route3",
+      "rating": 3,
+      "comment": "Los platos son buenos, pero esperaba más variedad al ser una ruta italiana. Quizás falta algún otro restaurante para complementar la experiencia.",
+      "createdAt": "2023-04-18T13:10:00Z",
+      "likes": 2
+    },
+    {
+      "id": "rev6",
+      "userId": "user2",
+      "userName": "Carlos García",
+      "userImage": {
+        "url": "assets/images/users/profile2.jpg",
+        "alt": "Carlos García"
+      },
+      "routeId": "route4",
+      "rating": 5,
+      "comment": "La combinación de vinos y tapas es perfecta. Los vinos están muy bien seleccionados para acompañar cada tapa. Una experiencia muy auténtica.",
+      "createdAt": "2023-03-30T19:50:00Z",
+      "likes": 14
+    },
+    {
+      "id": "rev7",
+      "userId": "user3",
+      "userName": "Ana Martínez",
+      "userImage": {
+        "url": "assets/images/users/profile3.jpg",
+        "alt": "Ana Martínez"
+      },
+      "routeId": "route4",
+      "rating": 4,
+      "comment": "Genial para los amantes del vino. Las explicaciones sobre cada vino y su maridaje son muy interesantes. Recomiendo ir con tiempo para disfrutarlo bien.",
+      "createdAt": "2023-04-05T17:40:00Z",
+      "likes": 7
+    },
+    {
+      "id": "rev8",
+      "userId": "user1",
+      "userName": "María López",
+      "userImage": {
+        "url": "assets/images/users/profile1.jpg",
+        "alt": "María López"
+      },
+      "routeId": "route5",
+      "rating": 5,
+      "comment": "Una experiencia gastronómica de primer nivel. Cada plato es una obra de arte y los sabores son increíbles. Vale cada céntimo aunque sea una ruta cara.",
+      "createdAt": "2023-05-28T22:10:00Z",
+      "likes": 9
+    },
+    {
+      "id": "rev9",
+      "userId": "user2",
+      "userName": "Carlos García",
+      "userImage": {
+        "url": "assets/images/users/profile2.jpg",
+        "alt": "Carlos García"
+      },
+      "routeId": "route5",
+      "rating": 5,
+      "comment": "Impresionante propuesta gastronómica. Los contrastes de sabores entre los diferentes restaurantes hacen de esta ruta una experiencia única. Muy recomendable para ocasiones especiales.",
+      "createdAt": "2023-06-02T20:30:00Z",
+      "likes": 12
+    },
+    {
+      "id": "rev10",
+      "userId": "user3",
+      "userName": "Ana Martínez",
+      "userImage": {
+        "url": "assets/images/users/profile3.jpg",
+        "alt": "Ana Martínez"
+      },
+      "routeId": "route5",
+      "rating": 4,
+      "comment": "Los platos son espectaculares, tanto en presentación como en sabor. El único pero es que es una ruta bastante cara, aunque la calidad lo justifica.",
+      "createdAt": "2023-06-08T21:15:00Z",
+      "likes": 5
+    }
+  ]

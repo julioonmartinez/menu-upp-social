@@ -1,0 +1,65 @@
+// Colores principales
+$orange-primary: #FF6B00;  // Para "UPP", CTA y elementos clave
+$blue-primary: #0D1B2A;    // Para "MENU", fondos y elementos elegantes
+
+// Colores secundarios
+$dark-gray: #1B263B;       // Fondos alternativos, elementos neutros
+$white: #FFFFFF;           // Contraste en fondos oscuros
+
+// Neutros
+$light-gray: #E0E1DD;      // Fondos neutros, separadores
+$orange-light: #FF9F50;    // Acentos sutiles
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1200px;
+
+// Spacing
+$spacing-xs: 0.25rem;   // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-xxl: 3rem;     // 48px
+
+// Font sizes
+$font-size-xs: 0.75rem;   // 12px
+$font-size-sm: 0.875rem;  // 14px
+$font-size-md: 1rem;      // 16px
+$font-size-lg: 1.25rem;   // 20px
+$font-size-xl: 1.5rem;    // 24px
+$font-size-xxl: 2rem;     // 32px
+
+// Font weights
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 16px;
+$border-radius-xl: 24px;
+$border-radius-round: 50%;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-md: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-tooltip: 1060;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;

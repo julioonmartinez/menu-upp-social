@@ -1,0 +1,212 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de notificaciones
+.notifications-page {
+  padding-bottom: $spacing-xl;
+}
+
+// Encabezado de página
+.page-header {
+  margin-bottom: $spacing-lg;
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-xs;
+    
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Contador de notificaciones
+.notification-counter {
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Lista de notificaciones
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Estado vacío
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+}
+
+// Icono de estado vacío
+.empty-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Tarjeta de notificación
+.notification-card {
+  transition: all $transition-fast;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  &.unread {
+    border-left: 3px solid $orange-primary;
+    
+    .notification-content {
+      padding-left: $spacing-xs;
+    }
+  }
+}
+
+// Contenido de la notificación
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+}
+
+// Iconos de notificación
+.notification-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: $white;
+}
+
+// Colores según tipo de notificación
+.notification-like {
+  background-color: #E91E63; // Rosa
+}
+
+.notification-comment {
+  background-color: #2196F3; // Azul
+}
+
+.notification-follow {
+  background-color: #673AB7; // Morado
+}
+
+.notification-mention {
+  background-color: #009688; // Verde azulado
+}
+
+.notification-achievement {
+  background-color: #FF9800; // Naranja
+}
+
+.notification-system {
+  background-color: #607D8B; // Gris azulado
+}
+
+// Avatar del usuario
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Texto de la notificación
+.notification-text {
+  flex: 1;
+  min-width: 0;
+}
+
+// Nombre del usuario
+.user-name {
+  font-weight: $font-weight-semibold;
+  color: $blue-primary;
+}
+
+// Acción de la notificación
+.notification-action {
+  color: rgba($blue-primary, 0.7);
+}
+
+// Nombre del objetivo
+.target-name {
+  font-weight: $font-weight-semibold;
+  color: $blue-primary;
+}
+
+// Fecha de la notificación
+.notification-date {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.5);
+  margin-top: $spacing-xs;
+}
+
+// Acciones de notificación
+.notification-actions {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+// Botón de acción
+.action-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba($light-gray, 0.3);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-xs;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($blue-primary, 0.1);
+    color: $blue-primary;
+  }
+  
+  &.delete-button:hover {
+    background-color: rgba(#DC3545, 0.1);
+    color: #DC3545;
+  }
+}

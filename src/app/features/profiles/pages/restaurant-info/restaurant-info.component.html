@@ -1,0 +1,139 @@
+<div class="restaurant-info">
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando información del restaurante...</p>
+    </div>
+    
+    <!-- Estado de error -->
+    <div class="error-state" *ngIf="error && !loading">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p>{{ error }}</p>
+      <app-button 
+        variant="primary" 
+        [routerLink]="['/profile', restaurantUsername]"
+      >
+        Volver al perfil
+      </app-button>
+    </div>
+    
+    <!-- Contenido de información -->
+    <ng-container *ngIf="!loading && !error && isRestaurant">
+      <h1 class="section-title">Información</h1>
+      
+      <!-- Descripción detallada -->
+      <section class="info-section">
+        <app-card [variant]="'elevated'" [padding]="'md'">
+          <h2 class="subsection-title">Acerca del restaurante</h2>
+          <div class="description-content">
+            <p>{{ restaurant?.description }}</p>
+          </div>
+        </app-card>
+      </section>
+      
+      <!-- Horarios -->
+      <section class="info-section" *ngIf="hasSchedule">
+        <app-card [variant]="'elevated'" [padding]="'md'">
+          <h2 class="subsection-title">Horario</h2>
+          <div class="schedule-content">
+            <div class="schedule-day" *ngFor="let day of getOrderedSchedule()">
+              <div class="day-name">{{ formatDayName(day.day) }}</div>
+              <div class="day-hours" *ngIf="day.open">
+                {{ day.openTime }} - {{ day.closeTime }}
+              </div>
+              <div class="day-closed" *ngIf="!day.open">
+                Cerrado
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </section>
+      
+      <!-- Ubicación -->
+      <section class="info-section" *ngIf="restaurantAddress">
+        <app-card [variant]="'elevated'" [padding]="'md'">
+          <h2 class="subsection-title">Ubicación</h2>
+          <div class="location-content">
+            <div class="address-info">
+              <div class="address-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="address-text">
+                {{ formattedAddress }}
+              </div>
+            </div>
+            
+            <app-button 
+              [variant]="'primary'" 
+              [size]="'md'"
+              [icon]="'map-location-dot'"
+              [fullWidth]="true"
+              (clicked)="openMaps()"
+            >
+              Ver en Google Maps
+            </app-button>
+          </div>
+        </app-card>
+      </section>
+      
+      <!-- Características -->
+      <section class="info-section" *ngIf="hasFeatures">
+        <app-card [variant]="'elevated'" [padding]="'md'">
+          <h2 class="subsection-title">Características</h2>
+          <div class="features-content">
+            <div class="features-list">
+              <div class="feature-item" *ngFor="let feature of restaurant?.features">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div class="feature-text">
+                  {{ feature }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </section>
+      
+      <!-- Tipo de cocina y rango de precios -->
+      <section class="info-section info-section-grid">
+        <!-- Tipo de cocina -->
+        <app-card [variant]="'elevated'" [padding]="'md'" *ngIf="hasCuisineTypes">
+          <h2 class="subsection-title">Tipo de cocina</h2>
+          <div class="cuisine-content">
+            <div class="cuisine-types">
+              <span class="cuisine-tag" *ngFor="let cuisine of restaurant?.cuisineType">
+                {{ cuisine }}
+              </span>
+            </div>
+          </div>
+        </app-card>
+        
+        <!-- Rango de precios -->
+        <app-card [variant]="'elevated'" [padding]="'md'" *ngIf="restaurant?.priceRange">
+          <h2 class="subsection-title">Rango de precios</h2>
+          <div class="price-content">
+            <div class="price-range">
+              <span class="price-label">Rango de precios:</span>
+              <span class="price-value">{{ restaurant?.priceRange }}</span>
+            </div>
+          </div>
+        </app-card>
+      </section>
+      
+      <!-- Botón para volver -->
+      <div class="action-buttons">
+        <app-button 
+          [variant]="'primary'" 
+          [icon]="'arrow-left'"
+          [routerLink]="['/profile', restaurantUsername]"
+        >
+          Volver al perfil
+        </app-button>
+      </div>
+    </ng-container>
+  </div>
