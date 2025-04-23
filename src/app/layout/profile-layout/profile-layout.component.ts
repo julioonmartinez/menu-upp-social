@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { MockDataService } from '../../core/services/mock-data.service';
+import { ProfileService } from '../../core/services/profile.service';
 import { Restaurant } from '../../core/models/restaurant.model';
 import { SocialUser } from '../../core/models/user.model';
 
@@ -18,22 +18,20 @@ import { SocialUser } from '../../core/models/user.model';
 })
 export class ProfileLayoutComponent implements OnInit {
   // Servicios
-  private mockDataService = inject(MockDataService);
+  private profileService = inject(ProfileService);
   private route = inject(ActivatedRoute);
   
   // Propiedades
   username = '';
-  restaurant?: Restaurant;
-  user?: SocialUser;
-  isRestaurant = true;
-  isLoading = true;
   
   ngOnInit(): void {
     // Obtener el username de la URL
-    this.route.params.subscribe(params => {
-      this.username = params['username'];
-      
-      this.loadProfileData();
+    this.route.paramMap.subscribe(params => {
+      const usernameParams = params.get('username');
+      if(usernameParams){
+        this.username = usernameParams;
+        this.loadProfileData();
+      }
     });
   }
   
@@ -41,38 +39,18 @@ export class ProfileLayoutComponent implements OnInit {
    * Carga los datos del perfil (restaurante o usuario)
    */
   loadProfileData(): void {
-    this.isLoading = true;
-    console.log(this.username)
-    // Intentar cargar como restaurante primero
-    this.mockDataService.getRestaurantByUsername(this.username).subscribe(restaurant => {
-      console.log(restaurant)
-      if (restaurant) {
-        this.restaurant = restaurant;
-        this.isRestaurant = true;
-        this.isLoading = false;
-      } else {
-        // Si no es restaurante, intentar como usuario
-        this.mockDataService.getUserByUsername(this.username).subscribe(user => {
-          if (user) {
-            this.user = user;
-            this.isRestaurant = false;
-            this.isLoading = false;
-          } else {
-            // No se encontró perfil
-            this.isLoading = false;
-            // Aquí se podría redirigir a una página de error
-          }
-        });
-      }
-    });
+    console.log('ProfileLayoutComponent: Cargando perfil para username:', this.username);
+    // Usar ProfileService en lugar de MockDataService directamente
+    this.profileService.loadProfileByUsername(this.username);
   }
   
   /**
    * Seguir al restaurante o usuario
    */
   followProfile(): void {
-    // Implementar lógica de seguimiento
-    console.log('Siguiendo perfil:', this.username);
+    this.profileService.toggleFollow().subscribe(isFollowing => {
+      console.log('Estado de seguimiento:', isFollowing ? 'Siguiendo' : 'No siguiendo');
+    });
   }
   
   /**
@@ -81,5 +59,30 @@ export class ProfileLayoutComponent implements OnInit {
   shareProfile(): void {
     // Implementar lógica de compartir
     console.log('Compartiendo perfil:', this.username);
+  }
+  
+  // Getters para acceder a la información del ProfileService
+  get restaurant() {
+    return this.profileService.currentRestaurant();
+  }
+  
+  get user() {
+    return this.profileService.currentUser();
+  }
+  
+  get isRestaurant() {
+    return this.profileService.profileType() === 'restaurant';
+  }
+  
+  get isLoading() {
+    return this.profileService.loading();
+  }
+  
+  get profileName() {
+    return this.profileService.currentProfileName();
+  }
+  
+  get isFollowing() {
+    return this.profileService.isFollowing();
   }
 }

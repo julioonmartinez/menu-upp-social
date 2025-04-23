@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { tap, catchError, finalize, map } from 'rxjs/operators';
+import { Observable, of, catchError } from 'rxjs';
+import { tap, finalize, map } from 'rxjs/operators';
 
 import { MockDataService } from './mock-data.service';
 import { Restaurant } from '../models/restaurant.model';
@@ -92,53 +92,69 @@ export class ProfileService {
     this._loading.set(true);
     this._error.set(null);
     
+    console.log('Cargando perfil para username:', username);
+    
     // Primero intentamos cargar como restaurante
-    this.mockDataService.getRestaurantByUsername(username).subscribe(restaurant => {
-      if (restaurant) {
-        this._currentRestaurant.set(restaurant);
-        this._currentUser.set(null);
-        this._profileType.set('restaurant');
-        this._loading.set(false);
-        this.loadProfileActivities(restaurant.id!);
-        this.checkFollowingStatus(restaurant.id!);
-      } else {
-        // Si no es restaurante, intentamos como usuario
-        this.mockDataService.getUserByUsername(username).subscribe(user => {
-          if (user) {
-            this._currentUser.set(user);
-            this._currentRestaurant.set(null);
-            this._profileType.set('user');
-            this._loading.set(false);
-            this.loadProfileActivities(user.id!);
-            this.checkFollowingStatus(user.id!);
-          } else {
-            // Si no se encuentra, establecemos error
-            this._error.set('Perfil no encontrado');
-            this._loading.set(false);
-          }
-        }, err => {
-          console.error('Error loading user profile', err);
-          this._error.set('Error al cargar el perfil de usuario');
+    this.mockDataService.getRestaurantByUsername(username)
+      .pipe(
+        catchError(err => {
+          console.error('Error al cargar el perfil de restaurante', err);
+          return of(undefined);
+        })
+      )
+      .subscribe(restaurant => {
+        if (restaurant) {
+          console.log('Restaurante encontrado:', restaurant);
+          this._currentRestaurant.set(restaurant);
+          this._currentUser.set(null);
+          this._profileType.set('restaurant');
           this._loading.set(false);
-        });
-      }
-    }, err => {
-      console.error('Error loading restaurant profile', err);
-      this._error.set('Error al cargar el perfil de restaurante');
-      this._loading.set(false);
-    });
+          this.loadProfileActivities(restaurant.id!);
+          this.checkFollowingStatus(restaurant.id!);
+        } else {
+          // Si no es restaurante, intentamos como usuario
+          this.mockDataService.getUserByUsername(username)
+            .pipe(
+              catchError(err => {
+                console.error('Error al cargar el perfil de usuario', err);
+                this._error.set('Error al cargar el perfil');
+                this._loading.set(false);
+                return of(undefined);
+              })
+            )
+            .subscribe(user => {
+              if (user) {
+                console.log('Usuario encontrado:', user);
+                this._currentUser.set(user);
+                this._currentRestaurant.set(null);
+                this._profileType.set('user');
+                this._loading.set(false);
+                this.loadProfileActivities(user.id!);
+                this.checkFollowingStatus(user.id!);
+              } else {
+                // Si no se encuentra, establecemos error
+                this._error.set('Perfil no encontrado');
+                this._loading.set(false);
+              }
+            });
+        }
+      });
   }
   
   /**
    * Carga las actividades de un perfil
    */
   private loadProfileActivities(profileId: string): void {
-    this.mockDataService.getActivitiesByUser(profileId).subscribe(activities => {
-      this._profileActivities.set(activities);
-    }, err => {
-      console.error('Error loading profile activities', err);
-      // No establecemos error general para no afectar la visualización del perfil
-    });
+    this.mockDataService.getActivitiesByUser(profileId)
+      .pipe(
+        catchError(err => {
+          console.error('Error al cargar actividades del perfil', err);
+          return of([]);
+        })
+      )
+      .subscribe(activities => {
+        this._profileActivities.set(activities);
+      });
   }
   
   /**

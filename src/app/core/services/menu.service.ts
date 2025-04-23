@@ -1,5 +1,6 @@
 import { Injectable, inject, signal, computed, effect } from '@angular/core';
-import { finalize } from 'rxjs/operators';
+import { finalize, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { MockDataService } from './mock-data.service';
 import { Dish, Category } from '../models/dish.model';
@@ -97,9 +98,11 @@ export class MenuService {
     const allCategories = this._categories();
     
     allCategories.forEach(category => {
-      result[category.id!] = allDishes.filter(
-        dish => dish.categoryId === category.id
-      );
+      if (category.id) {
+        result[category.id] = allDishes.filter(
+          dish => dish.categoryId === category.id
+        );
+      }
     });
     
     return result;
@@ -118,9 +121,11 @@ export class MenuService {
     const allCategories = this._categories();
     
     allCategories.forEach(category => {
-      result[category.id!] = allDishes.filter(
-        dish => dish.categoryId === category.id
-      ).length;
+      if (category.id) {
+        result[category.id] = allDishes.filter(
+          dish => dish.categoryId === category.id
+        ).length;
+      }
     });
     
     return result;
@@ -145,16 +150,27 @@ export class MenuService {
    * Carga los platos de un restaurante
    */
   loadDishes(restaurantId: string): void {
+    if (!restaurantId) {
+      console.error('Se intentó cargar platos con un restaurantId vacío');
+      this._error.set('ID de restaurante inválido');
+      return;
+    }
+    
+    console.log('Cargando platos para restaurante:', restaurantId);
     this._loading.set(true);
     this._error.set(null);
     
     this.mockDataService.getDishesByRestaurant(restaurantId).pipe(
-      finalize(() => this._loading.set(false))
-    ).subscribe({
-      next: (dishes) => this._dishes.set(dishes),
-      error: (err) => {
+      catchError(err => {
         console.error('Error loading dishes', err);
         this._error.set('Error al cargar los platos');
+        return of([]);
+      }),
+      finalize(() => this._loading.set(false))
+    ).subscribe({
+      next: (dishes) => {
+        console.log(`Platos cargados (${dishes.length}):`, dishes);
+        this._dishes.set(dishes);
       }
     });
   }
@@ -163,15 +179,25 @@ export class MenuService {
    * Carga las categorías de un restaurante
    */
   loadCategories(restaurantId: string): void {
+    if (!restaurantId) {
+      console.error('Se intentó cargar categorías con un restaurantId vacío');
+      return;
+    }
+    
+    console.log('Cargando categorías para restaurante:', restaurantId);
     this._loadingCategories.set(true);
     
     this.mockDataService.getCategoriesByRestaurant(restaurantId).pipe(
-      finalize(() => this._loadingCategories.set(false))
-    ).subscribe({
-      next: (categories) => this._categories.set(categories),
-      error: (err) => {
+      catchError(err => {
         console.error('Error loading categories', err);
         // No establecemos error general para no afectar visualización principal
+        return of([]);
+      }),
+      finalize(() => this._loadingCategories.set(false))
+    ).subscribe({
+      next: (categories) => {
+        console.log(`Categorías cargadas (${categories.length}):`, categories);
+        this._categories.set(categories);
       }
     });
   }
@@ -184,6 +210,11 @@ export class MenuService {
     this._error.set(null);
     
     this.mockDataService.getDishById(dishId).pipe(
+      catchError(err => {
+        console.error('Error loading dish', err);
+        this._error.set('Error al cargar el plato');
+        return of(undefined);
+      }),
       finalize(() => this._loadingDish.set(false))
     ).subscribe({
       next: (dish) => {
@@ -192,10 +223,6 @@ export class MenuService {
         } else {
           this._error.set('Plato no encontrado');
         }
-      },
-      error: (err) => {
-        console.error('Error loading dish', err);
-        this._error.set('Error al cargar el plato');
       }
     });
   }

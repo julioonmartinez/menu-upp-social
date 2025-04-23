@@ -1,0 +1,66 @@
+[
+    {
+      "id": "cat1",
+      "name": "Entrantes",
+      "description": "Para compartir y abrir el apetito",
+      "icon": "fa-solid fa-utensils",
+      "restaurantId": "rest1",
+      "order": 1
+    },
+    {
+      "id": "cat2",
+      "name": "Carnes a la brasa",
+      "description": "Nuestra especialidad de la casa",
+      "icon": "fa-solid fa-drumstick-bite",
+      "restaurantId": "rest1",
+      "order": 2
+    },
+    {
+      "id": "cat3",
+      "name": "Postres",
+      "description": "Un dulce final para tu experiencia",
+      "icon": "fa-solid fa-ice-cream",
+      "restaurantId": "rest1",
+      "order": 3
+    },
+    {
+      "id": "cat4",
+      "name": "Sushi tradicional",
+      "description": "Piezas elaboradas con técnica tradicional",
+      "icon": "fa-solid fa-fish",
+      "restaurantId": "rest2",
+      "order": 1
+    },
+    {
+      "id": "cat5",
+      "name": "Sushi fusión",
+      "description": "Nuestra interpretación contemporánea",
+      "icon": "fa-solid fa-star",
+      "restaurantId": "rest2",
+      "order": 2
+    },
+    {
+      "id": "cat6",
+      "name": "Pasta fresca",
+      "description": "Elaborada cada día en nuestra cocina",
+      "icon": "fa-solid fa-wheat-awn",
+      "restaurantId": "rest3",
+      "order": 1
+    },
+    {
+      "id": "cat7",
+      "name": "Pizzas",
+      "description": "Horneadas en horno de leña",
+      "icon": "fa-solid fa-pizza-slice",
+      "restaurantId": "rest3",
+      "order": 2
+    },
+    {
+      "id": "cat8",
+      "name": "Dolci",
+      "description": "Postres tradicionales italianos",
+      "icon": "fa-solid fa-cake-candles",
+      "restaurantId": "rest3",
+      "order": 3
+    }
+  ]

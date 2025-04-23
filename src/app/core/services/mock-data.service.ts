@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, delay, map, tap } from 'rxjs';
+import { Observable, of, delay, map, tap, catchError } from 'rxjs';
 
 import { SocialUser } from '../models/user.model';
 import { Restaurant } from '../models/restaurant.model';
@@ -29,9 +29,13 @@ export class MockDataService {
   }
   
   getUserByUsername(username: string): Observable<SocialUser | undefined> {
-    
     return this.http.get<SocialUser[]>('/assets/mocks/users.json').pipe(
-      map(users => users.find(user => user.username === username)),
+      tap(users => console.log('Usuarios cargados:', users.length)),
+      map(users => {
+        const user = users.find(u => u.username === username);
+        console.log('Usuario encontrado por username:', user);
+        return user;
+      }),
       delay(800)
     );
   }
@@ -51,12 +55,18 @@ export class MockDataService {
   }
   
   getRestaurantByUsername(username: string): Observable<Restaurant | undefined> {
+    console.log('Buscando restaurante con username:', username);
     
     return this.http.get<Restaurant[]>('/assets/mocks/restaurants.json').pipe(
-      tap(data => console.log('Restaurant data received:', data)),
+      tap(data => console.log('Restaurantes cargados:', data.length)),
       map(restaurants => {
-       
-        return restaurants.find(restaurant => restaurant.username === username)
+        const restaurant = restaurants.find(r => r.username === username);
+        console.log('Restaurante encontrado por username:', restaurant);
+        return restaurant;
+      }),
+      catchError(err => {
+        console.error('Error al cargar datos de restaurantes:', err);
+        return of(undefined);
       }),
       delay(800)
     );
@@ -70,8 +80,19 @@ export class MockDataService {
   }
   
   getDishesByRestaurant(restaurantId: string): Observable<Dish[]> {
+    console.log('Buscando platos para restaurante:', restaurantId);
+    
     return this.http.get<Dish[]>('/assets/mocks/dishes.json').pipe(
-      map(dishes => dishes.filter(dish => dish.restaurantId === restaurantId)),
+      tap(data => console.log('Platos cargados:', data.length)),
+      map(dishes => {
+        const filtered = dishes.filter(dish => dish.restaurantId === restaurantId);
+        console.log(`Platos filtrados para restaurante ${restaurantId}:`, filtered.length);
+        return filtered;
+      }),
+      catchError(err => {
+        console.error('Error al cargar datos de platos:', err);
+        return of([]);
+      }),
       delay(800)
     );
   }
@@ -86,13 +107,29 @@ export class MockDataService {
   // Categorías
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>('/assets/mocks/categories.json').pipe(
+      tap(data => console.log('Categorías cargadas:', data.length)),
+      catchError(err => {
+        console.error('Error al cargar categorías:', err);
+        return of([]);
+      }),
       delay(800)
     );
   }
   
   getCategoriesByRestaurant(restaurantId: string): Observable<Category[]> {
+    console.log('Buscando categorías para restaurante:', restaurantId);
+    
     return this.http.get<Category[]>('/assets/mocks/categories.json').pipe(
-      map(categories => categories.filter(category => category.restaurantId === restaurantId)),
+      tap(data => console.log('Categorías cargadas:', data.length)),
+      map(categories => {
+        const filtered = categories.filter(category => category.restaurantId === restaurantId);
+        console.log(`Categorías filtradas para restaurante ${restaurantId}:`, filtered.length);
+        return filtered;
+      }),
+      catchError(err => {
+        console.error('Error al cargar categorías del restaurante:', err);
+        return of([]);
+      }),
       delay(800)
     );
   }

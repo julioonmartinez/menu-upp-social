@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -46,35 +46,47 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy {
   selectedRating: number | null = null;
   showOnlyFavorites = false;
   priceRange: [number, number] | null = null;
-  showFiltersPanel: any;
+  showFiltersPanel = false;
+  
+  constructor() {
+    // Usar effect para reaccionar cuando cambia el restaurante
+    effect(() => {
+      const restaurant = this.profileService.currentRestaurant();
+      const isRestaurantProfile = this.profileService.profileType() === 'restaurant';
+      const isLoading = this.profileService.loading();
+      
+      console.log('Effect ejecutado:', {restaurant, isRestaurantProfile, isLoading});
+      
+      // Solo cargar datos si no está en carga y es un perfil de restaurante
+      if (!isLoading && isRestaurantProfile && restaurant && restaurant.id) {
+        console.log('Effect: Cargando datos para restaurante', restaurant.id);
+        this.menuService.loadDishes(restaurant.id);
+        this.menuService.loadCategories(restaurant.id);
+      }
+    });
+  }
   
   ngOnInit(): void {
-    // Obtener el username y category de la ruta
-    this.route.parent?.params.pipe(
+    // Obtener el username y cargar el restaurante
+    this.route.parent?.paramMap.pipe(
       takeUntil(this.destroy$)
     ).subscribe(params => {
-      const username = params['username'];
+      const username = params.get('username');
+      console.log(username)
       if (username) {
+        console.log('Cargando perfil para username:', username);
         this.profileService.loadProfileByUsername(username);
       }
     });
     
     // Obtener categoría si está en la ruta
-    this.route.params.pipe(
+    this.route.paramMap.pipe(
       takeUntil(this.destroy$)
     ).subscribe(params => {
-      const categoryId = params['categoryId'];
+      const categoryId = params.get('categoryId');
       if (categoryId) {
         this.selectedCategory = categoryId;
         this.menuService.selectCategory(categoryId);
-      }
-    });
-    
-    // Cargar datos cuando cambie el restaurante
-    this.route.parent?.params.subscribe(params => {
-      if (this.restaurantId) {
-        this.menuService.loadDishes(this.restaurantId);
-        this.menuService.loadCategories(this.restaurantId);
       }
     });
   }
@@ -253,6 +265,4 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy {
     if (this.priceRange) count++;
     return count;
   }
-  
-
 }
