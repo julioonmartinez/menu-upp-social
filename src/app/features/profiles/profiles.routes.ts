@@ -1,3 +1,4 @@
+//src/app/features/profiles/profiles.routes.ts
 import { Routes } from '@angular/router';
 
 // Importamos el componente del layout

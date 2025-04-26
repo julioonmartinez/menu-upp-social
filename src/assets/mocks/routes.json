@@ -6,11 +6,11 @@
       "creatorId": "user2",
       "creatorName": "Carlos García",
       "creatorImage": {
-        "url": "assets/images/users/profile2.jpg",
+        "url": "/assets/images/users/profile2.jpg",
         "alt": "Carlos García"
       },
       "coverImage": {
-        "url": "assets/images/routes/route1.jpg",
+        "url": "/assets/images/routes/route1.jpg",
         "alt": "Ruta de tapas por Madrid"
       },
       "stops": [
@@ -20,14 +20,14 @@
           "restaurantId": "rest1",
           "restaurantName": "La Brasería Gourmet",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo1.jpg",
+            "url": "/assets/images/restaurants/logo1.jpg",
             "alt": "La Brasería Gourmet"
           },
           "restaurantAddress": "Calle Gran Vía, 45, Madrid",
           "dishId": "dish1",
           "dishName": "Croquetas caseras de jamón ibérico",
           "dishImage": {
-            "url": "assets/images/dishes/croquetas_main.jpg",
+            "url": "/assets/images/dishes/croquetas_main.jpg",
             "alt": "Croquetas de jamón ibérico"
           },
           "dishPrice": 9.50,
@@ -39,7 +39,7 @@
           "restaurantId": "rest3",
           "restaurantName": "Trattoria Italiana",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo3.jpg",
+            "url": "/assets/images/restaurants/logo3.jpg",
             "alt": "Trattoria Italiana"
           },
           "restaurantAddress": "Calle Mayor, 25, Madrid",
@@ -52,14 +52,14 @@
           "restaurantId": "rest2",
           "restaurantName": "Sushi Fusion",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo2.jpg",
+            "url": "/assets/images/restaurants/logo2.jpg",
             "alt": "Sushi Fusion"
           },
           "restaurantAddress": "Calle de Serrano, 78, Madrid",
           "dishId": "dish11",
           "dishName": "Nigiri de salmón",
           "dishImage": {
-            "url": "assets/images/dishes/nigiri_main.jpg",
+            "url": "/assets/images/dishes/nigiri_main.jpg",
             "alt": "Nigiri de salmón"
           },
           "dishPrice": 3.50,
@@ -98,11 +98,11 @@
       "creatorId": "user1",
       "creatorName": "María López",
       "creatorImage": {
-        "url": "assets/images/users/profile1.jpg",
+        "url": "/assets/images/users/profile1.jpg",
         "alt": "María López"
       },
       "coverImage": {
-        "url": "assets/images/routes/route2.jpg",
+        "url": "/assets/images/routes/route2.jpg",
         "alt": "Ruta de sushi en Madrid"
       },
       "stops": [
@@ -112,14 +112,14 @@
           "restaurantId": "rest2",
           "restaurantName": "Sushi Fusion",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo2.jpg",
+            "url": "/assets/images/restaurants/logo2.jpg",
             "alt": "Sushi Fusion"
           },
           "restaurantAddress": "Calle de Serrano, 78, Madrid",
           "dishId": "dish11",
           "dishName": "Nigiri de salmón",
           "dishImage": {
-            "url": "assets/images/dishes/nigiri_main.jpg",
+            "url": "/assets/images/dishes/nigiri_main.jpg",
             "alt": "Nigiri de salmón"
           },
           "dishPrice": 3.50,
@@ -131,14 +131,14 @@
           "restaurantId": "rest2",
           "restaurantName": "Sushi Fusion",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo2.jpg",
+            "url": "/assets/images/restaurants/logo2.jpg",
             "alt": "Sushi Fusion"
           },
           "restaurantAddress": "Calle de Serrano, 78, Madrid",
           "dishId": "dish12",
           "dishName": "Maki California",
           "dishImage": {
-            "url": "assets/images/dishes/maki_main.jpg",
+            "url": "/assets/images/dishes/maki_main.jpg",
             "alt": "Maki California"
           },
           "dishPrice": 8.90,
@@ -182,7 +182,7 @@
         "alt": "Ana Martínez"
       },
       "coverImage": {
-        "url": "assets/images/routes/route3.jpg",
+        "url": "/assets/images/routes/route3.jpg",
         "alt": "Tour gastro italiano en Barcelona"
       },
       "stops": [
@@ -192,14 +192,14 @@
           "restaurantId": "rest3",
           "restaurantName": "Trattoria Italiana",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo3.jpg",
+            "url": "/assets/images/restaurants/logo3.jpg",
             "alt": "Trattoria Italiana"
           },
           "restaurantAddress": "Calle Mayor, 25, Madrid",
           "dishId": "dish20",
           "dishName": "Tagliatelle al ragù bolognese",
           "dishImage": {
-            "url": "assets/images/dishes/pasta_main.jpg",
+            "url": "/assets/images/dishes/pasta_main.jpg",
             "alt": "Tagliatelle al ragù bolognese"
           },
           "dishPrice": 16.50,
@@ -211,14 +211,14 @@
           "restaurantId": "rest3",
           "restaurantName": "Trattoria Italiana",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo3.jpg",
+            "url": "/assets/images/restaurants/logo3.jpg",
             "alt": "Trattoria Italiana"
           },
           "restaurantAddress": "Calle Mayor, 25, Madrid",
           "dishId": "dish23",
           "dishName": "Pizza Margherita",
           "dishImage": {
-            "url": "assets/images/dishes/pizza_main.jpg",
+            "url": "/assets/images/dishes/pizza_main.jpg",
             "alt": "Pizza Margherita"
           },
           "dishPrice": 12.50,
@@ -230,14 +230,14 @@
           "restaurantId": "rest3",
           "restaurantName": "Trattoria Italiana",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo3.jpg",
+            "url": "/assets/images/restaurants/logo3.jpg",
             "alt": "Trattoria Italiana"
           },
           "restaurantAddress": "Calle Mayor, 25, Madrid",
           "dishId": "dish26",
           "dishName": "Tiramisú",
           "dishImage": {
-            "url": "assets/images/dishes/tiramisu_main.jpg",
+            "url": "/assets/images/dishes/tiramisu_main.jpg",
             "alt": "Tiramisú"
           },
           "dishPrice": 7.50,
@@ -268,11 +268,11 @@
       "creatorId": "user2",
       "creatorName": "Carlos García",
       "creatorImage": {
-        "url": "assets/images/users/profile2.jpg",
+        "url": "/assets/images/users/profile2.jpg",
         "alt": "Carlos García"
       },
       "coverImage": {
-        "url": "assets/images/routes/route4.jpg",
+        "url": "/assets/images/routes/route4.jpg",
         "alt": "Ruta de vinos y tapas en Sevilla"
       },
       "stops": [
@@ -282,14 +282,14 @@
           "restaurantId": "rest1",
           "restaurantName": "La Brasería Gourmet",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo1.jpg",
+            "url": "/assets/images/restaurants/logo1.jpg",
             "alt": "La Brasería Gourmet"
           },
           "restaurantAddress": "Calle Gran Vía, 45, Madrid",
           "dishId": "dish1",
           "dishName": "Croquetas caseras de jamón ibérico",
           "dishImage": {
-            "url": "assets/images/dishes/croquetas_main.jpg",
+            "url": "/assets/images/dishes/croquetas_main.jpg",
             "alt": "Croquetas de jamón ibérico"
           },
           "dishPrice": 9.50,
@@ -301,14 +301,14 @@
           "restaurantId": "rest1",
           "restaurantName": "La Brasería Gourmet",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo1.jpg",
+            "url": "/assets/images/restaurants/logo1.jpg",
             "alt": "La Brasería Gourmet"
           },
           "restaurantAddress": "Calle Gran Vía, 45, Madrid",
           "dishId": "dish2",
           "dishName": "Tabla de quesos artesanos",
           "dishImage": {
-            "url": "assets/images/dishes/quesos_main.jpg",
+            "url": "/assets/images/dishes/quesos_main.jpg",
             "alt": "Tabla de quesos artesanos"
           },
           "dishPrice": 14.80,
@@ -339,11 +339,11 @@
       "creatorId": "user1",
       "creatorName": "María López",
       "creatorImage": {
-        "url": "assets/images/users/profile1.jpg",
+        "url": "/assets/images/users/profile1.jpg",
         "alt": "María López"
       },
       "coverImage": {
-        "url": "assets/images/routes/route5.jpg",
+        "url": "/assets/images/routes/route5.jpg",
         "alt": "Ruta de alta cocina en Valencia"
       },
       "stops": [
@@ -353,7 +353,7 @@
           "restaurantId": "rest1",
           "restaurantName": "La Brasería Gourmet",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo1.jpg",
+            "url": "/assets/images/restaurants/logo1.jpg",
             "alt": "La Brasería Gourmet"
           },
           "restaurantAddress": "Calle Gran Vía, 45, Madrid",
@@ -366,14 +366,14 @@
           "restaurantId": "rest3",
           "restaurantName": "Trattoria Italiana",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo3.jpg",
+            "url": "/assets/images/restaurants/logo3.jpg",
             "alt": "Trattoria Italiana"
           },
           "restaurantAddress": "Calle Mayor, 25, Madrid",
           "dishId": "dish20",
           "dishName": "Tagliatelle al ragù bolognese",
           "dishImage": {
-            "url": "assets/images/dishes/pasta_main.jpg",
+            "url": "/assets/images/dishes/pasta_main.jpg",
             "alt": "Tagliatelle al ragù bolognese"
           },
           "dishPrice": 16.50,
@@ -385,14 +385,14 @@
           "restaurantId": "rest2",
           "restaurantName": "Sushi Fusion",
           "restaurantImage": {
-            "url": "assets/images/restaurants/logo2.jpg",
+            "url": "/assets/images/restaurants/logo2.jpg",
             "alt": "Sushi Fusion"
           },
           "restaurantAddress": "Calle de Serrano, 78, Madrid",
           "dishId": "dish11",
           "dishName": "Nigiri de salmón",
           "dishImage": {
-            "url": "assets/images/dishes/nigiri_main.jpg",
+            "url": "/assets/images/dishes/nigiri_main.jpg",
             "alt": "Nigiri de salmón"
           },
           "dishPrice": 3.50,

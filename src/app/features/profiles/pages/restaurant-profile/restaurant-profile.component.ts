@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 import { ProfileService } from '../../../../core/services/profile.service';
 import { MenuService } from '../../../../core/services/menu.service';
-import { ProfileHeaderComponent } from '../../../../shared/components/profile-header/profile-header.component';
 import { CardComponent } from '../../../../shared/components/card/card.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { DishCardComponent } from '../../../../shared/components/dish-card/dish-card.component';
@@ -23,7 +22,6 @@ import { Dish } from '../../../../core/models/dish.model';
   imports: [
     CommonModule,
     RouterModule,
-    ProfileHeaderComponent,
     CardComponent,
     ButtonComponent,
     DishCardComponent
@@ -43,29 +41,57 @@ export class RestaurantProfileComponent implements OnInit, OnDestroy {
   // Estados
   loadingFollow = false;
   
-  ngOnInit(): void {
-    // Obtener el username de la ruta
-    this.route.parent?.params.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(params => {
-      const username = params['username'];
-      if (username) {
-        this.profileService.loadProfileByUsername(username);
-        
-        // Cargar platos del restaurante
-        if (this.restaurantId) {
-          this.menuService.loadDishes(this.restaurantId);
-        }
+  constructor() {
+    // Efecto para reaccionar cuando hay cambios en el restaurante
+    effect(() => {
+      const restaurant = this.profileService.currentRestaurant();
+      
+      if (restaurant && restaurant.id) {
+        console.log('RestaurantProfile Effect: Detectado restaurante:', restaurant.name);
+        this.loadFeaturedDishes(restaurant.id);
       }
     });
+  }
+  
+  /**
+   * Método para cargar los platos destacados del restaurante
+   */
+  private loadFeaturedDishes(restaurantId: string): void {
+    // Verificar si ya tenemos platos cargados para este restaurante
+    const currentLoadedId = this.menuService.loadedRestaurantId();
+    
+    if (currentLoadedId !== restaurantId) {
+      console.log('RestaurantProfile: Cargando platos para nuevo restaurante:', restaurantId);
+      this.menuService.loadDishes(restaurantId);
+    } else {
+      console.log('RestaurantProfile: Usando platos en caché para:', restaurantId);
+    }
+  }
+  
+  ngOnInit(): void {
+    // Ya no necesitamos cargar el perfil aquí, el ProfileLayoutComponent lo hará
+    // Y el effect se encargará de cargar los platos cuando el restaurante esté disponible
+    
+    // Solo verificamos si se necesita forzar una recarga
+    if (!this.profileService.dataLoaded()) {
+      this.route.parent?.params.pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(params => {
+        const username = params['username'];
+        if (username) {
+          console.log('RestaurantProfile: Verificando carga de perfil para:', username);
+          this.profileService.loadProfileByUsername(username);
+        }
+      });
+    }
   }
   
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
     
-    // Limpiar estado al salir
-    this.profileService.clearProfile();
+    // No limpiamos el perfil al salir para evitar recargas innecesarias
+    // Solo limpiaríamos datos específicos de este componente si fuera necesario
   }
   
   /**
@@ -173,6 +199,10 @@ export class RestaurantProfileComponent implements OnInit, OnDestroy {
   get isRestaurant(): boolean {
     return this.profileService.profileType() === 'restaurant';
   }
+  
+  get hasFeaturedDishes(): boolean {
+    return this.featuredDishes.length > 0;
+  }
 
   /**
    * Formatea el nombre del día
@@ -198,5 +228,4 @@ export class RestaurantProfileComponent implements OnInit, OnDestroy {
     if (!this.restaurant?.schedule) return [];
     return this.restaurant.schedule.slice(0, 3);
   }
-  
 }

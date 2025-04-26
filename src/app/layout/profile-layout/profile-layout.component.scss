@@ -87,6 +87,7 @@
 // Banner del perfil
 .profile-banner {
   padding-top: 60px;
+  transition: opacity $transition-normal;
   
   .banner-image {
     height: 180px;
@@ -136,6 +137,7 @@
   border: 3px solid $white;
   box-shadow: $shadow-sm;
   margin-bottom: $spacing-sm;
+  background-color: $light-gray;
   
   img {
     width: 100%;
@@ -204,6 +206,8 @@
   overflow-x: auto;
   border-bottom: 1px solid rgba($dark-gray, 0.1);
   margin-top: $spacing-md;
+  padding-bottom: 1px; // Evitar saltos en la interfaz
+  transition: opacity $transition-normal;
   
   &::-webkit-scrollbar {
     display: none;
@@ -255,6 +259,27 @@
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+}
+
+// Indicador de carga para recarga de datos
+.loading-indicator {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  z-index: $z-index-fixed + 1;
+  background-color: rgba($white, 0.9);
+  border-radius: $border-radius-round;
+  box-shadow: $shadow-md;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .loading-spinner {
+    color: $orange-primary;
+    font-size: $font-size-lg;
+  }
 }
 
 // Skeleton loaders para estados de carga
@@ -318,5 +343,16 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+// Transiciones suavizadas para mejorar la experiencia
+.profile-banner,
+.profile-nav,
+.profile-content {
+  transition: opacity 0.2s ease;
+  
+  &.loading {
+    opacity: 0.7;
   }
 }

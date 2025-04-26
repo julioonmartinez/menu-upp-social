@@ -4,19 +4,19 @@
       "name": "Croquetas caseras de jamón ibérico",
       "description": "Cremosas croquetas elaboradas con bechamel artesanal y jamón ibérico de bellota cortado a cuchillo.",
       "price": 9.50,
-      "currency": "EUR",
+      "currency": "MXN",
       "images": [
         {
-          "url": "assets/images/dishes/croquetas1.jpg",
+          "url": "/assets/images/dishes/croquetas1.jpg",
           "alt": "Croquetas de jamón ibérico"
         },
         {
-          "url": "assets/images/dishes/croquetas2.jpg",
+          "url": "/assets/images/dishes/croquetas2.jpg",
           "alt": "Detalle de croquetas"
         }
       ],
       "mainImage": {
-        "url": "assets/images/dishes/croquetas_main.jpg",
+        "url": "/assets/images/dishes/croquetas_main.jpg",
         "alt": "Croquetas de jamón ibérico"
       },
       "restaurantId": "rest1",
@@ -36,7 +36,7 @@
           "userId": "user1",
           "userName": "María López",
           "userImage": {
-            "url": "assets/images/users/profile1.jpg",
+            "url": "/assets/images/users/profile1.jpg",
             "alt": "María López"
           },
           "rating": 5,
@@ -56,15 +56,15 @@
       "name": "Tabla de quesos artesanos",
       "description": "Selección de quesos nacionales de diferentes regiones y maduraciones, acompañados de uvas, nueces y mermelada casera de higos.",
       "price": 14.80,
-      "currency": "EUR",
+      "currency": "MXN",
       "images": [
         {
-          "url": "assets/images/dishes/quesos1.jpg",
+          "url": "/assets/images/dishes/quesos1.jpg",
           "alt": "Tabla de quesos"
         }
       ],
       "mainImage": {
-        "url": "assets/images/dishes/quesos_main.jpg",
+        "url": "/assets/images/dishes/quesos_main.jpg",
         "alt": "Tabla de quesos artesanos"
       },
       "restaurantId": "rest1",
@@ -89,15 +89,15 @@
       "name": "Nigiri de salmón",
       "description": "Base de arroz de sushi con corte de salmón noruego premium.",
       "price": 3.50,
-      "currency": "EUR",
+      "currency": "MXN",
       "images": [
         {
-          "url": "assets/images/dishes/nigiri1.jpg",
+          "url": "/assets/images/dishes/nigiri1.jpg",
           "alt": "Nigiri de salmón"
         }
       ],
       "mainImage": {
-        "url": "assets/images/dishes/nigiri_main.jpg",
+        "url": "/assets/images/dishes/nigiri_main.jpg",
         "alt": "Nigiri de salmón"
       },
       "restaurantId": "rest2",
@@ -122,15 +122,15 @@
       "name": "Tagliatelle al ragù bolognese",
       "description": "Pasta fresca hecha a mano con salsa boloñesa tradicional cocinada a fuego lento durante 6 horas. Servido con queso parmesano rallado.",
       "price": 16.50,
-      "currency": "EUR",
+      "currency": "MXN",
       "images": [
         {
-          "url": "assets/images/dishes/pasta1.jpg",
+          "url": "/assets/images/dishes/pasta1.jpg",
           "alt": "Tagliatelle bolognese"
         }
       ],
       "mainImage": {
-        "url": "assets/images/dishes/pasta_main.jpg",
+        "url": "/assets/images/dishes/pasta_main.jpg",
         "alt": "Tagliatelle al ragù bolognese"
       },
       "restaurantId": "rest3",

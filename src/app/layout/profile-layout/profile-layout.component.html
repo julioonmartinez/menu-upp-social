@@ -1,114 +1,122 @@
 <div class="profile-layout">
-    <!-- Header del perfil -->
-    <header class="profile-header">
-      <div class="navigation-bar">
-        <button class="back-button" routerLink="/app/explore">
-          <i class="fa-solid fa-arrow-left"></i>
+  <!-- Header del perfil -->
+  <header class="profile-header">
+    <div class="navigation-bar">
+      <button class="back-button" routerLink="/app/explore">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      
+      <div class="profile-actions">
+        <button class="icon-button" (click)="shareProfile()">
+          <i class="fa-solid fa-share-nodes"></i>
         </button>
         
-        <div class="profile-actions">
-          <button class="icon-button" (click)="shareProfile()">
-            <i class="fa-solid fa-share-nodes"></i>
-          </button>
-          
-          <app-button 
-            variant="primary" 
-            size="sm" 
-            icon="user-plus"
-            (clicked)="followProfile()"
-          >
-            Seguir
-          </app-button>
-        </div>
+        <app-button 
+          variant="primary" 
+          size="sm" 
+          icon="user-plus"
+          [loading]="isLoading"
+          (clicked)="followProfile()"
+        >
+          {{ isFollowing ? 'Siguiendo' : 'Seguir' }}
+        </app-button>
+      </div>
+    </div>
+    
+    <!-- Banner y avatar - Mostrar datos guardados aunque estemos recargando -->
+    <div class="profile-banner" *ngIf="restaurant || user || (isProfileLoaded && !isLoading)">
+      <div class="banner-image" 
+        [style.background-image]="isRestaurant ? 
+          'url(' + (restaurant?.coverImage?.url || '/assets/images/default-cover.jpg') + ')' : 
+          'url(' + (user?.profileImage?.url || '/assets/images/default-cover.jpg') + ')'">
       </div>
       
-      <!-- Banner y avatar -->
-      <div class="profile-banner" *ngIf="!isLoading">
-        <div class="banner-image" 
-          [style.background-image]="isRestaurant ? 
-            'url(' + restaurant?.coverImage?.url + ')' : 
-            'url(' + user?.profileImage?.url + ')'">
+      <div class="profile-info">
+        <div class="profile-avatar" *ngIf="isRestaurant">
+          <img [src]="restaurant?.logo?.url || '/assets/images/default-avatar.jpg'" [alt]="restaurant?.name">
         </div>
         
-        <div class="profile-info">
-          <div class="profile-avatar" *ngIf="isRestaurant">
-            <img [src]="restaurant?.logo?.url" [alt]="restaurant?.name">
-          </div>
+        <div class="profile-details">
+          <h1 class="profile-name">
+            {{ isRestaurant ? restaurant?.name : user?.name + ' ' + (user?.lastName || '') }}
+          </h1>
           
-          <div class="profile-details">
-            <h1 class="profile-name">
-              {{ isRestaurant ? restaurant?.name : user?.name + ' ' + user?.lastName }}
-            </h1>
+          <div class="profile-meta">
+            <span class="username">{{ '@' + username }}</span>
             
-            <div class="profile-meta">
-              <span class="username">{{ '@' + username }}</span>
+            <div class="stats">
+              <div class="stat-item">
+                <span class="stat-value">{{ isRestaurant ? restaurant?.followers : user?.followers }}</span>
+                <span class="stat-label">seguidores</span>
+              </div>
               
-              <div class="stats">
-                <div class="stat-item">
-                  <span class="stat-value">{{ isRestaurant ? restaurant?.followers : user?.followers }}</span>
-                  <span class="stat-label">seguidores</span>
-                </div>
-                
-                <div class="stat-item" *ngIf="isRestaurant">
-                  <span class="stat-value">{{ restaurant?.rating?.average?.toFixed(1) }}</span>
-                  <span class="stat-label">
-                    <i class="fa-solid fa-star"></i>
-                    ({{ restaurant?.rating?.count }})
-                  </span>
-                </div>
-                
-                <div class="stat-item" *ngIf="!isRestaurant">
-                  <span class="stat-value">{{ user?.following }}</span>
-                  <span class="stat-label">siguiendo</span>
-                </div>
+              <div class="stat-item" *ngIf="isRestaurant">
+                <span class="stat-value">{{ restaurant?.rating?.average?.toFixed(1) || '0.0' }}</span>
+                <span class="stat-label">
+                  <i class="fa-solid fa-star"></i>
+                  ({{ restaurant?.rating?.count || 0 }})
+                </span>
+              </div>
+              
+              <div class="stat-item" *ngIf="!isRestaurant">
+                <span class="stat-value">{{ user?.following || 0 }}</span>
+                <span class="stat-label">siguiendo</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- Skeleton loader para estado de carga -->
-      <div class="profile-banner-skeleton" *ngIf="isLoading">
-        <div class="banner-skeleton"></div>
-        <div class="avatar-skeleton"></div>
-        <div class="info-skeleton">
-          <div class="name-skeleton"></div>
-          <div class="meta-skeleton"></div>
-        </div>
-      </div>
-      
-      <!-- Navegación del perfil -->
-      <nav class="profile-nav" *ngIf="!isLoading">
-        <!-- Navegación para restaurantes -->
-        <ng-container *ngIf="isRestaurant">
-          <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <i class="fa-solid fa-home"></i>
-            Inicio</a>
-          <a routerLink="/profile/{{ username }}/menu" routerLinkActive="active">
-            <i class="fa-solid fa-utensils"></i>
-            Menú</a>
-          <a routerLink="/profile/{{ username }}/info" routerLinkActive="active">
-            <i class="fa-solid fa-circle-info"></i>
-            Información</a>
-          <a routerLink="/profile/{{ username }}/reviews" routerLinkActive="active">
-            <i class="fa-solid fa-star"></i>
-            Reseñas</a>
-            <a routerLink="/profile/{{ username }}/links" routerLinkActive="active">
-              <i class="fa-solid fa-link"></i>
-          Enlaces</a>
-        </ng-container>
-        
-        <!-- Navegación para usuarios -->
-        <ng-container *ngIf="!isRestaurant">
-          <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Actividad</a>
-          <a routerLink="/profile/{{ username }}/routes" routerLinkActive="active">Rutas</a>
-          <a routerLink="/profile/{{ username }}/favorites" routerLinkActive="active">Favoritos</a>
-        </ng-container>
-      </nav>
-    </header>
+    </div>
     
-    <!-- Contenido del perfil -->
-    <main class="profile-content">
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+    <!-- Skeleton loader para estado de carga inicial -->
+    <div class="profile-banner-skeleton" *ngIf="isLoading && !restaurant && !user">
+      <div class="banner-skeleton"></div>
+      <div class="avatar-skeleton"></div>
+      <div class="info-skeleton">
+        <div class="name-skeleton"></div>
+        <div class="meta-skeleton"></div>
+      </div>
+    </div>
+    
+    <!-- Navegación del perfil - Mostrarla siempre que tengamos datos aunque estemos recargando -->
+    <nav class="profile-nav" *ngIf="restaurant || user || (isProfileLoaded && !isLoading)">
+      <!-- Navegación para restaurantes -->
+      <ng-container *ngIf="isRestaurant">
+        <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <i class="fa-solid fa-home"></i>
+          Inicio</a>
+        <a routerLink="/profile/{{ username }}/menu" routerLinkActive="active">
+          <i class="fa-solid fa-utensils"></i>
+          Menú</a>
+        <a routerLink="/profile/{{ username }}/info" routerLinkActive="active">
+          <i class="fa-solid fa-circle-info"></i>
+          Información</a>
+        <a routerLink="/profile/{{ username }}/reviews" routerLinkActive="active">
+          <i class="fa-solid fa-star"></i>
+          Reseñas</a>
+          <a routerLink="/profile/{{ username }}/links" routerLinkActive="active">
+            <i class="fa-solid fa-link"></i>
+        Enlaces</a>
+      </ng-container>
+      
+      <!-- Navegación para usuarios -->
+      <ng-container *ngIf="!isRestaurant">
+        <a routerLink="/profile/{{ username }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Actividad</a>
+        <a routerLink="/profile/{{ username }}/routes" routerLinkActive="active">Rutas</a>
+        <a routerLink="/profile/{{ username }}/favorites" routerLinkActive="active">Favoritos</a>
+      </ng-container>
+    </nav>
+    
+    <!-- Indicador de carga cuando se recargan datos -->
+    <div class="loading-indicator" *ngIf="isLoading && (restaurant || user)">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Contenido del perfil - Router outlet siempre visible -->
+  <main class="profile-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

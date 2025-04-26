@@ -73,6 +73,6 @@ export class DishCardComponent {
    * Formatea el precio con la moneda
    */
   formatPrice(): string {
-    return `${this.dish.price.toFixed(2)} ${this.dish.currency || '€'}`;
+    return `${this.dish.price.toFixed(2)} ${this.dish.currency || '$'}`;
   }
 }

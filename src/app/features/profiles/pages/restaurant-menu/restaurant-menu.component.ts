@@ -49,37 +49,38 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy {
   showFiltersPanel = false;
   
   constructor() {
-    // Usar effect para reaccionar cuando cambia el restaurante
+    // Efecto para reaccionar a cambios en el restaurante
     effect(() => {
       const restaurant = this.profileService.currentRestaurant();
-      const isRestaurantProfile = this.profileService.profileType() === 'restaurant';
-      const isLoading = this.profileService.loading();
+      const profileType = this.profileService.profileType();
+      const isRestaurantProfile = profileType === 'restaurant';
       
-      console.log('Effect ejecutado:', {restaurant, isRestaurantProfile, isLoading});
-      
-      // Solo cargar datos si no está en carga y es un perfil de restaurante
-      if (!isLoading && isRestaurantProfile && restaurant && restaurant.id) {
-        console.log('Effect: Cargando datos para restaurante', restaurant.id);
-        this.menuService.loadDishes(restaurant.id);
-        this.menuService.loadCategories(restaurant.id);
+      if (restaurant && restaurant.id && isRestaurantProfile) {
+        console.log('MenuComponent Effect: Detectado restaurante:', restaurant.name);
+        this.loadMenuData(restaurant.id);
       }
     });
   }
   
-  ngOnInit(): void {
-    // Obtener el username y cargar el restaurante
-    this.route.parent?.paramMap.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(params => {
-      const username = params.get('username');
-      console.log(username)
-      if (username) {
-        console.log('Cargando perfil para username:', username);
-        this.profileService.loadProfileByUsername(username);
-      }
-    });
+  /**
+   * Método para cargar datos del menú de manera optimizada
+   */
+  private loadMenuData(restaurantId: string): void {
+    // Verificar si ya tenemos el menú cargado para este restaurante
+    const currentLoadedId = this.menuService.loadedRestaurantId();
     
-    // Obtener categoría si está en la ruta
+    if (currentLoadedId !== restaurantId) {
+      console.log('MenuComponent: Cargando menú para nuevo restaurante:', restaurantId);
+      // Solo cargamos datos si el ID es diferente
+      this.menuService.loadDishes(restaurantId);
+      this.menuService.loadCategories(restaurantId);
+    } else {
+      console.log('MenuComponent: Usando menú en caché para:', restaurantId);
+    }
+  }
+  
+  ngOnInit(): void {
+    // Escuchar parámetros para obtener categoría seleccionada
     this.route.paramMap.pipe(
       takeUntil(this.destroy$)
     ).subscribe(params => {
@@ -95,8 +96,8 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
     
-    // Limpiar filtros
-    this.menuService.resetFilters();
+    // Limpiar solo los filtros, no los datos del menú
+    this.menuService.clearFilters();
   }
   
   /**

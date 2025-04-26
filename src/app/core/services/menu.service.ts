@@ -32,6 +32,12 @@ export class MenuService {
   private _onlyFavorites = signal<boolean>(false);
   private _searchQuery = signal<string>('');
   
+  // Control de cache
+  private _loadedRestaurantId = signal<string | null>(null);
+  private _loadedCategoriesRestaurantId = signal<string | null>(null);
+  private _lastDishesLoadTime = signal<number>(0);
+  private _lastCategoriesLoadTime = signal<number>(0);
+  
   // Exposición de signals como readonly
   public dishes = this._dishes.asReadonly();
   public categories = this._categories.asReadonly();
@@ -45,6 +51,7 @@ export class MenuService {
   public ratingFilter = this._ratingFilter.asReadonly();
   public onlyFavorites = this._onlyFavorites.asReadonly();
   public searchQuery = this._searchQuery.asReadonly();
+  public loadedRestaurantId = this._loadedRestaurantId.asReadonly();
   
   // Señales computadas
   public filteredDishes = computed(() => {
@@ -147,16 +154,38 @@ export class MenuService {
   });
   
   /**
-   * Carga los platos de un restaurante
+   * Carga los platos de un restaurante si no están ya cargados
+   * o si se solicita una recarga explícita
    */
-  loadDishes(restaurantId: string): void {
+  loadDishes(restaurantId: string, forceReload: boolean = false): void {
     if (!restaurantId) {
       console.error('Se intentó cargar platos con un restaurantId vacío');
       this._error.set('ID de restaurante inválido');
       return;
     }
     
-    console.log('Cargando platos para restaurante:', restaurantId);
+    // Si ya estamos cargando, no hacemos nada
+    if (this._loading()) {
+      console.log('MenuService: Ya hay una carga de platos en progreso');
+      return;
+    }
+    
+    const currentTime = Date.now();
+    const timeSinceLastLoad = currentTime - this._lastDishesLoadTime();
+    const cacheAge = 60000; // 60 segundos
+    
+    // Verificar si ya tenemos datos frescos para este restaurante
+    if (
+      this._loadedRestaurantId() === restaurantId && 
+      this._dishes().length > 0 && 
+      !forceReload &&
+      timeSinceLastLoad < cacheAge
+    ) {
+      console.log('MenuService: Usando platos en caché para restaurante:', restaurantId);
+      return;
+    }
+    
+    console.log('MenuService: Cargando platos para restaurante:', restaurantId);
     this._loading.set(true);
     this._error.set(null);
     
@@ -169,22 +198,46 @@ export class MenuService {
       finalize(() => this._loading.set(false))
     ).subscribe({
       next: (dishes) => {
-        console.log(`Platos cargados (${dishes.length}):`, dishes);
+        console.log(`MenuService: Platos cargados (${dishes.length}):`, dishes.map(d => d.name).join(', '));
         this._dishes.set(dishes);
+        this._loadedRestaurantId.set(restaurantId);
+        this._lastDishesLoadTime.set(Date.now());
       }
     });
   }
   
   /**
-   * Carga las categorías de un restaurante
+   * Carga las categorías de un restaurante si no están ya cargadas
+   * o si se solicita una recarga explícita
    */
-  loadCategories(restaurantId: string): void {
+  loadCategories(restaurantId: string, forceReload: boolean = false): void {
     if (!restaurantId) {
       console.error('Se intentó cargar categorías con un restaurantId vacío');
       return;
     }
     
-    console.log('Cargando categorías para restaurante:', restaurantId);
+    // Si ya estamos cargando, no hacemos nada
+    if (this._loadingCategories()) {
+      console.log('MenuService: Ya hay una carga de categorías en progreso');
+      return;
+    }
+    
+    const currentTime = Date.now();
+    const timeSinceLastLoad = currentTime - this._lastCategoriesLoadTime();
+    const cacheAge = 60000; // 60 segundos
+    
+    // Verificar si ya tenemos datos frescos para este restaurante
+    if (
+      this._loadedCategoriesRestaurantId() === restaurantId && 
+      this._categories().length > 0 && 
+      !forceReload &&
+      timeSinceLastLoad < cacheAge
+    ) {
+      console.log('MenuService: Usando categorías en caché para restaurante:', restaurantId);
+      return;
+    }
+    
+    console.log('MenuService: Cargando categorías para restaurante:', restaurantId);
     this._loadingCategories.set(true);
     
     this.mockDataService.getCategoriesByRestaurant(restaurantId).pipe(
@@ -196,8 +249,10 @@ export class MenuService {
       finalize(() => this._loadingCategories.set(false))
     ).subscribe({
       next: (categories) => {
-        console.log(`Categorías cargadas (${categories.length}):`, categories);
+        console.log(`MenuService: Categorías cargadas (${categories.length}):`, categories.map(c => c.name).join(', '));
         this._categories.set(categories);
+        this._loadedCategoriesRestaurantId.set(restaurantId);
+        this._lastCategoriesLoadTime.set(Date.now());
       }
     });
   }
@@ -206,6 +261,14 @@ export class MenuService {
    * Carga un plato específico por su ID
    */
   loadDishById(dishId: string): void {
+    // Si ya tenemos el plato en la lista cargada, lo usamos directamente
+    const existingDish = this._dishes().find(dish => dish.id === dishId);
+    if (existingDish) {
+      console.log('MenuService: Usando plato en caché:', existingDish.name);
+      this._selectedDish.set(existingDish);
+      return;
+    }
+    
     this._loadingDish.set(true);
     this._error.set(null);
     
@@ -231,6 +294,7 @@ export class MenuService {
    * Establece la categoría seleccionada
    */
   selectCategory(categoryId: string | null): void {
+    console.log('MenuService: Categoría seleccionada:', categoryId);
     this._selectedCategoryId.set(categoryId);
   }
   
@@ -271,6 +335,33 @@ export class MenuService {
     this._ratingFilter.set(null);
     this._onlyFavorites.set(false);
     this._searchQuery.set('');
+  }
+  
+  /**
+   * Limpia el estado de los filtros pero mantiene los datos cargados
+   */
+  clearFilters(): void {
+    this.resetFilters();
+  }
+  
+  /**
+   * Limpia completamente el estado 
+   * (útil cuando se cambia completamente de restaurante)
+   */
+  clearAll(): void {
+    this._dishes.set([]);
+    this._categories.set([]);
+    this._selectedCategoryId.set(null);
+    this._selectedDish.set(null);
+    this._error.set(null);
+    this._priceFilter.set(null);
+    this._ratingFilter.set(null);
+    this._onlyFavorites.set(false);
+    this._searchQuery.set('');
+    this._loadedRestaurantId.set(null);
+    this._loadedCategoriesRestaurantId.set(null);
+    this._lastDishesLoadTime.set(0);
+    this._lastCategoriesLoadTime.set(0);
   }
   
   /**
