@@ -11,7 +11,6 @@ import { Dish } from '../../../../core/models/dish.model';
 import { Restaurant } from '../../../../core/models/restaurant.model';
 import { GastronomicRoute } from '../../../../core/models/route.model';
 import { Subject, debounceTime, takeUntil, forkJoin } from 'rxjs';
-
 /**
  * Landing Page - Página de inicio pública con exploración funcional
  * 
@@ -28,7 +27,8 @@ import { Subject, debounceTime, takeUntil, forkJoin } from 'rxjs';
     ButtonComponent, 
     CardComponent, 
     DishCardComponent, 
-    RouteCardComponent
+    RouteCardComponent,
+
   ],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
