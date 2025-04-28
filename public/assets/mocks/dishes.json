@@ -149,5 +149,354 @@
       "available": true,
       "createdAt": "2023-01-20T11:30:00Z",
       "updatedAt": "2023-06-22T15:20:00Z"
-    }
+    },
+    {
+      "id": "dish28",
+      "name": "Guacamole tradicional",
+      "description": "Preparado en molcajete a la vista del cliente con aguacate Hass, tomate, cebolla, cilantro, chile serrano y un toque de limón. Servido con totopos caseros.",
+      "price": 11.50,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/guacamole1.jpg",
+      "alt": "Guacamole tradicional"
+      },
+      {
+      "url": "assets/images/dishes/guacamole2.jpg",
+      "alt": "Preparación del guacamole"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/guacamole_main.jpg",
+      "alt": "Guacamole tradicional con totopos"
+      },
+      "restaurantId": "rest4",
+      "categoryId": "cat9",
+      "ingredients": ["Aguacate", "Tomate", "Cebolla", "Cilantro", "Chile serrano", "Limón", "Maíz para totopos"],
+      "allergens": [],
+      "isVegetarian": true,
+      "isVegan": true,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.8,
+      "count": 63
+      },
+      "reviews": [
+      {
+      "id": "rev2",
+      "userId": "user2",
+      "userName": "Carlos Rodríguez",
+      "userImage": {
+      "url": "assets/images/users/profile2.jpg",
+      "alt": "Carlos Rodríguez"
+      },
+      "rating": 5,
+      "comment": "El mejor guacamole de Madrid, sin duda. Me recordó a mi viaje a México.",
+      "createdAt": "2023-05-25T20:15:00Z",
+      "likes": 8
+      }
+      ],
+      "favorites": 42,
+      "featured": true,
+      "available": true,
+      "createdAt": "2022-12-15T11:20:00Z",
+      "updatedAt": "2023-07-05T16:40:00Z"
+      },
+      {
+      "id": "dish30",
+      "name": "Tacos al pastor",
+      "description": "Auténticos tacos al pastor con carne marinada en adobo, cocinada en trompo vertical y servida en tortillas de maíz con piña, cebolla y cilantro. Acompañados de salsa roja, verde y limón.",
+      "price": 14.90,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/tacos1.jpg",
+      "alt": "Tacos al pastor"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/tacos_main.jpg",
+      "alt": "Plato de tacos al pastor"
+      },
+      "restaurantId": "rest4",
+      "categoryId": "cat10",
+      "ingredients": ["Tortilla de maíz", "Carne de cerdo", "Adobo de chiles", "Piña", "Cebolla", "Cilantro"],
+      "allergens": [],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.9,
+      "count": 87
+      },
+      "favorites": 64,
+      "featured": true,
+      "available": true,
+      "createdAt": "2022-12-15T11:25:00Z",
+      "updatedAt": "2023-07-05T16:45:00Z"
+      },
+      {
+      "id": "dish36",
+      "name": "Tabla de quesos vegetales fermentados",
+      "description": "Selección de quesos vegetales artesanales elaborados a base de anacardos y almendras, fermentados con diversas bacterias probióticas. Acompañados de frutos secos activados, frutas deshidratadas y crackers de semillas.",
+      "price": 16.50,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/quesoveg1.jpg",
+      "alt": "Tabla de quesos vegetales"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/quesoveg_main.jpg",
+      "alt": "Selección de quesos vegetales fermentados"
+      },
+      "restaurantId": "rest5",
+      "categoryId": "cat12",
+      "ingredients": ["Anacardos", "Almendras", "Cultivos probióticos", "Hierbas aromáticas", "Frutos secos", "Frutas deshidratadas", "Semillas de lino", "Semillas de chía"],
+      "allergens": ["Frutos secos"],
+      "isVegetarian": true,
+      "isVegan": true,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.7,
+      "count": 52
+      },
+      "favorites": 38,
+      "featured": true,
+      "available": true,
+      "createdAt": "2023-01-20T09:45:00Z",
+      "updatedAt": "2023-07-10T11:30:00Z"
+      },
+      {
+      "id": "dish38",
+      "name": "Risotto de setas silvestres y trufa",
+      "description": "Cremoso risotto elaborado con arroz carnaroli, setas silvestres de temporada, aceite de trufa negra y queso vegano de anacardos. Terminado con láminas de trufa fresca y cebollino.",
+      "price": 19.80,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/risotto1.jpg",
+      "alt": "Risotto de setas"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/risotto_main.jpg",
+      "alt": "Risotto de setas silvestres y trufa"
+      },
+      "restaurantId": "rest5",
+      "categoryId": "cat13",
+      "ingredients": ["Arroz carnaroli", "Setas silvestres", "Caldo vegetal", "Trufa negra", "Aceite de trufa", "Queso vegano", "Cebollino"],
+      "allergens": ["Frutos secos"],
+      "isVegetarian": true,
+      "isVegan": true,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.9,
+      "count": 41
+      },
+      "favorites": 35,
+      "featured": true,
+      "available": true,
+      "createdAt": "2023-01-20T09:50:00Z",
+      "updatedAt": "2023-07-10T11:35:00Z"
+      },
+      {
+      "id": "dish42",
+      "name": "Pulpo a la gallega",
+      "description": "Pulpo cocido en cobre y servido sobre cama de patatas, aceite de oliva virgen extra, pimentón de la Vera y sal gruesa marina. La auténtica receta tradicional gallega.",
+      "price": 22.50,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/pulpo1.jpg",
+      "alt": "Pulpo a la gallega"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/pulpo_main.jpg",
+      "alt": "Plato de pulpo a la gallega"
+      },
+      "restaurantId": "rest6",
+      "categoryId": "cat14",
+      "ingredients": ["Pulpo", "Patatas", "Aceite de oliva virgen extra", "Pimentón de la Vera", "Sal marina"],
+      "allergens": ["Moluscos"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.8,
+      "count": 78
+      },
+      "favorites": 56,
+      "featured": true,
+      "available": true,
+      "createdAt": "2022-08-15T08:30:00Z",
+      "updatedAt": "2023-07-08T12:50:00Z"
+      },
+      {
+      "id": "dish45",
+      "name": "Rodaballo salvaje a la plancha",
+      "description": "Rodaballo salvaje del Cantábrico cocinado a la plancha con aceite de oliva, ajo y perejil. Acompañado de patatas al horno y refrito de ajada gallega.",
+      "price": 28.90,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/rodaballo1.jpg",
+      "alt": "Rodaballo a la plancha"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/rodaballo_main.jpg",
+      "alt": "Rodaballo salvaje a la plancha"
+      },
+      "restaurantId": "rest6",
+      "categoryId": "cat15",
+      "ingredients": ["Rodaballo salvaje", "Aceite de oliva", "Ajo", "Perejil", "Patatas", "Guindilla"],
+      "allergens": ["Pescado"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.9,
+      "count": 46
+      },
+      "favorites": 32,
+      "featured": true,
+      "available": true,
+      "createdAt": "2022-08-15T08:35:00Z",
+      "updatedAt": "2023-07-08T12:55:00Z"
+      },
+      {
+      "id": "dish52",
+      "name": "Pollo Tikka Masala",
+      "description": "Jugosos trozos de pollo marinados en yogur y especias, cocinados en tandoor y terminados en una cremosa salsa de tomate con especias aromáticas. Servido con arroz basmati.",
+      "price": 17.90,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/tikka1.jpg",
+      "alt": "Pollo Tikka Masala"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/tikka_main.jpg",
+      "alt": "Pollo Tikka Masala con arroz"
+      },
+      "restaurantId": "rest7",
+      "categoryId": "cat17",
+      "ingredients": ["Pollo", "Yogur", "Especias garam masala", "Tomate", "Cebolla", "Jengibre", "Ajo", "Cilantro", "Arroz basmati"],
+      "allergens": ["Lácteos"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.7,
+      "count": 69
+      },
+      "favorites": 45,
+      "featured": true,
+      "available": true,
+      "createdAt": "2023-02-10T12:35:00Z",
+      "updatedAt": "2023-07-12T15:50:00Z"
+      },
+      {
+      "id": "dish54",
+      "name": "Butter Chicken",
+      "description": "Clásico curry indio con pollo tandoori en una rica salsa cremosa de mantequilla, tomate y anacardos. Aromatizado con especias exóticas y terminado con un toque de nata fresca.",
+      "price": 16.90,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/butter1.jpg",
+      "alt": "Butter Chicken"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/butter_main.jpg",
+      "alt": "Butter Chicken tradicional"
+      },
+      "restaurantId": "rest7",
+      "categoryId": "cat18",
+      "ingredients": ["Pollo", "Mantequilla", "Tomate", "Anacardos", "Nata", "Especias", "Ajo", "Jengibre", "Cebolla"],
+      "allergens": ["Lácteos", "Frutos secos"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.8,
+      "count": 57
+      },
+      "favorites": 41,
+      "featured": false,
+      "available": true,
+      "createdAt": "2023-02-10T12:40:00Z",
+      "updatedAt": "2023-07-12T15:55:00Z"
+      },
+      {
+      "id": "dish60",
+      "name": "Lubina salvaje a la sal",
+      "description": "Lubina salvaje del Mediterráneo cocinada al horno bajo costra de sal marina. Servida deslomada con aceite de oliva virgen extra y verduras salteadas de temporada.",
+      "price": 29.50,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/lubina1.jpg",
+      "alt": "Lubina a la sal"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/lubina_main.jpg",
+      "alt": "Lubina salvaje a la sal"
+      },
+      "restaurantId": "rest8",
+      "categoryId": "cat19",
+      "ingredients": ["Lubina salvaje", "Sal marina", "Aceite de oliva", "Limón", "Verduras de temporada"],
+      "allergens": ["Pescado"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.9,
+      "count": 42
+      },
+      "favorites": 37,
+      "featured": true,
+      "available": true,
+      "createdAt": "2022-10-30T13:50:00Z",
+      "updatedAt": "2023-07-15T17:25:00Z"
+      },
+      {
+      "id": "dish63",
+      "name": "Arroz negro con calamares",
+      "description": "Cremoso arroz cocinado con tinta de calamar, calamares frescos, sofrito tradicional y alioli casero. Un clásico de la cocina mediterránea con sabor intenso a mar.",
+      "price": 24.90,
+      "currency": "MXN",
+      "images": [
+      {
+      "url": "assets/images/dishes/arroznegro1.jpg",
+      "alt": "Arroz negro"
+      }
+      ],
+      "mainImage": {
+      "url": "/assets/images/dishes/arroznegro_main.jpg",
+      "alt": "Arroz negro con calamares y alioli"
+      },
+      "restaurantId": "rest8",
+      "categoryId": "cat20",
+      "ingredients": ["Arroz bomba", "Calamares", "Tinta de calamar", "Sofrito", "Caldo de pescado", "Alioli"],
+      "allergens": ["Moluscos", "Huevo", "Pescado"],
+      "isVegetarian": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "rating": {
+      "average": 4.8,
+      "count": 38
+      },
+      "favorites": 29,
+      "featured": false,
+      "available": true,
+      "createdAt": "2022-10-30T13:55:00Z",
+      "updatedAt": "2023-07-15T17:30:00Z"
+      }
   ]

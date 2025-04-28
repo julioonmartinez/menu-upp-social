@@ -38,31 +38,33 @@
     <div class="container">
       <!-- Tabs de navegación -->
       <div class="explore-tabs">
-        <div 
-          class="tab-item" 
-          [class.active]="activeTab === 'restaurants'"
-          (click)="setActiveTab('restaurants')"
-        >
-          <i class="fa-solid fa-utensils"></i>
-          <span>Restaurantes</span>
-        </div>
-        
-        <div 
-          class="tab-item" 
-          [class.active]="activeTab === 'dishes'"
-          (click)="setActiveTab('dishes')"
-        >
-          <i class="fa-solid fa-burger"></i>
-          <span>Platos</span>
-        </div>
-        
-        <div 
-          class="tab-item" 
-          [class.active]="activeTab === 'routes'"
-          (click)="setActiveTab('routes')"
-        >
-          <i class="fa-solid fa-route"></i>
-          <span>Rutas</span>
+        <div class="tab-group">
+          <div 
+            class="tab-item" 
+            [class.active]="activeTab === 'restaurants'"
+            (click)="setActiveTab('restaurants')"
+          >
+            <i class="fa-solid fa-utensils"></i>
+            <span>Restaurantes</span>
+          </div>
+          
+          <div 
+            class="tab-item" 
+            [class.active]="activeTab === 'dishes'"
+            (click)="setActiveTab('dishes')"
+          >
+            <i class="fa-solid fa-burger"></i>
+            <span>Platos</span>
+          </div>
+          
+          <div 
+            class="tab-item" 
+            [class.active]="activeTab === 'routes'"
+            (click)="setActiveTab('routes')"
+          >
+            <i class="fa-solid fa-route"></i>
+            <span>Rutas</span>
+          </div>
         </div>
       </div>
       
@@ -94,20 +96,29 @@
                   <p>No se encontraron restaurantes con "{{ searchQuery }}"</p>
                 </div>
                 
-                <div class="restaurant-grid">
+                <div class="restaurant-grid" *ngIf="!loading.restaurants">
                   <app-card 
-                    *ngFor="let restaurant of searchResults"
+                    *ngFor="let restaurant of popularRestaurants"
                     [variant]="'elevated'"
                     [hoverable]="true"
-                    [padding]="'md'"
+                    [padding]="'none'"
+                    [borderRadius]="'lg'"
                     class="restaurant-card"
+                    [routerLink]="['/profile', restaurant.username]"
                   >
                     <div class="restaurant-content">
-                      <div class="restaurant-logo" *ngIf="restaurant.logo?.url">
-                        <img [src]="restaurant.logo.url" [alt]="restaurant.name">
+                      <!-- Fondo de portada -->
+                      <div class="restaurant-cover-bg" [style.background-image]="restaurant.coverImage?.url ? 'url(' + restaurant.coverImage?.url + ')' : '/assets/images/hero-image.webp'"></div>
+                      
+                      <!-- Logo -->
+                      <div class="restaurant-logo">
+                        <img [src]="restaurant.logo?.url || 'assets/images/placeholder-profile.jpg'" [alt]="restaurant.name">
                       </div>
+                      
+                      <!-- Información del restaurante -->
                       <div class="restaurant-info">
                         <h3 class="restaurant-name">{{ restaurant.name }}</h3>
+                        
                         <div class="restaurant-meta">
                           <span class="restaurant-cuisine" *ngIf="restaurant.cuisineType">
                             {{ restaurant.cuisineType.join(', ') }}
@@ -116,9 +127,22 @@
                             {{ restaurant.priceRange }}
                           </span>
                         </div>
+                        
                         <p class="restaurant-description" *ngIf="restaurant.description">
-                          {{ restaurant.description.substring(0, 120) }}...
+                          {{ restaurant.description.substring(0, 120) }}{{ restaurant.description.length > 120 ? '...' : '' }}
                         </p>
+                        
+                        <div class="restaurant-footer">
+                          <div class="restaurant-rating-display" *ngIf="restaurant.rating">
+                            <i class="fa-solid fa-star"></i>
+                            <span>{{ restaurant.rating.average.toFixed(1) }}</span>
+                            <span class="rating-count">({{ restaurant.rating.count }})</span>
+                          </div>
+                          
+                          <button class="restaurant-cta" (click)="viewRestaurant(restaurant.username, $event)">
+                            Ver menú
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </app-card>

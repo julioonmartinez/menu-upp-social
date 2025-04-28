@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { CardComponent } from '../../../../shared/components/card/card.component';
@@ -38,6 +38,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   popularRestaurants: Restaurant[] = [];
   trendingDishes: Dish[] = [];
   popularRoutes: GastronomicRoute[] = [];
+  private router = inject(Router)
   
   // Control de tabs
   activeTab: 'restaurants' | 'dishes' | 'routes' = 'restaurants';
@@ -98,19 +99,39 @@ export class LandingComponent implements OnInit, OnDestroy {
   /**
    * Carga los restaurantes populares
    */
-  loadRestaurants() {
-    this.loading.restaurants = true;
-    this.mockDataService.getRestaurants().subscribe({
-      next: (restaurants) => {
-        // Simulamos restaurantes populares (primeros 6)
-        this.popularRestaurants = restaurants.slice(0, 6);
-        this.loading.restaurants = false;
-      },
-      error: () => {
-        this.loading.restaurants = false;
-      }
-    });
-  }
+/**
+ * Carga los restaurantes populares ordenados por valoración
+ */
+loadRestaurants() {
+  this.loading.restaurants = true;
+  this.mockDataService.getRestaurants().subscribe({
+    next: (restaurants) => {
+      // Ordenar por valoración y popularidad
+      const sortedRestaurants = restaurants.sort((a, b) => {
+        // Primero por valoración si está disponible
+        const ratingA = a.rating?.average || 0;
+        const ratingB = b.rating?.average || 0;
+        
+        if (ratingA !== ratingB) {
+          return ratingB - ratingA; // Mayor valoración primero
+        }
+        
+        // Si tienen la misma valoración, ordenar por seguidores
+        const followersA = a.followers || 0;
+        const followersB = b.followers || 0;
+        return followersB - followersA;
+      });
+      
+      // Tomar los primeros 6
+      this.popularRestaurants = sortedRestaurants.slice(0, 6);
+      this.loading.restaurants = false;
+      console.log(restaurants)
+    },
+    error: () => {
+      this.loading.restaurants = false;
+    }
+  });
+}
   
   /**
    * Carga los platos en tendencia
@@ -145,6 +166,21 @@ export class LandingComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  /**
+ * Navega a la página del restaurante evitando la propagación del evento si viene del botón de CTA
+ */
+viewRestaurant(username: string, event?: Event): void {
+  // Si se proporciona un evento, detener la propagación
+  // Esto evita la navegación duplicada cuando se hace clic en el botón dentro de la card
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
+  // Navegar a la página del perfil del restaurante
+  this.router.navigate(['/profile', username]);
+}
   
   /**
    * Cambia el tab activo

@@ -5,11 +5,11 @@
       "description": "Especialistas en carnes a la brasa y productos de temporada. En nuestro restaurante disfrutarás de los mejores cortes de carne en un ambiente acogedor y con un servicio excepcional.",
       "username": "labraseria",
       "logo": {
-        "url": "assets/images/restaurants/logo1.jpg",
+        "url": "/assets/images/restaurants/logo1.jpg",
         "alt": "Logo La Brasería Gourmet"
       },
       "coverImage": {
-        "url": "assets/images/restaurants/cover1.jpg",
+        "url": "/assets/images/restaurants/cover1.jpg",
         "alt": "Interior La Brasería Gourmet"
       },
       "address": {
@@ -129,11 +129,11 @@
       "description": "Experiencia única que combina lo mejor de la gastronomía japonesa con influencias mediterráneas. Nuestros chefs crean piezas de sushi artesanales con pescado fresco de máxima calidad.",
       "username": "sushifusion",
       "logo": {
-        "url": "assets/images/restaurants/logo2.jpg",
+        "url": "/assets/images/restaurants/logo2.jpg",
         "alt": "Logo Sushi Fusion"
       },
       "coverImage": {
-        "url": "assets/images/restaurants/cover2.jpg",
+        "url": "/assets/images/restaurants/cover2.jpg",
         "alt": "Interior Sushi Fusion"
       },
       "address": {
@@ -291,11 +291,11 @@
       "description": "Auténtica cocina italiana con recetas tradicionales transmitidas de generación en generación. Pasta fresca hecha a mano cada día y los mejores ingredientes importados de Italia.",
       "username": "trattoria",
       "logo": {
-        "url": "assets/images/restaurants/logo3.jpg",
+        "url": "/assets/images/restaurants/logo3.jpg",
         "alt": "Logo Trattoria Italiana"
       },
       "coverImage": {
-        "url": "assets/images/restaurants/cover3.jpg",
+        "url": "/assets/images/restaurants/cover3.jpg",
         "alt": "Interior Trattoria Italiana"
       },
       "address": {
@@ -440,5 +440,327 @@
       "cuisineType": ["Italiana", "Mediterránea", "Tradicional"],
       "createdAt": "2022-09-05T11:20:00Z",
       "updatedAt": "2023-06-18T12:10:00Z"
-    }
+    },
+    {
+      "id": "rest4",
+      "name": "El Sabor Mexicano",
+      "description": "Auténtica cocina mexicana elaborada con ingredientes frescos y recetas tradicionales. Desde nuestros tacos al pastor hasta nuestro mole poblano, cada plato es una explosión de sabores que te transportará a México.",
+      "username": "sabormexicano",
+      "logo": {
+      "url": "/assets/images/restaurants/logo4.jpg",
+      "alt": "Logo El Sabor Mexicano"
+      },
+      "coverImage": {
+      "url": "/assets/images/restaurants/cover4.jpg",
+      "alt": "Interior El Sabor Mexicano"
+      },
+      "address": {
+      "street": "Calle de Fuencarral",
+      "number": "123",
+      "city": "Madrid",
+      "state": "Madrid",
+      "country": "España",
+      "postalCode": "28004",
+      "coordinates": {
+      "lat": 40.425678,
+      "lng": -3.701456
+      }
+      },
+      "contact": {
+      "phone": "+34915678901",
+      "email": "contacto@elsabormexicano.com",
+      "website": "https://www.elsabormexicano.com"
+      },
+      "schedule": [
+      {
+      "day": "monday",
+      "open": false
+      },
+      {
+      "day": "tuesday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "tuesday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "23:30"
+      },
+      {
+      "day": "wednesday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "wednesday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "23:30"
+      },
+      {
+      "day": "thursday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "thursday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "23:30"
+      },
+      {
+      "day": "friday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "friday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "00:30"
+      },
+      {
+      "day": "saturday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "saturday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "00:30"
+      },
+      {
+      "day": "sunday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      }
+      ],
+      "categories": ["cat9", "cat10", "cat11"],
+      "rating": {
+      "average": 4.6,
+      "count": 93
+      },
+      "followers": 254,
+      "menuSections": [
+      {
+      "id": "ms12",
+      "name": "Entradas",
+      "description": "Para abrir el apetito",
+      "order": 1,
+      "dishes": ["dish28", "dish29"]
+      },
+      {
+      "id": "ms13",
+      "name": "Tacos y Antojitos",
+      "description": "Auténticos sabores mexicanos",
+      "order": 2,
+      "dishes": ["dish30", "dish31", "dish32"]
+      },
+      {
+      "id": "ms14",
+      "name": "Especialidades",
+      "description": "Los platos estrella de nuestra cocina",
+      "order": 3,
+      "dishes": ["dish33", "dish34"]
+      },
+      {
+      "id": "ms15",
+      "name": "Postres",
+      "description": "Dulces tradicionales mexicanos",
+      "order": 4,
+      "dishes": ["dish35"]
+      }
+      ],
+      "socialLinks": [
+      {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/elsabormexicano",
+      "icon": "fa-brands fa-instagram"
+      },
+      {
+      "platform": "facebook",
+      "url": "https://www.facebook.com/elsabormexicano",
+      "icon": "fa-brands fa-facebook"
+      },
+      {
+      "platform": "twitter",
+      "url": "https://www.twitter.com/sabormexicano",
+      "icon": "fa-brands fa-twitter"
+      }
+      ],
+      "features": ["Terraza", "Música en vivo", "Cócteles artesanales", "Menú degustación"],
+      "priceRange": "undefined",
+      "cuisineType": ["India", "Asiática", "Especias"],
+      "createdAt": "2023-02-05T12:30:00Z",
+      "updatedAt": "2023-07-12T15:45:00Z"
+      },
+      {
+      "id": "rest8",
+      "name": "La Cantina del Mar",
+      "description": "Restaurante especializado en pescados y mariscos de temporada. Nuestra barra de productos frescos del día y nuestra carta rotativa según la pesca ofrecen lo mejor del Mediterráneo y el Cantábrico.",
+      "username": "cantinadelmar",
+      "logo": {
+      "url": "/assets/images/restaurants/logo8.jpg",
+      "alt": "Logo La Cantina del Mar"
+      },
+      "coverImage": {
+      "url": "/assets/images/restaurants/cover8.jpg",
+      "alt": "Interior La Cantina del Mar"
+      },
+      "address": {
+      "street": "Calle de Ponzano",
+      "number": "72",
+      "city": "Madrid",
+      "state": "Madrid",
+      "country": "España",
+      "postalCode": "28003",
+      "coordinates": {
+      "lat": 40.442345,
+      "lng": -3.701237
+      }
+      },
+      "contact": {
+      "phone": "+34919012345",
+      "email": "info@cantinadelmar.com",
+      "website": "https://www.cantinadelmar.com"
+      },
+      "schedule": [
+      {
+      "day": "monday",
+      "open": false
+      },
+      {
+      "day": "tuesday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "tuesday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "23:00"
+      },
+      {
+      "day": "wednesday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "wednesday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "23:00"
+      },
+      {
+      "day": "thursday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "thursday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "23:00"
+      },
+      {
+      "day": "friday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "friday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "00:00"
+      },
+      {
+      "day": "saturday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      },
+      {
+      "day": "saturday",
+      "open": true,
+      "openTime": "20:00",
+      "closeTime": "00:00"
+      },
+      {
+      "day": "sunday",
+      "open": true,
+      "openTime": "13:00",
+      "closeTime": "16:00"
+      }
+      ],
+      "categories": ["cat19", "cat20"],
+      "rating": {
+      "average": 4.8,
+      "count": 97
+      },
+      "followers": 230,
+      "menuSections": [
+      {
+      "id": "ms27",
+      "name": "Entrantes del mar",
+      "description": "Pequeños bocados marinos",
+      "order": 1,
+      "dishes": ["dish58", "dish59"]
+      },
+      {
+      "id": "ms28",
+      "name": "Pescados",
+      "description": "Selección del día",
+      "order": 2,
+      "dishes": ["dish60", "dish61", "dish62"]
+      },
+      {
+      "id": "ms29",
+      "name": "Arroces",
+      "description": "Especialidades mediterráneas",
+      "order": 3,
+      "dishes": ["dish63", "dish64"]
+      },
+      {
+      "id": "ms30",
+      "name": "Postres",
+      "description": "Un dulce final",
+      "order": 4,
+      "dishes": ["dish65", "dish66"]
+      }
+      ],
+      "socialLinks": [
+      {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/cantinadelmar",
+      "icon": "fa-brands fa-instagram"
+      },
+      {
+      "platform": "facebook",
+      "url": "https://www.facebook.com/cantinadelmar",
+      "icon": "fa-brands fa-facebook"
+      },
+      {
+      "platform": "twitter",
+      "url": "https://www.twitter.com/cantinadelmar",
+      "icon": "fa-brands fa-twitter"
+      }
+      ],
+      "features": ["Barra de pescados", "Vinos por copas", "Menú del día", "Producto de temporada"],
+      "priceRange": "$$$",
+      "cuisineType": ["Mediterránea", "Marisquería", "Contemporánea"],
+      "createdAt": "2022-10-28T13:45:00Z",
+      "updatedAt": "2023-07-15T17:20:00Z"
+      }
   ]
