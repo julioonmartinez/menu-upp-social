@@ -1,0 +1,26 @@
+
+<div class="feed-section">
+  <h2 class="section-title">Restaurantes populares</h2>
+  
+  <!-- Loader de restaurantes -->
+  <div class="loader-container" *ngIf="isLoading">
+    <div class="loader"></div>
+    <p>Cargando restaurantes...</p>
+  </div>
+  
+  <!-- Mensaje si no hay restaurantes -->
+  <div class="empty-message" *ngIf="!isLoading && restaurants.length === 0">
+    <i class="fa-solid fa-utensils"></i>
+    <p>No se encontraron restaurantes</p>
+  </div>
+  
+  <!-- Grid de restaurantes -->
+  <div class="restaurant-grid" *ngIf="!isLoading && restaurants.length > 0">
+    <app-restaurant-card 
+      *ngFor="let restaurant of restaurants"
+      [restaurant]="restaurant"
+      (viewMenuClicked)="onViewRestaurant(restaurant.username)"
+      (saveClicked)="onSaveRestaurant(restaurant.id || '')"
+    ></app-restaurant-card>
+  </div>
+</div>

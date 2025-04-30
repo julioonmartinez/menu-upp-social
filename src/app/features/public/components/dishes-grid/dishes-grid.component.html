@@ -1,0 +1,28 @@
+<!-- dishes-grid.component.html -->
+<div class="feed-section">
+    <h2 class="section-title">{{ title }}</h2>
+    
+    <!-- Loader de platos -->
+    <div class="loader-container" *ngIf="isLoading">
+      <div class="loader"></div>
+      <p>Cargando platos...</p>
+    </div>
+    
+    <!-- Mensaje si no hay platos -->
+    <div class="empty-message" *ngIf="!isLoading && dishes.length === 0">
+      <i class="fa-solid fa-burger"></i>
+      <p>No se encontraron platos</p>
+    </div>
+    
+    <!-- Grid de platos -->
+    <div class="dish-grid" *ngIf="!isLoading && dishes.length > 0">
+      <app-dish-card
+        *ngFor="let dish of dishes"
+        [dish]="dish"
+        [interactive]="true"
+        [size]="'md'"
+        (favoriteClicked)="onFavoriteClicked($event)"
+        (rateClicked)="onRateClicked($event)"
+      ></app-dish-card>
+    </div>
+  </div>

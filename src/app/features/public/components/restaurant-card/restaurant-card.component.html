@@ -1,0 +1,69 @@
+
+<div class="restaurant-card" [routerLink]="['/profile', restaurant.username]">
+  <!-- Sección de portada con superposiciones -->
+  <div class="restaurant-cover-container">
+    <div class="restaurant-cover-bg" [style.background-image]="'url(' + getCoverImageUrl() + ')'"></div>
+    
+    <!-- Etiquetas y valoración -->
+    <div class="restaurant-tags">
+      <!-- Valoración -->
+      <div class="restaurant-tag tag-rating" *ngIf="restaurant.rating">
+        <i class="fa-solid fa-star"></i>
+        <span>{{ formatRating(restaurant.rating.average) }}</span>
+        <span class="rating-count">({{ restaurant.rating.count || 0 }})</span>
+      </div>
+      
+      <!-- Precio -->
+      <div class="restaurant-tag tag-price" *ngIf="restaurant.priceRange">
+        {{ restaurant.priceRange }}
+      </div>
+      
+      <!-- Cocina (primera etiqueta) -->
+      <div class="restaurant-tag tag-cuisine" *ngIf="restaurant.cuisineType && restaurant.cuisineType.length > 0">
+        {{ restaurant.cuisineType[0] }}
+      </div>
+    </div>
+     <!-- Logo del restaurante -->
+  <div class="restaurant-logo">
+    <img [src]="getLogoUrl()" [alt]="restaurant.name">
+  </div>
+  </div>
+  
+ 
+  
+  <!-- Información del restaurante -->
+  <div class="restaurant-info">
+    <h3 class="restaurant-name">{{ restaurant.name }}</h3>
+    
+    <!-- Seguidores -->
+    <div class="restaurant-followers">
+      <i class="fa-solid fa-users"></i>
+      <span>{{ restaurant.followers || 0 }} seguidores</span>
+    </div>
+    
+    <!-- Descripción -->
+    <p class="restaurant-description" *ngIf="restaurant.description">
+      {{ restaurant.description }}
+    </p>
+    
+    <!-- Características/amenities -->
+    <div class="restaurant-features" *ngIf="restaurant.features && restaurant.features.length > 0">
+      <div class="feature-tag" *ngFor="let feature of restaurant.features.slice(0, 3)">
+        <i class="fa-solid" [ngClass]="getFeatureIconClass(feature)"></i>
+        <span>{{ feature }}</span>
+      </div>
+    </div>
+    
+    <!-- Footer con acciones -->
+    <div class="restaurant-footer">
+      <button class="save-button" (click)="onSaveClick($event)">
+        <i class="fa-regular fa-heart"></i>
+        <span>Guardar</span>
+      </button>
+      
+      <button class="menu-button" (click)="onViewMenuClick($event)">
+        Ver menú
+      </button>
+    </div>
+  </div>
+</div>

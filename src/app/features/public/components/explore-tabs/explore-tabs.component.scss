@@ -1,0 +1,78 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.explore-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-lg;
+  width: 100%;
+  border-bottom: 1px solid rgba($blue-primary, 0.1);
+  overflow: hidden;
+}
+
+.tab-group {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Tab individual
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-sm $spacing-sm;
+  cursor: pointer;
+  color: rgba($blue-primary, 0.6);
+  font-weight: $font-weight-medium;
+  transition: all $transition-fast;
+  position: relative;
+  text-align: center;
+  
+  i {
+    font-size: 1.2rem;
+    margin-bottom: $spacing-xs;
+    transition: transform $transition-fast;
+  }
+  
+  &:hover {
+    color: $blue-primary;
+    
+    i {
+      transform: translateY(-2px);
+    }
+  }
+  
+  &.active {
+    color: $orange-primary;
+    
+    i {
+      transform: translateY(-2px);
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: $orange-primary;
+      border-radius: 3px 3px 0 0;
+    }
+  }
+  
+  // Mejora responsiva para dispositivos pequeños
+  @include respond-to('sm') {
+    flex-direction: row;
+    padding: $spacing-md $spacing-lg;
+    
+    i {
+      margin-right: $spacing-sm;
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<!-- explore-tabs.component.html -->
+<div class="explore-tabs">
+    <div class="tab-group">
+      <div 
+        class="tab-item" 
+        [class.active]="activeTab === 'restaurants'"
+        (click)="onTabChange('restaurants')"
+      >
+        <i class="fa-solid fa-utensils"></i>
+        <span>Restaurantes</span>
+      </div>
+      
+      <div 
+        class="tab-item" 
+        [class.active]="activeTab === 'dishes'"
+        (click)="onTabChange('dishes')"
+      >
+        <i class="fa-solid fa-burger"></i>
+        <span>Platos</span>
+      </div>
+      
+      <div 
+        class="tab-item" 
+        [class.active]="activeTab === 'routes'"
+        (click)="onTabChange('routes')"
+      >
+        <i class="fa-solid fa-route"></i>
+        <span>Rutas</span>
+      </div>
+    </div>
+  </div>

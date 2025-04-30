@@ -1,0 +1,27 @@
+<!-- routes-grid.component.html -->
+<div class="feed-section">
+    <h2 class="section-title">{{ title }}</h2>
+    
+    <!-- Loader de rutas -->
+    <div class="loader-container" *ngIf="isLoading">
+      <div class="loader"></div>
+      <p>Cargando rutas...</p>
+    </div>
+    
+    <!-- Mensaje si no hay rutas -->
+    <div class="empty-message" *ngIf="!isLoading && routes.length === 0">
+      <i class="fa-solid fa-route"></i>
+      <p>No se encontraron rutas gastronómicas</p>
+    </div>
+    
+    <!-- Grid de rutas -->
+    <div class="route-grid" *ngIf="!isLoading && routes.length > 0">
+      <app-route-card
+        *ngFor="let route of routes"
+        [route]="route"
+        [interactive]="true"
+        [size]="'md'"
+        (click)="onRouteClicked(route.id || '')"
+      ></app-route-card>
+    </div>
+  </div>

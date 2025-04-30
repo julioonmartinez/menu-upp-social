@@ -1,0 +1,55 @@
+<div class="explore-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-content">
+        <h3 class="sidebar-title">¡Únete a MenuUPP!</h3>
+        <p class="sidebar-description">
+          Regístrate para guardar tus restaurantes y platos favoritos, seguir rutas gastronómicas y mucho más.
+        </p>
+        
+        <div class="sidebar-benefits">
+          <div class="benefit-item">
+            <i class="fa-solid fa-heart"></i>
+            <span>Guarda tus favoritos</span>
+          </div>
+          <div class="benefit-item">
+            <i class="fa-solid fa-star"></i>
+            <span>Valora platos y restaurantes</span>
+          </div>
+          <div class="benefit-item">
+            <i class="fa-solid fa-route"></i>
+            <span>Crea tus propias rutas</span>
+          </div>
+          <div class="benefit-item">
+            <i class="fa-solid fa-passport"></i>
+            <span>Consigue insignias y logros</span>
+          </div>
+        </div>
+        
+        <div class="sidebar-buttons">
+          <button 
+            class="btn-primary"
+            routerLink="/register"
+          >
+            Crear Cuenta Gratis
+          </button>
+          
+          <button 
+            class="btn-tertiary"
+            routerLink="/login"
+          >
+            Iniciar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Estadísticas de la plataforma -->
+    <div class="stats-card">
+      <div class="stats-grid">
+        <div class="stat-item" *ngFor="let stat of stats">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>

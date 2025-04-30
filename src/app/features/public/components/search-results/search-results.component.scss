@@ -1,0 +1,121 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Resultados de búsqueda
+.search-results {
+  margin-bottom: $spacing-xl;
+  animation: fade-in 0.3s ease-in-out;
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+// Cabecera de resultados
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+  background-color: rgba($blue-primary, 0.03);
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-lg;
+  border-left: 3px solid $orange-primary;
+}
+
+// Título de resultados
+.results-title {
+  margin: 0;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+}
+
+// Botón de limpiar búsqueda
+.clear-search {
+  background: none;
+  border: none;
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-sm;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.5);
+    color: $orange-primary;
+  }
+  
+  i {
+    font-size: $font-size-md;
+  }
+}
+
+// Mensaje de resultados vacíos
+.results-empty {
+  text-align: center;
+  padding: $spacing-xl;
+  background-color: rgba($light-gray, 0.2);
+  border-radius: $border-radius-lg;
+  
+  i {
+    font-size: 48px;
+    color: rgba($blue-primary, 0.2);
+    margin-bottom: $spacing-md;
+  }
+  
+  p {
+    margin: 0;
+    color: rgba($blue-primary, 0.7);
+    font-size: $font-size-md;
+  }
+}
+
+// Contenedor de carga
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  
+  p {
+    margin-top: $spacing-md;
+    color: rgba($blue-primary, 0.7);
+  }
+}
+
+// Icono de carga
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba($blue-primary, 0.1);
+  border-top-color: $orange-primary;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Grids para diferentes tipos de resultados
+.restaurant-grid, .dish-grid, .route-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: $spacing-md;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

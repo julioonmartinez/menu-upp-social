@@ -1,0 +1,218 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Hero Section
+.hero-section {
+  position: relative;
+  padding: $spacing-lg 0;
+  background: linear-gradient(135deg, rgba($light-gray, 0.3), rgba($orange-light, 0.1));
+  overflow: hidden;
+  
+  // Formas decorativas
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: rgba($orange-light, 0.1);
+    z-index: 0;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background-color: rgba($orange-primary, 0.05);
+    z-index: 0;
+  }
+  
+  @include respond-to('lg') {
+    padding: $spacing-xl 0;
+  }
+}
+
+// Contenido del hero
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// Contenedor de texto
+.hero-text {
+  animation: fadeIn 0.8s ease-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+// Título del hero
+.hero-title {
+  font-size: $font-size-xxl;
+  line-height: 1.2;
+  margin-bottom: $spacing-lg;
+  
+  .text-blue {
+    color: $blue-primary;
+  }
+  
+  .text-orange {
+    color: $orange-primary;
+  }
+  
+  // Línea decorativa debajo del título
+  &::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    margin: $spacing-sm auto;
+    background: linear-gradient(to right, $blue-primary, $orange-primary);
+    border-radius: 2px;
+  }
+  
+  .subtitle {
+    display: block;
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+    margin-top: $spacing-xs;
+    color: rgba($blue-primary, 0.8);
+    
+    @include respond-to('md') {
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+// Caja de búsqueda
+.search-container {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+// Caja de búsqueda con efectos
+.search-box {
+  display: flex;
+  background-color: $white;
+  border-radius: $border-radius-full;
+  box-shadow: $shadow-md;
+  overflow: visible;
+  transition: all $transition-normal;
+  position: relative;
+  border: 2px solid transparent;
+  
+  &:focus-within {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px) scale(1.01);
+    border-color: rgba($orange-primary, 0.3);
+  }
+  
+  input {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    border: none;
+    font-size: $font-size-md;
+    border-radius: $border-radius-full;
+    
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  .search-button {
+    background-color: $orange-primary;
+    color: $white;
+    border: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    
+    &:hover {
+      background-color: darken($orange-primary, 10%);
+    }
+  }
+  
+  // Efecto de brillo debajo del buscador
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 15%;
+    right: 15%;
+    height: 10px;
+    background-color: rgba($orange-primary, 0.2);
+    filter: blur(10px);
+    border-radius: $border-radius-full;
+    z-index: -1;
+  }
+}
+
+// Tags de búsqueda
+.search-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-top: $spacing-md;
+  justify-content: center;
+  animation: fadeInUp 0.8s ease-out 0.3s forwards;
+  opacity: 0;
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+// Tag individual
+.search-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-xs $spacing-md;
+  background-color: rgba($white, 0.8);
+  backdrop-filter: blur(4px);
+  border-radius: $border-radius-full;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: rgba($orange-primary, 0.1);
+    color: $orange-primary;
+    border-radius: 50%;
+    margin-right: $spacing-xs;
+    transition: all $transition-fast;
+  }
+  
+  &:hover {
+    background-color: $white;
+    box-shadow: $shadow-sm;
+    
+    i {
+      background-color: $orange-primary;
+      color: $white;
+    }
+  }
+}

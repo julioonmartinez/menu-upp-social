@@ -1,0 +1,42 @@
+
+<div class="quick-search-results">
+  <!-- Loader -->
+  <div class="quick-search-loading" *ngIf="isLoading">
+    <div class="quick-loader"></div>
+    <span>Buscando resultados...</span>
+  </div>
+  
+  <!-- Lista de resultados -->
+  <div class="quick-results-list" *ngIf="!isLoading">
+    <div 
+      class="quick-result-item" 
+      *ngFor="let result of results"
+      [class.restaurant-result]="result.type === 'restaurant'"
+      [class.dish-result]="result.type === 'dish'"
+      [class.route-result]="result.type === 'route'"
+      (click)="onSelectResult(result)"
+    >
+      <div class="result-type-indicator">
+        <i 
+          class="fa-solid" 
+          [ngClass]="{
+            'fa-utensils': result.type === 'restaurant',
+            'fa-burger': result.type === 'dish',
+            'fa-route': result.type === 'route'
+          }"
+        ></i>
+      </div>
+      <div class="result-content">
+        <div class="result-name">{{ result.item.name }}</div>
+        <div class="result-type">
+          {{ getResultTypeLabel(result.type) }}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ver todos los resultados -->
+    <div class="see-all-results" (click)="onViewAllResults()">
+      Ver todos los resultados <i class="fa-solid fa-arrow-right"></i>
+    </div>
+  </div>
+</div>

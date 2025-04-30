@@ -1,342 +1,73 @@
 <div class="landing-page">
-  <!-- Header principal con búsqueda -->
-  <section class="hero-section">
-    <div class="hero-content container">
-      <div class="hero-text">
-        <h1 class="hero-title">
-          <span class="text-blue">MENU</span><span class="text-orange">UPP</span>
-          <span class="subtitle">Explora, descubre y comparte experiencias gastronómicas</span>
-        </h1>
-        
-        <div class="search-container">
-          <div class="search-box">
-            <input 
-              type="text" 
-              placeholder="Busca restaurantes, platos o rutas..." 
-              (input)="onQuickSearch(searchQuery)"
-              [(ngModel)]="searchQuery"
-              (keyup.enter)="onSearch(searchQuery)"
-            >
-            <button class="search-button" (click)="onSearch(searchQuery)">
-              <i class="fa-solid fa-search"></i>
-            </button>
-          </div>
-          
-          <div class="search-tags">
-            <span class="search-tag">Restaurantes</span>
-            <span class="search-tag">Comida vegana</span>
-            <span class="search-tag">Rutas de tapas</span>
-            <span class="search-tag">Cafeterías</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Hero Section (Componente separado) -->
+  <app-hero-section 
+    [searchQuery]="searchQuery"
+    (search)="onSearch($event)"
+    (quickSearch)="onQuickSearch($event)"
+    (selectResult)="selectQuickSearchResult($event)"
+    [showQuickSearch]="showQuickSearch"
+    [quickSearchResults]="quickSearchResults"
+    [isQuickSearchLoading]="loading.quickSearch">
+  </app-hero-section>
   
   <!-- Sección principal de exploración -->
   <section class="explore-section">
     <div class="container">
-      <!-- Tabs de navegación -->
-      <div class="explore-tabs">
-        <div class="tab-group">
-          <div 
-            class="tab-item" 
-            [class.active]="activeTab === 'restaurants'"
-            (click)="setActiveTab('restaurants')"
-          >
-            <i class="fa-solid fa-utensils"></i>
-            <span>Restaurantes</span>
-          </div>
-          
-          <div 
-            class="tab-item" 
-            [class.active]="activeTab === 'dishes'"
-            (click)="setActiveTab('dishes')"
-          >
-            <i class="fa-solid fa-burger"></i>
-            <span>Platos</span>
-          </div>
-          
-          <div 
-            class="tab-item" 
-            [class.active]="activeTab === 'routes'"
-            (click)="setActiveTab('routes')"
-          >
-            <i class="fa-solid fa-route"></i>
-            <span>Rutas</span>
-          </div>
-        </div>
-      </div>
+      <!-- Tabs de navegación (Componente separado) -->
+      <app-explore-tabs 
+        [activeTab]="activeTab"
+        (tabChange)="setActiveTab($event)">
+      </app-explore-tabs>
       
       <!-- Contenedor principal con grid de elementos y sidebar -->
       <div class="explore-container">
         <!-- Contenido principal -->
         <div class="explore-content">
-          <!-- Resultados de búsqueda -->
-          <div class="search-results" *ngIf="isSearching">
-            <div class="results-header">
-              <h2 class="results-title">Resultados para "{{ searchQuery }}"</h2>
-              <button class="clear-search" (click)="clearSearch()">
-                <i class="fa-solid fa-xmark"></i> Limpiar
-              </button>
-            </div>
-            
-            <!-- Loader de búsqueda -->
-            <div class="loader-container" *ngIf="loading.search">
-              <div class="loader"></div>
-              <p>Buscando...</p>
-            </div>
-            
-            <!-- Grid de resultados según tab activo -->
-            <div class="results-grid" *ngIf="!loading.search">
-              <!-- Resultados de restaurantes -->
-              <div class="restaurant-results" *ngIf="activeTab === 'restaurants'">
-                <div class="results-empty" *ngIf="searchResults.length === 0">
-                  <i class="fa-solid fa-face-sad-tear"></i>
-                  <p>No se encontraron restaurantes con "{{ searchQuery }}"</p>
-                </div>
-                
-                <div class="restaurant-grid" *ngIf="!loading.restaurants">
-                  <app-card 
-                    *ngFor="let restaurant of popularRestaurants"
-                    [variant]="'elevated'"
-                    [hoverable]="true"
-                    [padding]="'none'"
-                    [borderRadius]="'lg'"
-                    class="restaurant-card"
-                    [routerLink]="['/profile', restaurant.username]"
-                  >
-                    <div class="restaurant-content">
-                      <!-- Fondo de portada -->
-                      <div class="restaurant-cover-bg" [style.background-image]="restaurant.coverImage?.url ? 'url(' + restaurant.coverImage?.url + ')' : '/assets/images/hero-image.webp'"></div>
-                      
-                      <!-- Logo -->
-                      <div class="restaurant-logo">
-                        <img [src]="restaurant.logo?.url || 'assets/images/placeholder-profile.jpg'" [alt]="restaurant.name">
-                      </div>
-                      
-                      <!-- Información del restaurante -->
-                      <div class="restaurant-info">
-                        <h3 class="restaurant-name">{{ restaurant.name }}</h3>
-                        
-                        <div class="restaurant-meta">
-                          <span class="restaurant-cuisine" *ngIf="restaurant.cuisineType">
-                            {{ restaurant.cuisineType.join(', ') }}
-                          </span>
-                          <span class="restaurant-price" *ngIf="restaurant.priceRange">
-                            {{ restaurant.priceRange }}
-                          </span>
-                        </div>
-                        
-                        <p class="restaurant-description" *ngIf="restaurant.description">
-                          {{ restaurant.description.substring(0, 120) }}{{ restaurant.description.length > 120 ? '...' : '' }}
-                        </p>
-                        
-                        <div class="restaurant-footer">
-                          <div class="restaurant-rating-display" *ngIf="restaurant.rating">
-                            <i class="fa-solid fa-star"></i>
-                            <span>{{ restaurant.rating.average.toFixed(1) }}</span>
-                            <span class="rating-count">({{ restaurant.rating.count }})</span>
-                          </div>
-                          
-                          <button class="restaurant-cta" (click)="viewRestaurant(restaurant.username, $event)">
-                            Ver menú
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </app-card>
-                </div>
-              </div>
-              
-              <!-- Resultados de platos -->
-              <div class="dish-results" *ngIf="activeTab === 'dishes'">
-                <div class="results-empty" *ngIf="searchResults.length === 0">
-                  <i class="fa-solid fa-face-sad-tear"></i>
-                  <p>No se encontraron platos con "{{ searchQuery }}"</p>
-                </div>
-                
-                <div class="dish-grid">
-                  <app-dish-card
-                    *ngFor="let dish of searchResults"
-                    [dish]="dish"
-                    [interactive]="false"
-                    [size]="'md'"
-                    (favoriteClicked)="onDishFavorite($event)"
-                    (rateClicked)="onDishRate($event)"
-                  ></app-dish-card>
-                </div>
-              </div>
-              
-              <!-- Resultados de rutas -->
-              <div class="route-results" *ngIf="activeTab === 'routes'">
-                <div class="results-empty" *ngIf="searchResults.length === 0">
-                  <i class="fa-solid fa-face-sad-tear"></i>
-                  <p>No se encontraron rutas con "{{ searchQuery }}"</p>
-                </div>
-                
-                <div class="route-grid">
-                  <app-route-card
-                    *ngFor="let route of searchResults"
-                    [route]="route"
-                    [interactive]="false"
-                    [size]="'md'"
-                  ></app-route-card>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- Resultados de búsqueda (Componente separado) -->
+          <app-search-results 
+            *ngIf="isSearching"
+            [searchQuery]="searchQuery"
+            [activeTab]="activeTab"
+            [searchResults]="searchResults"
+            [isLoading]="loading.search"
+            (clearSearch)="clearSearch()"
+            (favoriteClicked)="onDishFavorite($event)"
+            (rateClicked)="onDishRate($event)"
+            (viewRestaurant)="viewRestaurant($event)">
+          </app-search-results>
           
           <!-- Exploración normal (no búsqueda) -->
           <div class="explore-feed" *ngIf="!isSearching">
             <!-- Restaurantes populares -->
-            <div class="feed-section" *ngIf="activeTab === 'restaurants'">
-              <h2 class="section-title">Restaurantes populares</h2>
-              
-              <!-- Loader de restaurantes -->
-              <div class="loader-container" *ngIf="loading.restaurants">
-                <div class="loader"></div>
-                <p>Cargando restaurantes...</p>
-              </div>
-              
-              <!-- Grid de restaurantes -->
-              <div class="restaurant-grid" *ngIf="!loading.restaurants">
-                <app-card 
-                  *ngFor="let restaurant of popularRestaurants"
-                  [variant]="'elevated'"
-                  [hoverable]="true"
-                  [padding]="'md'"
-                  class="restaurant-card"
-                >
-                  <div class="restaurant-content">
-                    <div class="restaurant-logo" *ngIf="restaurant.logo?.url">
-                      <img [src]="restaurant.logo?.url" [alt]="restaurant.name">
-                    </div>
-                    <div class="restaurant-info">
-                      <h3 class="restaurant-name">{{ restaurant.name }}</h3>
-                      <div class="restaurant-meta">
-                        <span class="restaurant-cuisine" *ngIf="restaurant.cuisineType">
-                          {{ restaurant.cuisineType.join(', ') }}
-                        </span>
-                        <span class="restaurant-price" *ngIf="restaurant.priceRange">
-                          {{ restaurant.priceRange }}
-                        </span>
-                      </div>
-                      <p class="restaurant-description" *ngIf="restaurant.description">
-                        {{ restaurant.description.substring(0, 120) }}...
-                      </p>
-                    </div>
-                  </div>
-                </app-card>
-              </div>
-            </div>
+            <app-restaurant-grid 
+              *ngIf="activeTab === 'restaurants'"
+              [restaurants]="popularRestaurants"
+              [isLoading]="loading.restaurants"
+              (viewRestaurant)="viewRestaurant($event)">
+            </app-restaurant-grid>
             
             <!-- Platos en tendencia -->
-            <div class="feed-section" *ngIf="activeTab === 'dishes'">
-              <h2 class="section-title">Platos en tendencia</h2>
-              
-              <!-- Loader de platos -->
-              <div class="loader-container" *ngIf="loading.dishes">
-                <div class="loader"></div>
-                <p>Cargando platos...</p>
-              </div>
-              
-              <!-- Grid de platos -->
-              <div class="dish-grid" *ngIf="!loading.dishes">
-                <app-dish-card
-                  *ngFor="let dish of trendingDishes"
-                  [dish]="dish"
-                  [interactive]="false"
-                  [size]="'md'"
-                  (favoriteClicked)="onDishFavorite($event)"
-                  (rateClicked)="onDishRate($event)"
-                ></app-dish-card>
-              </div>
-            </div>
+            <app-dishes-grid 
+              *ngIf="activeTab === 'dishes'"
+              [dishes]="trendingDishes"
+              [isLoading]="loading.dishes"
+              (favoriteClicked)="onDishFavorite($event)"
+              (rateClicked)="onDishRate($event)">
+            </app-dishes-grid>
             
             <!-- Rutas gastronómicas populares -->
-            <div class="feed-section" *ngIf="activeTab === 'routes'">
-              <h2 class="section-title">Rutas gastronómicas populares</h2>
-              
-              <!-- Loader de rutas -->
-              <div class="loader-container" *ngIf="loading.routes">
-                <div class="loader"></div>
-                <p>Cargando rutas...</p>
-              </div>
-              
-              <!-- Grid de rutas -->
-              <div class="route-grid" *ngIf="!loading.routes">
-                <app-route-card
-                  *ngFor="let route of popularRoutes"
-                  [route]="route"
-                  [interactive]="false"
-                  [size]="'md'"
-                ></app-route-card>
-              </div>
-            </div>
+            <app-routes-grid 
+              *ngIf="activeTab === 'routes'"
+              [routes]="popularRoutes"
+              [isLoading]="loading.routes">
+            </app-routes-grid>
           </div>
         </div>
         
-        <!-- Sidebar de registro/login -->
-        <div class="explore-sidebar">
-          <app-card [variant]="'elevated'" [padding]="'md'" class="sidebar-card">
-            <div class="sidebar-content">
-              <h3 class="sidebar-title">¡Únete a MenuUPP!</h3>
-              <p class="sidebar-description">
-                Regístrate para guardar tus restaurantes y platos favoritos, seguir rutas gastronómicas y mucho más.
-              </p>
-              
-              <div class="sidebar-benefits">
-                <div class="benefit-item">
-                  <i class="fa-solid fa-heart"></i>
-                  <span>Guarda tus favoritos</span>
-                </div>
-                <div class="benefit-item">
-                  <i class="fa-solid fa-star"></i>
-                  <span>Valora platos y restaurantes</span>
-                </div>
-                <div class="benefit-item">
-                  <i class="fa-solid fa-route"></i>
-                  <span>Crea tus propias rutas</span>
-                </div>
-                <div class="benefit-item">
-                  <i class="fa-solid fa-passport"></i>
-                  <span>Consigue insignias y logros</span>
-                </div>
-              </div>
-              
-              <div class="sidebar-buttons">
-                <app-button 
-                  variant="primary" 
-                  size="lg" 
-                  [fullWidth]="true"
-                  routerLink="/register"
-                >
-                  Crear Cuenta Gratis
-                </app-button>
-                
-                <app-button 
-                  variant="tertiary" 
-                  size="md" 
-                  [fullWidth]="true"
-                  routerLink="/login"
-                >
-                  Iniciar Sesión
-                </app-button>
-              </div>
-            </div>
-          </app-card>
-          
-          <!-- Estadísticas de la plataforma -->
-          <div class="stats-card">
-            <div class="stats-grid">
-              <div class="stat-item" *ngFor="let stat of stats">
-                <div class="stat-value">{{ stat.value }}</div>
-                <div class="stat-label">{{ stat.label }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Sidebar de registro/login (Componente separado) -->
+        <app-registration-sidebar
+          [stats]="stats">
+        </app-registration-sidebar>
       </div>
     </div>
   </section>

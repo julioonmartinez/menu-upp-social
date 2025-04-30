@@ -2,7 +2,7 @@
     {
       "id": "act1",
       "userId": "user1",
-      "userName": "María López",
+      "userName": "maria_foodie",
       "userImage": {
         "url": "assets/images/users/profile1.jpg",
         "alt": "María López"
@@ -23,7 +23,7 @@
     {
       "id": "act2",
       "userId": "user2",
-      "userName": "Carlos García",
+      "userName": "carlos_chef",
       "userImage": {
         "url": "assets/images/users/profile2.jpg",
         "alt": "Carlos García"
@@ -40,7 +40,7 @@
     {
       "id": "act3",
       "userId": "user3",
-      "userName": "Ana Martínez",
+      "userName": "ana_foodlover",
       "userImage": {
         "url": "assets/images/users/profile3.jpg",
         "alt": "Ana Martínez"
@@ -74,7 +74,7 @@
     {
       "id": "act5",
       "userId": "user1",
-      "userName": "María López",
+      "userName": "maria_foodie",
       "userImage": {
         "url": "assets/images/users/profile1.jpg",
         "alt": "María López"
@@ -91,7 +91,7 @@
     {
       "id": "act6",
       "userId": "user3",
-      "userName": "Ana Martínez",
+      "userName": "ana_foodlover",
       "userImage": {
         "url": "assets/images/users/profile3.jpg",
         "alt": "Ana Martínez"
@@ -129,7 +129,7 @@
     {
       "id": "act8",
       "userId": "user1",
-      "userName": "María López",
+      "userName": "maria_foodie",
       "userImage": {
         "url": "assets/images/users/profile1.jpg",
         "alt": "María López"
@@ -163,7 +163,7 @@
     {
       "id": "act10",
       "userId": "user2",
-      "userName": "Carlos García",
+      "userName": "carlos_chef",
       "userImage": {
         "url": "assets/images/users/profile2.jpg",
         "alt": "Carlos García"

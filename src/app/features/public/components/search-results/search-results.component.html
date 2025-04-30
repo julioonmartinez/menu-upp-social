@@ -1,0 +1,71 @@
+<!-- search-results.component.html -->
+<div class="search-results">
+    <div class="results-header">
+      <h2 class="results-title">Resultados para "{{ searchQuery }}"</h2>
+      <button class="clear-search" (click)="onClearSearch()">
+        <i class="fa-solid fa-xmark"></i> Limpiar
+      </button>
+    </div>
+    
+    <!-- Loader de búsqueda -->
+    <div class="loader-container" *ngIf="isLoading">
+      <div class="loader"></div>
+      <p>Buscando...</p>
+    </div>
+    
+    <!-- Grid de resultados según tab activo -->
+    <div class="results-grid" *ngIf="!isLoading">
+      <!-- Resultados de restaurantes -->
+      <div class="restaurant-results" *ngIf="activeTab === 'restaurants'">
+        <div class="results-empty" *ngIf="searchResults.length === 0">
+          <i class="fa-solid fa-face-sad-tear"></i>
+          <p>No se encontraron restaurantes con "{{ searchQuery }}"</p>
+        </div>
+        
+        <div class="restaurant-grid" *ngIf="searchResults.length > 0">
+          <app-restaurant-card 
+            *ngFor="let restaurant of searchResults"
+            [restaurant]="restaurant"
+            (viewMenuClicked)="onViewRestaurant(restaurant.username)"
+            (saveClicked)="onSaveRestaurant(restaurant.id || '')"
+          ></app-restaurant-card>
+        </div>
+      </div>
+      
+      <!-- Resultados de platos -->
+      <div class="dish-results" *ngIf="activeTab === 'dishes'">
+        <div class="results-empty" *ngIf="searchResults.length === 0">
+          <i class="fa-solid fa-face-sad-tear"></i>
+          <p>No se encontraron platos con "{{ searchQuery }}"</p>
+        </div>
+        
+        <div class="dish-grid" *ngIf="searchResults.length > 0">
+          <app-dish-card
+            *ngFor="let dish of searchResults"
+            [dish]="dish"
+            [interactive]="false"
+            [size]="'md'"
+            (favoriteClicked)="onFavoriteClicked($event)"
+            (rateClicked)="onRateClicked($event)"
+          ></app-dish-card>
+        </div>
+      </div>
+      
+      <!-- Resultados de rutas -->
+      <div class="route-results" *ngIf="activeTab === 'routes'">
+        <div class="results-empty" *ngIf="searchResults.length === 0">
+          <i class="fa-solid fa-face-sad-tear"></i>
+          <p>No se encontraron rutas con "{{ searchQuery }}"</p>
+        </div>
+        
+        <div class="route-grid" *ngIf="searchResults.length > 0">
+          <app-route-card
+            *ngFor="let route of searchResults"
+            [route]="route"
+            [interactive]="false"
+            [size]="'md'"
+          ></app-route-card>
+        </div>
+      </div>
+    </div>
+  </div>

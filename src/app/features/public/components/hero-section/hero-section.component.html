@@ -1,0 +1,45 @@
+
+<section class="hero-section">
+  <div class="hero-content container">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        <span class="text-blue">MENU</span><span class="text-orange">UPP</span>
+        <span class="subtitle">Explora, descubre y comparte experiencias gastronómicas</span>
+      </h1>
+      
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            type="text" 
+            placeholder="Busca restaurantes, platos o rutas..." 
+            (input)="handleQuickSearch()"
+            [(ngModel)]="searchInputValue"
+            (keyup.enter)="handleSearch()"
+          >
+          <button class="search-button" (click)="handleSearch()">
+            <i class="fa-solid fa-search"></i>
+          </button>
+        </div>
+        
+        <!-- Quick Search Results (componentizado separadamente) -->
+        <app-quick-search
+          *ngIf="showQuickSearch"
+          [results]="quickSearchResults"
+          [isLoading]="isQuickSearchLoading"
+          (selectResult)="handleSelectResult($event)"
+          (viewAllResults)="handleSearch()">
+        </app-quick-search>
+        
+        <div class="search-tags">
+          <span 
+            class="search-tag" 
+            *ngFor="let tag of searchTags"
+            (click)="handleTagClick(tag)">
+            <i class="fa-solid" [ngClass]="getTagIcon(tag)"></i>
+            {{ tag }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
