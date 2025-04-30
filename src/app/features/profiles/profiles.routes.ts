@@ -13,7 +13,11 @@ export const routes: Routes = [
       // Ruta base para perfil de restaurante o usuario
       {
         path: '',
-        loadComponent: () => import('./pages/restaurant-profile/restaurant-profile.component').then(c => c.RestaurantProfileComponent),
+        loadComponent: () => {
+          // Carga dinámica basada en el tipo de perfil
+          // Esto se gestionará en el componente
+          return import('./profile-loader/profile-loader.component').then(c => c.ProfileLoaderComponent);
+        },
         title: 'Perfil | MenuUPP'
       },
       
@@ -67,6 +71,13 @@ export const routes: Routes = [
         path: 'routes',
         loadComponent: () => import('./pages/user-public-routes/user-public-routes.component').then(c => c.UserPublicRoutesComponent),
         title: 'Rutas | MenuUPP'
+      },
+      
+      // Favoritos de usuarios
+      {
+        path: 'favorites',
+        loadComponent: () => import('./pages/user-favorites/user-favorites.component').then(c => c.UserFavoritesComponent),
+        title: 'Favoritos | MenuUPP'
       }
     ]
   }

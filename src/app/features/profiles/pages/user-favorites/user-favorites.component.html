@@ -1,0 +1,136 @@
+<div class="user-favorites">
+  <!-- Estado de carga -->
+  <div class="loading-state" *ngIf="loading && !user">
+    <div class="loading-spinner">
+      <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+    </div>
+    <p>Cargando información del usuario...</p>
+  </div>
+  
+  <!-- Estado de error -->
+  <div class="error-state" *ngIf="error && !loading">
+    <div class="error-icon">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+    <p>{{ error }}</p>
+    <app-button 
+      variant="primary" 
+      [routerLink]="['/profile', username]"
+    >
+      Volver al perfil
+    </app-button>
+  </div>
+  
+  <!-- Contenido de favoritos -->
+  <ng-container *ngIf="!loading && !error && isUser">
+    <h1 class="section-title">Platos Favoritos de {{ userName }}</h1>
+    
+    <!-- Barra de búsqueda y filtros -->
+    <div class="search-filters-bar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input 
+          type="text" 
+          placeholder="Buscar en favoritos..." 
+          [ngModel]="searchQuery" 
+          (ngModelChange)="searchQuery = $event"
+        >
+        <button 
+          *ngIf="searchQuery" 
+          class="clear-search" 
+          (click)="searchQuery = ''"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      
+      <div class="sort-options">
+        <span class="sort-label">Ordenar por:</span>
+        <div class="sort-buttons">
+          <button 
+            class="sort-button" 
+            [class.active]="sortOption === 'recent'"
+            (click)="updateSortOption('recent')"
+          >
+            Recientes
+          </button>
+          <button 
+            class="sort-button" 
+            [class.active]="sortOption === 'name'"
+            (click)="updateSortOption('name')"
+          >
+            Nombre
+          </button>
+          <button 
+            class="sort-button" 
+            [class.active]="sortOption === 'rating'"
+            (click)="updateSortOption('rating')"
+          >
+            Valoración
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Estado de carga de platos -->
+    <div class="loading-dishes" *ngIf="loadingDishes">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </div>
+      <p>Cargando platos favoritos...</p>
+    </div>
+    
+    <!-- Sin favoritos -->
+    <div class="no-favorites" *ngIf="!loadingDishes && favoriteDishes.length === 0">
+      <div class="no-favorites-icon">
+        <i class="fa-regular fa-heart"></i>
+      </div>
+      <p>Este usuario aún no tiene platos favoritos.</p>
+      
+      <app-button 
+        variant="primary" 
+        [routerLink]="['/app/explore']"
+      >
+        Explorar restaurantes
+      </app-button>
+    </div>
+    
+    <!-- Sin resultados de búsqueda -->
+    <div class="no-search-results" *ngIf="!loadingDishes && favoriteDishes.length > 0 && filteredDishes.length === 0">
+      <div class="no-search-icon">
+        <i class="fa-solid fa-search"></i>
+      </div>
+      <p>No se encontraron platos para "{{ searchQuery }}"</p>
+      
+      <app-button 
+        variant="tertiary" 
+        (clicked)="searchQuery = ''"
+      >
+        <i class="fa-solid fa-xmark"></i>
+        Limpiar búsqueda
+      </app-button>
+    </div>
+    
+    <!-- Grid de platos -->
+    <div class="dishes-grid" *ngIf="!loadingDishes && filteredDishes.length > 0">
+      <app-dish-card 
+        *ngFor="let dish of filteredDishes" 
+        [dish]="dish"
+        [size]="'md'"
+        (favoriteClicked)="onRemoveFavorite($event)"
+        (rateClicked)="onRateClick($event)"
+      ></app-dish-card>
+    </div>
+    
+    <!-- Botón para volver -->
+    <div class="action-buttons">
+      <app-button 
+        [variant]="'primary'" 
+        [icon]="'arrow-left'"
+        [routerLink]="['/profile', username]"
+      >
+        Volver al perfil
+      </app-button>
+    </div>
+  </ng-container>
+</div>

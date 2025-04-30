@@ -1,0 +1,445 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de perfil de usuario
+.user-profile {
+  padding-bottom: $spacing-xl;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Información del perfil
+.profile-info {
+  margin-bottom: $spacing-lg;
+}
+
+// Tarjeta de biografía
+.bio-card {
+  height: 100%;
+}
+
+// Contenido de la biografía
+.bio-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Texto de biografía
+.bio-text {
+  margin: 0;
+  line-height: 1.6;
+  color: $blue-primary;
+  font-style: italic;
+}
+
+// Ubicación del usuario
+.user-location {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  
+  i {
+    color: $orange-primary;
+  }
+}
+
+// Estadísticas del pasaporte
+.passport-stats {
+  margin-bottom: $spacing-lg;
+}
+
+// Tarjeta de estadísticas
+.stats-card {
+  height: 100%;
+}
+
+// Encabezado de estadísticas
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+// Título de sección
+.section-title {
+  margin: 0;
+  font-size: $font-size-lg;
+  color: $blue-primary;
+}
+
+// Grid de estadísticas
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Elemento de estadística
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-md;
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-md;
+  transition: transform $transition-fast;
+  
+  &:hover {
+    transform: translateY(-3px);
+    background-color: rgba($orange-primary, 0.05);
+  }
+  
+  .stat-value {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $orange-primary;
+  }
+  
+  .stat-label {
+    font-size: $font-size-sm;
+    color: rgba($blue-primary, 0.7);
+    margin-top: $spacing-xs;
+  }
+}
+
+// Últimas insignias
+.latest-badges {
+  margin-top: $spacing-md;
+}
+
+// Título de insignias
+.badges-title {
+  margin: 0 0 $spacing-sm;
+  font-size: $font-size-md;
+  color: $blue-primary;
+}
+
+// Lista de insignias
+.badges-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  
+  @include respond-to('md') {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-sm;
+  }
+}
+
+// Elemento de insignia
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-md;
+  transition: transform $transition-fast;
+  
+  &:hover {
+    transform: translateY(-2px);
+    background-color: rgba($orange-primary, 0.05);
+  }
+}
+
+// Imagen de insignia
+.badge-image {
+  width: 48px;
+  height: 48px;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Información de insignia
+.badge-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+// Nombre de insignia
+.badge-name {
+  font-weight: $font-weight-semibold;
+  color: $blue-primary;
+}
+
+// Categoría de insignia
+.badge-category {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Contenido principal
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-lg;
+  
+  @include respond-to('md') {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+// Sección de actividad
+.activity-section {
+  @include respond-to('md') {
+    grid-column: 1 / 2;
+  }
+}
+
+// Sección de resumen de rutas
+.routes-summary {
+  @include respond-to('md') {
+    grid-column: 2 / 3;
+  }
+}
+
+// Encabezado de sección
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+// Sin actividad
+.no-activity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+}
+
+// Icono de sin actividad
+.no-activity-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Lista de actividades
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+// Tarjeta de actividad
+.activity-card {
+  transition: transform $transition-fast;
+  
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+// Elemento de actividad
+.activity-item {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// Encabezado de actividad
+.activity-header {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+// Tipo de actividad
+.activity-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba($orange-primary, 0.1);
+  color: $orange-primary;
+  font-size: $font-size-lg;
+  flex-shrink: 0;
+}
+
+// Información de actividad
+.activity-info {
+  flex: 1;
+}
+
+// Texto de actividad
+.activity-text {
+  margin-bottom: $spacing-xs;
+  
+  .user-name {
+    font-weight: $font-weight-semibold;
+    color: $blue-primary;
+  }
+  
+  .activity-action {
+    color: rgba($blue-primary, 0.8);
+    margin: 0 $spacing-xs;
+  }
+  
+  .activity-target {
+    font-weight: $font-weight-semibold;
+    color: $orange-primary;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Hora de actividad
+.activity-time {
+  font-size: $font-size-xs;
+  color: rgba($blue-primary, 0.6);
+}
+
+// Imagen de actividad
+.activity-image {
+  width: 100%;
+  height: 180px;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Estado de carga de actividades
+.loading-activities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-lg 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-sm;
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+  @include slide-in('up');
+  
+  .loading-spinner {
+    font-size: 24px;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Animación para mejorar la experiencia de carga
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, rgba($light-gray, 0.1) 4%, rgba($light-gray, 0.2) 25%, rgba($light-gray, 0.1) 36%);
+  background-size: 1000px 100%;
+}
+
+// Estado de carga de rutas
+.loading-routes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-lg 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-sm;
+  
+  .loading-spinner {
+    font-size: 24px;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Sin rutas
+.no-routes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+}
+
+// Icono de sin rutas
+.no-routes-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Grid de rutas
+.routes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+}

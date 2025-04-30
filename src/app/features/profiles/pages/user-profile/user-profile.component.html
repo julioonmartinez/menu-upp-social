@@ -1,0 +1,210 @@
+<div class="user-profile">
+  <!-- Estado de carga -->
+  <div class="loading-state" *ngIf="loading && !user">
+    <div class="loading-spinner">
+      <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+    </div>
+    <p>Cargando perfil del usuario...</p>
+  </div>
+  
+  <!-- Estado de error - Solo mostrar si hay error Y no hay usuario cargado -->
+  <div class="error-state" *ngIf="error && !user && !loading">
+    <div class="error-icon">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+    <p>{{ error }}</p>
+    <app-button 
+      variant="primary" 
+      routerLink="/app/explore"
+    >
+      Volver a Explorar
+    </app-button>
+  </div>
+  
+  <!-- Contenido del perfil - Mostrar cuando hay datos aunque estemos recargando -->
+  <ng-container *ngIf="user && isUser">
+    <!-- Info del usuario -->
+    <div class="profile-info" *ngIf="userBio || userLocation">
+      <app-card variant="elevated" padding="md" class="bio-card">
+        <div class="bio-content">
+          <p class="bio-text" *ngIf="userBio">{{ userBio }}</p>
+          
+          <div class="user-location" *ngIf="userLocation">
+            <i class="fa-solid fa-location-dot"></i>
+            {{ userLocation }}
+          </div>
+        </div>
+      </app-card>
+    </div>
+    
+    <!-- Estadísticas del pasaporte gastronómico -->
+    <div class="passport-stats" *ngIf="userPassport">
+      <app-card variant="elevated" padding="md" class="stats-card">
+        <div class="stats-header">
+          <h2 class="section-title">Pasaporte Gastronómico</h2>
+          
+          <app-button 
+            variant="tertiary" 
+            size="sm"
+            icon="arrow-right"
+            iconPosition="right"
+            routerLink="/app/passport"
+          >
+            Ver pasaporte
+          </app-button>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value">{{ userPassport.level }}</div>
+            <div class="stat-label">Nivel</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-value">{{ userPassport.visited }}</div>
+            <div class="stat-label">Visitas</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-value">{{ userPassport.reviews }}</div>
+            <div class="stat-label">Reseñas</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-value">{{ userPassport.routes }}</div>
+            <div class="stat-label">Rutas</div>
+          </div>
+        </div>
+        
+        <!-- Últimas insignias -->
+        <div class="latest-badges" *ngIf="userPassport.badges && userPassport.badges.length > 0">
+          <h3 class="badges-title">Últimas insignias</h3>
+          
+          <div class="badges-list">
+            <div class="badge-item" *ngFor="let badge of userPassport.badges.slice(0, 5)">
+              <div class="badge-image">
+                <img [src]="badge.imageUrl" [alt]="badge.name">
+              </div>
+              <div class="badge-info">
+                <div class="badge-name">{{ badge.name }}</div>
+                <div class="badge-category">{{ badge.category }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    
+    <!-- Sección principal: Actividad reciente -->
+    <div class="profile-content">
+      <section class="activity-section">
+        <div class="section-header">
+          <h2 class="section-title">Actividad Reciente</h2>
+        </div>
+        
+        <!-- Estado de carga de actividades -->
+        <div class="loading-activities" *ngIf="loading && activities.length === 0">
+          <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+          </div>
+          <p>Cargando actividades recientes...</p>
+        </div>
+        
+        <!-- Sin actividad -->
+        <div class="no-activity" *ngIf="!loading && activities.length === 0">
+          <div class="no-activity-icon">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <p>Este usuario aún no tiene actividad.</p>
+        </div>
+        
+        <!-- Lista de actividades -->
+        <div class="activity-list" *ngIf="activities.length > 0">
+          <app-card 
+            variant="elevated" 
+            padding="md" 
+            class="activity-card"
+            *ngFor="let activity of activities"
+          >
+            <div class="activity-item">
+              <!-- Tipo de actividad e info -->
+              <div class="activity-header">
+                <div class="activity-type">
+                  <i class="fa-solid" 
+                     [ngClass]="{'fa-star': activity.type === 'rating', 
+                                'fa-heart': activity.type === 'favorite',
+                                'fa-utensils': activity.type === 'visit',
+                                'fa-check-circle': activity.type === 'route_completed',
+                                'fa-route': activity.type === 'route_started' || activity.type === 'route_progress' || activity.type === 'route_created',
+                                'fa-user-plus': activity.type === 'follow_restaurant' || activity.type === 'follow_user',
+                                'fa-medal': activity.type === 'badge_earned'}">
+                  </i>
+                </div>
+                
+                <div class="activity-info">
+                  <div class="activity-text">
+                    <span class="user-name">{{ userName }}</span>
+                    <span class="activity-action">{{ formatActivityType(activity.type) }}</span>
+                    <a [routerLink]="getActivityTargetLink(activity)" class="activity-target">{{ activity.targetName }}</a>
+                  </div>
+                  
+                  <div class="activity-time">
+                    {{ formatActivityDate(activity.createdAt) }}
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Imagen de la actividad (si existe) -->
+              <div class="activity-image" *ngIf="activity.targetImage?.url">
+                <img [src]="activity.targetImage?.url" [alt]="activity.targetName">
+              </div>
+            </div>
+          </app-card>
+        </div>
+      </section>
+      
+      <!-- Resumen de rutas -->
+      <section class="routes-summary">
+        <div class="section-header">
+          <h2 class="section-title">Rutas Creadas</h2>
+          
+          <app-button 
+            variant="tertiary" 
+            size="sm"
+            icon="arrow-right"
+            iconPosition="right"
+            [routerLink]="['/profile', username, 'routes']"
+          >
+            Ver todas
+          </app-button>
+        </div>
+        
+        <!-- Estado de carga de rutas -->
+        <div class="loading-routes" *ngIf="loadingRoutes">
+          <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+          </div>
+          <p>Cargando rutas...</p>
+        </div>
+        
+        <!-- Sin rutas -->
+        <div class="no-routes" *ngIf="!loadingRoutes && createdRoutes.length === 0">
+          <div class="no-routes-icon">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <p>Este usuario aún no ha creado rutas gastronómicas.</p>
+        </div>
+        
+        <!-- Grid de rutas -->
+        <div class="routes-grid" *ngIf="!loadingRoutes && createdRoutes.length > 0">
+          <app-route-card
+            *ngFor="let route of createdRoutes.slice(0, 3)"
+            [route]="route"
+            [size]="'md'"
+            [showCreator]="false"
+          ></app-route-card>
+        </div>
+      </section>
+    </div>
+  </ng-container>
+</div>

@@ -92,86 +92,94 @@ export class ProfileService {
     return 0;
   });
   
-  /**
-   * Comprueba si es necesario cargar los datos del perfil
-   * Solo los carga si es un nuevo perfil o si los datos no están ya cargados
-   * @param username Nombre de usuario a cargar
-   * @param forceReload Forzar recarga incluso si ya está en caché
-   */
-  loadProfileByUsername(username: string, forceReload: boolean = false): void {
-    // Si ya estamos cargando datos, evitamos una nueva petición
-    if (this._loading()) {
-      console.log('ProfileService: Ya hay una carga en progreso');
-      return;
-    }
-    
-    const currentTime = Date.now();
-    const timeSinceLastLoad = currentTime - this._lastLoadTime();
-    const isSameUser = this._currentUsername() === username;
-    const cacheAge = 30000; // 30 segundos en ms
-    
-    // Si ya tenemos los datos cargados para este username, están frescos y no se fuerza la recarga
-    if (this._dataLoaded() && isSameUser && !forceReload && timeSinceLastLoad < cacheAge) {
-      console.log('ProfileService: Usando datos en caché para', username, 'edad:', timeSinceLastLoad, 'ms');
-      return;
-    }
-    
-    console.log('ProfileService: Cargando perfil para username:', username, 'forceReload:', forceReload);
-    this._loading.set(true);
-    this._error.set(null);
-    this._currentUsername.set(username);
-    
-    // Primero intentamos cargar como restaurante
-    this.mockDataService.getRestaurantByUsername(username)
-      .pipe(
-        catchError(err => {
-          console.error('Error al cargar el perfil de restaurante', err);
-          return of(undefined);
-        })
-      )
-      .subscribe(restaurant => {
-        if (restaurant) {
-          console.log('ProfileService: Restaurante encontrado:', restaurant.name);
-          this._currentRestaurant.set(restaurant);
-          this._currentUser.set(null);
-          this._profileType.set('restaurant');
-          this._loading.set(false);
-          this._dataLoaded.set(true);
-          this._lastLoadTime.set(Date.now());
-          this.loadProfileActivities(restaurant.id!);
-          this.checkFollowingStatus(restaurant.id!);
-        } else {
-          // Si no es restaurante, intentamos como usuario
-          this.mockDataService.getUserByUsername(username)
-            .pipe(
-              catchError(err => {
-                console.error('Error al cargar el perfil de usuario', err);
-                this._error.set('Error al cargar el perfil');
-                this._loading.set(false);
-                return of(undefined);
-              })
-            )
-            .subscribe(user => {
-              if (user) {
-                console.log('ProfileService: Usuario encontrado:', user.name);
-                this._currentUser.set(user);
-                this._currentRestaurant.set(null);
-                this._profileType.set('user');
-                this._loading.set(false);
-                this._dataLoaded.set(true);
-                this._lastLoadTime.set(Date.now());
-                this.loadProfileActivities(user.id!);
-                this.checkFollowingStatus(user.id!);
-              } else {
-                // Si no se encuentra, establecemos error
-                this._error.set('Perfil no encontrado');
-                this._loading.set(false);
-                this._dataLoaded.set(false);
-              }
-            });
-        }
-      });
+/**
+ * Comprueba si es necesario cargar los datos del perfil
+ * Solo los carga si es un nuevo perfil o si los datos no están ya cargados
+ * @param username Nombre de usuario a cargar
+ * @param forceReload Forzar recarga incluso si ya está en caché
+ */
+loadProfileByUsername(username: string, forceReload: boolean = false): void {
+  // Si ya estamos cargando datos, evitamos una nueva petición
+  if (this._loading()) {
+    console.log('ProfileService: Ya hay una carga en progreso');
+    return;
   }
+  
+  const currentTime = Date.now();
+  const timeSinceLastLoad = currentTime - this._lastLoadTime();
+  const isSameUser = this._currentUsername() === username;
+  const cacheAge = 30000; // 30 segundos en ms
+  
+  // Si ya tenemos los datos cargados para este username, están frescos y no se fuerza la recarga
+  if (this._dataLoaded() && isSameUser && !forceReload && timeSinceLastLoad < cacheAge) {
+    console.log('ProfileService: Usando datos en caché para', username, 'edad:', timeSinceLastLoad, 'ms');
+    return;
+  }
+  
+  console.log('ProfileService: Cargando perfil para username:', username, 'forceReload:', forceReload);
+  this._loading.set(true);
+  this._error.set(null);
+  this._currentUsername.set(username);
+  
+  // Limpiamos las actividades para prevenir que se muestren las del perfil anterior
+  this._profileActivities.set([]);
+  
+  // Primero intentamos cargar como restaurante
+  this.mockDataService.getRestaurantByUsername(username)
+    .pipe(
+      catchError(err => {
+        console.error('Error al cargar el perfil de restaurante', err);
+        return of(undefined);
+      })
+    )
+    .subscribe(restaurant => {
+      if (restaurant) {
+        console.log('ProfileService: Restaurante encontrado:', restaurant.name);
+        this._currentRestaurant.set(restaurant);
+        this._currentUser.set(null);
+        this._profileType.set('restaurant');
+        this._loading.set(false);
+        this._dataLoaded.set(true);
+        this._lastLoadTime.set(Date.now());
+        
+        // Cargar actividades explícitamente después de obtener el ID
+        this.loadProfileActivities(restaurant.id!);
+        this.checkFollowingStatus(restaurant.id!);
+      } else {
+        // Si no es restaurante, intentamos como usuario
+        this.mockDataService.getUserByUsername(username)
+          .pipe(
+            catchError(err => {
+              console.error('Error al cargar el perfil de usuario', err);
+              this._error.set('Error al cargar el perfil');
+              this._loading.set(false);
+              return of(undefined);
+            })
+          )
+          .subscribe(user => {
+            if (user) {
+              console.log('ProfileService: Usuario encontrado:', user.name);
+              this._currentUser.set(user);
+              this._currentRestaurant.set(null);
+              this._profileType.set('user');
+              this._loading.set(false);
+              this._dataLoaded.set(true);
+              this._lastLoadTime.set(Date.now());
+              
+              // Cargar actividades explícitamente después de obtener el ID
+              this.loadProfileActivities(user.id!);
+              this.checkFollowingStatus(user.id!);
+            } else {
+              // Si no se encuentra, establecemos error
+              this._error.set('Perfil no encontrado');
+              this._loading.set(false);
+              this._dataLoaded.set(false);
+            }
+          });
+      }
+    });
+}
+
   
   /**
    * Recarga el perfil actual (útil para actualizar datos después de cambios)
@@ -183,22 +191,25 @@ export class ProfileService {
     }
   }
   
-  /**
-   * Carga las actividades de un perfil
-   */
-  private loadProfileActivities(profileId: string): void {
-    this.mockDataService.getActivitiesByUser(profileId)
-      .pipe(
-        catchError(err => {
-          console.error('Error al cargar actividades del perfil', err);
-          return of([]);
-        })
-      )
-      .subscribe(activities => {
-        this._profileActivities.set(activities);
-      });
-  }
+ /**
+ * Carga las actividades de un perfil
+ * IMPORTANTE: Esta función ahora es pública para poder forzar la recarga
+ */
+loadProfileActivities(profileId: string): void {
+  console.log('ProfileService: Cargando actividades para:', profileId);
   
+  this.mockDataService.getActivitiesByUser(profileId)
+    .pipe(
+      catchError(err => {
+        console.error('Error al cargar actividades del perfil', err);
+        return of([]);
+      })
+    )
+    .subscribe(activities => {
+      console.log('ProfileService: Actividades cargadas:', activities.length);
+      this._profileActivities.set(activities);
+    });
+}
   /**
    * Verifica si el usuario actual sigue al perfil
    * En una app real, esto verificaría con el usuario autenticado

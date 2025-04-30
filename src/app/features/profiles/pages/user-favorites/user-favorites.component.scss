@@ -1,0 +1,247 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Página de favoritos del usuario
+.user-favorites {
+  padding-bottom: $spacing-xl;
+}
+
+// Estado de carga
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+}
+
+// Spinner de carga
+.loading-spinner {
+  font-size: 32px;
+  color: $orange-primary;
+  margin-bottom: $spacing-md;
+}
+
+// Estado de error
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: $blue-primary;
+}
+
+// Icono de error
+.error-icon {
+  font-size: 32px;
+  color: #DC3545;
+  margin-bottom: $spacing-md;
+}
+
+// Título de sección
+.section-title {
+  margin-bottom: $spacing-lg;
+  font-size: $font-size-xl;
+  color: $blue-primary;
+}
+
+// Barra de búsqueda y filtros
+.search-filters-bar {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  background-color: $white;
+  padding: $spacing-md;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// Caja de búsqueda
+.search-box {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  
+  i {
+    position: absolute;
+    left: $spacing-sm;
+    color: rgba($blue-primary, 0.5);
+  }
+  
+  input {
+    width: 100%;
+    padding: $spacing-sm $spacing-sm $spacing-sm $spacing-xl;
+    border: 1px solid rgba($blue-primary, 0.2);
+    border-radius: $border-radius-md;
+    font-size: $font-size-md;
+    color: $blue-primary;
+    
+    &:focus {
+      outline: none;
+      border-color: $orange-primary;
+    }
+    
+    &::placeholder {
+      color: rgba($blue-primary, 0.5);
+    }
+  }
+  
+  .clear-search {
+    position: absolute;
+    right: $spacing-sm;
+    background: none;
+    border: none;
+    color: rgba($blue-primary, 0.5);
+    cursor: pointer;
+    
+    &:hover {
+      color: $blue-primary;
+    }
+  }
+}
+
+// Opciones de ordenación
+.sort-options {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+// Etiqueta de ordenación
+.sort-label {
+  white-space: nowrap;
+  font-size: $font-size-sm;
+  color: rgba($blue-primary, 0.7);
+  margin-right: $spacing-sm;
+}
+
+// Botones de ordenación
+.sort-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+// Botón de ordenación
+.sort-button {
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($light-gray, 0.2);
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+  color: $blue-primary;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background-color: rgba($light-gray, 0.4);
+  }
+  
+  &.active {
+    background-color: rgba($orange-primary, 0.1);
+    color: $orange-primary;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+// Estado de carga de platos
+.loading-dishes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-lg 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  font-size: $font-size-sm;
+  
+  .loading-spinner {
+    font-size: 24px;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Sin favoritos
+.no-favorites {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+  margin-bottom: $spacing-lg;
+}
+
+// Icono de sin favoritos
+.no-favorites-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Sin resultados de búsqueda
+.no-search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  text-align: center;
+  color: rgba($blue-primary, 0.7);
+  background-color: rgba($light-gray, 0.1);
+  border-radius: $border-radius-lg;
+  margin-bottom: $spacing-lg;
+}
+
+// Icono de sin resultados
+.no-search-icon {
+  font-size: 48px;
+  color: rgba($blue-primary, 0.2);
+  margin-bottom: $spacing-md;
+}
+
+// Grid de platos
+.dishes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include respond-to('lg') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Botones de acción
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: $spacing-lg;
+}

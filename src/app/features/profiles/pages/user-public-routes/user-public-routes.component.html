@@ -1,109 +1,188 @@
 <div class="user-routes">
-    <!-- Estado de carga -->
-    <div class="loading-state" *ngIf="loading">
-      <div class="loading-spinner">
-        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
-      </div>
-      <p>Cargando rutas del usuario...</p>
+  <!-- Estado de carga -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="loading-spinner">
+      <i class="fa-solid fa-spinner fa-spin-pulse" aria-hidden="true"></i>
     </div>
-    
-    <!-- Estado de error -->
-    <div class="error-state" *ngIf="error && !loading">
-      <div class="error-icon">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-      </div>
-      <p>{{ error }}</p>
-      <app-button 
-        variant="primary" 
-        [routerLink]="['/profile', userUsername]"
-      >
-        Volver al perfil
-      </app-button>
+    <p>Cargando rutas del usuario...</p>
+  </div>
+  
+  <!-- Estado de error -->
+  <div class="error-state" *ngIf="error && !loading">
+    <div class="error-icon">
+      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
     </div>
+    <p>{{ error }}</p>
+    <app-button 
+      variant="primary" 
+      [routerLink]="['/profile', userUsername]"
+    >
+      Volver al perfil
+    </app-button>
+  </div>
+  
+  <!-- Contenido de rutas -->
+  <ng-container *ngIf="!loading && !error && isUser">
+    <h1 class="section-title">Rutas Gastronómicas de {{ userName }}</h1>
     
-    <!-- Contenido de rutas -->
-    <ng-container *ngIf="!loading && !error && isUser">
-      <h1 class="section-title">Rutas Gastronómicas de {{ userName }}</h1>
-      
-      <!-- Tabs de rutas -->
-      <div class="routes-tabs">
+    <!-- Tabs de rutas mejorados para móvil -->
+    <div class="routes-tabs-container">
+      <nav class="routes-tabs" role="tablist" aria-label="Categorías de rutas gastronómicas">
         <button 
           class="tab-button" 
           [class.active]="activeTab === 'created'"
           (click)="setActiveTab('created')"
+          (keydown)="handleTabKeyNavigation($event)"
+          id="tab-created"
+          role="tab"
+          [attr.aria-selected]="activeTab === 'created'"
+          aria-controls="panel-created"
+          #tabButton
         >
-          <i class="fa-solid fa-map"></i>
-          Creadas
-          <span class="tab-count">{{ createdRoutesCount }}</span>
+          <i class="fa-solid fa-map" aria-hidden="true"></i>
+          <span class="tab-label">Creadas</span>
+          <span class="tab-count" [attr.aria-label]="createdRoutesCount + ' rutas'">{{ createdRoutesCount }}</span>
         </button>
         
         <button 
           class="tab-button" 
           [class.active]="activeTab === 'completed'"
           (click)="setActiveTab('completed')"
+          (keydown)="handleTabKeyNavigation($event)"
+          id="tab-completed"
+          role="tab"
+          [attr.aria-selected]="activeTab === 'completed'"
+          aria-controls="panel-completed"
+          #tabButton
         >
-          <i class="fa-solid fa-check-circle"></i>
-          Completadas
-          <span class="tab-count">{{ completedRoutesCount }}</span>
+          <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+          <span class="tab-label">Completadas</span>
+          <span class="tab-count" [attr.aria-label]="completedRoutesCount + ' rutas'">{{ completedRoutesCount }}</span>
         </button>
         
         <button 
           class="tab-button" 
           [class.active]="activeTab === 'in-progress'"
           (click)="setActiveTab('in-progress')"
+          (keydown)="handleTabKeyNavigation($event)"
+          id="tab-in-progress"
+          role="tab"
+          [attr.aria-selected]="activeTab === 'in-progress'"
+          aria-controls="panel-in-progress"
+          #tabButton
         >
-          <i class="fa-solid fa-clock"></i>
-          En progreso
-          <span class="tab-count">{{ inProgressRoutesCount }}</span>
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          <span class="tab-label">En progreso</span>
+          <span class="tab-count" [attr.aria-label]="inProgressRoutesCount + ' rutas'">{{ inProgressRoutesCount }}</span>
         </button>
-      </div>
-      
-      <!-- Estado de carga de rutas -->
-      <div class="loading-routes" *ngIf="loadingRoutes">
-        <div class="loading-spinner">
-          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+
+        <!-- Indicador animado -->
+        <div class="tab-indicator" [ngStyle]="getIndicatorStyles()"></div>
+      </nav>
+
+      <!-- Contenido de los tabs -->
+      <div class="tab-content">
+        <!-- Estado de carga de rutas -->
+        <div class="loading-routes" *ngIf="loadingRoutes">
+          <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin-pulse" aria-hidden="true"></i>
+          </div>
+          <p>Cargando rutas...</p>
         </div>
-        <p>Cargando rutas...</p>
-      </div>
-      
-      <!-- Sin rutas -->
-      <div class="no-routes" *ngIf="!loadingRoutes && activeRoutes.length === 0">
-        <div class="no-routes-icon">
-          <i class="fa-solid fa-route"></i>
-        </div>
-        <p>
-          <ng-container *ngIf="activeTab === 'created'">
-            Este usuario aún no ha creado ninguna ruta gastronómica.
-          </ng-container>
-          <ng-container *ngIf="activeTab === 'completed'">
-            Este usuario aún no ha completado ninguna ruta gastronómica.
-          </ng-container>
-          <ng-container *ngIf="activeTab === 'in-progress'">
-            Este usuario no tiene rutas gastronómicas en progreso.
-          </ng-container>
-        </p>
-      </div>
-      
-      <!-- Grid de rutas -->
-      <div class="routes-grid" *ngIf="!loadingRoutes && activeRoutes.length > 0">
-        <app-route-card
-          *ngFor="let route of activeRoutes"
-          [route]="route"
-          [size]="'md'"
-          [showCreator]="false"
-          [showProgress]="activeTab === 'in-progress' || activeTab === 'completed'"
-        ></app-route-card>
-      </div>
-      
-      <!-- Botón para volver -->
-      <div class="action-buttons">
-        <app-button 
-          [variant]="'primary'" 
-          [icon]="'arrow-left'"
-          [routerLink]="['/profile', userUsername]"
+        
+        <!-- Paneles de contenido -->
+        <div 
+          id="panel-created" 
+          role="tabpanel" 
+          [attr.aria-labelledby]="'tab-created'"
+          [hidden]="activeTab !== 'created' || loadingRoutes"
+          class="tab-panel"
         >
-          Volver al perfil
-        </app-button>
+          <!-- Sin rutas -->
+          <div class="no-routes" *ngIf="!loadingRoutes && activeRoutes.length === 0">
+            <div class="no-routes-icon">
+              <i class="fa-solid fa-route" aria-hidden="true"></i>
+            </div>
+            <p>Este usuario aún no ha creado ninguna ruta gastronómica.</p>
+          </div>
+          
+          <!-- Grid de rutas -->
+          <div class="routes-grid" *ngIf="!loadingRoutes && activeRoutes.length > 0">
+            <app-route-card
+              *ngFor="let route of activeRoutes"
+              [route]="route"
+              [size]="'md'"
+              [showCreator]="false"
+              [showProgress]="false"
+            ></app-route-card>
+          </div>
+        </div>
+
+        <div 
+          id="panel-completed" 
+          role="tabpanel" 
+          [attr.aria-labelledby]="'tab-completed'"
+          [hidden]="activeTab !== 'completed' || loadingRoutes"
+          class="tab-panel"
+        >
+          <!-- Sin rutas -->
+          <div class="no-routes" *ngIf="!loadingRoutes && activeRoutes.length === 0">
+            <div class="no-routes-icon">
+              <i class="fa-solid fa-route" aria-hidden="true"></i>
+            </div>
+            <p>Este usuario aún no ha completado ninguna ruta gastronómica.</p>
+          </div>
+          
+          <!-- Grid de rutas -->
+          <div class="routes-grid" *ngIf="!loadingRoutes && activeRoutes.length > 0">
+            <app-route-card
+              *ngFor="let route of activeRoutes"
+              [route]="route"
+              [size]="'md'"
+              [showCreator]="false"
+              [showProgress]="true"
+            ></app-route-card>
+          </div>
+        </div>
+
+        <div 
+          id="panel-in-progress" 
+          role="tabpanel" 
+          [attr.aria-labelledby]="'tab-in-progress'"
+          [hidden]="activeTab !== 'in-progress' || loadingRoutes"
+          class="tab-panel"
+        >
+          <!-- Sin rutas -->
+          <div class="no-routes" *ngIf="!loadingRoutes && activeRoutes.length === 0">
+            <div class="no-routes-icon">
+              <i class="fa-solid fa-route" aria-hidden="true"></i>
+            </div>
+            <p>Este usuario no tiene rutas gastronómicas en progreso.</p>
+          </div>
+          
+          <!-- Grid de rutas -->
+          <div class="routes-grid" *ngIf="!loadingRoutes && activeRoutes.length > 0">
+            <app-route-card
+              *ngFor="let route of activeRoutes"
+              [route]="route"
+              [size]="'md'"
+              [showCreator]="false"
+              [showProgress]="true"
+            ></app-route-card>
+          </div>
+        </div>
       </div>
-    </ng-container>
-  </div>
+    </div>
+    
+    <!-- Botón para volver -->
+    <div class="action-buttons">
+      <app-button 
+        [variant]="'primary'" 
+        [icon]="'arrow-left'"
+        [routerLink]="['/profile', userUsername]"
+      >
+        Volver al perfil
+      </app-button>
+    </div>
+  </ng-container>
+</div>
