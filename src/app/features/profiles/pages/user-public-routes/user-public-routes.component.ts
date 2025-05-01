@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ElementRef, ViewChildren, QueryList, AfterViewInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -51,6 +51,27 @@ export class UserPublicRoutesComponent implements OnInit, OnDestroy, AfterViewIn
   inProgressRoutes: GastronomicRoute[] = [];
   loadingRoutes = false;
   
+  constructor() {
+    // Añadir un effect para reaccionar a cambios en userId
+    effect(() => {
+      const userId = this.userId;
+      const isLoaded = this.profileService.dataLoaded();
+      
+      // Si tenemos un userId válido y el perfil está cargado, cargamos las rutas
+      if (userId && isLoaded && !this.loadingRoutes) {
+        console.log('UserPublicRoutes: userId detectado, cargando rutas:', userId);
+        this.loadUserRoutes();
+      }
+    });
+    
+    // Effect para reaccionar a los cambios en las rutas
+    effect(() => {
+      // Cada vez que cambie routes() se ejecutará este código
+      this.createdRoutes = this.routesService.routes();
+      this.loadingRoutes = this.routesService.loading();
+    });
+  }
+  
   ngOnInit(): void {
     // Obtener el username de la ruta
     this.route.parent?.params.pipe(
@@ -60,10 +81,8 @@ export class UserPublicRoutesComponent implements OnInit, OnDestroy, AfterViewIn
       if (username) {
         this.profileService.loadProfileByUsername(username);
         
-        // Cargar rutas del usuario cuando el perfil está cargado
-        if (this.userId) {
-          this.loadUserRoutes();
-        }
+        // Nota: Ya no intentamos cargar las rutas aquí, el effect se encargará de eso
+        // cuando el userId esté disponible
       }
     });
   }

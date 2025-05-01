@@ -50,6 +50,7 @@ export class ExploreComponent implements OnInit {
       next: (activities) => {
         this.activities = activities.slice(0, 10); // Mostrar solo las 10 más recientes
         this.isLoadingActivities = false;
+        console.log(activities)
       },
       error: (err) => {
         console.error('Error al cargar actividades', err);

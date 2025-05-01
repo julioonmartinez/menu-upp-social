@@ -2,7 +2,7 @@
     {
       "id": "rev1",
       "userId": "user1",
-      "userName": "María López",
+      "userName": "maria_foodie",
       "userImage": {
         "url": "assets/images/users/profile1.jpg",
         "alt": "María López"
@@ -16,7 +16,7 @@
     {
       "id": "rev2",
       "userId": "user3",
-      "userName": "Ana Martínez",
+      "userName": "ana_foodlover",
       "userImage": {
         "url": "assets/images/users/profile3.jpg",
         "alt": "Ana Martínez"
@@ -30,7 +30,7 @@
     {
       "id": "rev3",
       "userId": "user2",
-      "userName": "Carlos García",
+      "userName": "carlos_chef",
       "userImage": {
         "url": "assets/images/users/profile2.jpg",
         "alt": "Carlos García"
@@ -44,7 +44,7 @@
     {
       "id": "rev4",
       "userId": "user1",
-      "userName": "María López",
+      "userName": "maria_foodie",
       "userImage": {
         "url": "assets/images/users/profile1.jpg",
         "alt": "María López"
@@ -58,7 +58,7 @@
     {
       "id": "rev5",
       "userId": "user3",
-      "userName": "Ana Martínez",
+      "userName": "ana_foodlover",
       "userImage": {
         "url": "assets/images/users/profile3.jpg",
         "alt": "Ana Martínez"
@@ -72,7 +72,7 @@
     {
       "id": "rev6",
       "userId": "user2",
-      "userName": "Carlos García",
+      "userName": "carlos_chef",
       "userImage": {
         "url": "assets/images/users/profile2.jpg",
         "alt": "Carlos García"
@@ -86,7 +86,7 @@
     {
       "id": "rev7",
       "userId": "user3",
-      "userName": "Ana Martínez",
+      "userName": "ana_foodlover",
       "userImage": {
         "url": "assets/images/users/profile3.jpg",
         "alt": "Ana Martínez"
@@ -100,7 +100,7 @@
     {
       "id": "rev8",
       "userId": "user1",
-      "userName": "María López",
+      "userName": "maria_foodie",
       "userImage": {
         "url": "assets/images/users/profile1.jpg",
         "alt": "María López"
@@ -114,7 +114,7 @@
     {
       "id": "rev9",
       "userId": "user2",
-      "userName": "Carlos García",
+      "userName": "carlos_chef",
       "userImage": {
         "url": "assets/images/users/profile2.jpg",
         "alt": "Carlos García"
@@ -128,7 +128,7 @@
     {
       "id": "rev10",
       "userId": "user3",
-      "userName": "Ana Martínez",
+      "userName": "ana_foodlover",
       "userImage": {
         "url": "assets/images/users/profile3.jpg",
         "alt": "Ana Martínez"

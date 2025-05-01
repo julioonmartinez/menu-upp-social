@@ -7,7 +7,7 @@
       "role": "USER",
       "username": "maria_foodie",
       "profileImage": {
-        "url": "assets/images/users/profile1.jpg",
+        "url": "/assets/images/users/profile1.jpg",
         "alt": "María López"
       },
       "followers": 152,
@@ -22,7 +22,7 @@
             "id": "badge1",
             "name": "Explorador Novato",
             "description": "Visitó su primer restaurante",
-            "imageUrl": "assets/images/badges/explorer_novice.svg",
+            "imageUrl": "/assets/images/badges/explorer_novice.svg",
             "category": "exploración",
             "dateEarned": "2023-03-15T14:30:00Z"
           },
@@ -30,7 +30,7 @@
             "id": "badge2",
             "name": "Crítico Culinario",
             "description": "Escribió 5 reseñas detalladas",
-            "imageUrl": "assets/images/badges/food_critic.svg",
+            "imageUrl": "/assets/images/badges/food_critic.svg",
             "category": "reseñas",
             "dateEarned": "2023-04-22T09:45:00Z"
           }
@@ -53,7 +53,7 @@
       "role": "USER",
       "username": "carlos_chef",
       "profileImage": {
-        "url": "assets/images/users/profile2.jpg",
+        "url": "/assets/images/users/profile2.jpg",
         "alt": "Carlos García"
       },
       "followers": 247,
@@ -68,7 +68,7 @@
             "id": "badge3",
             "name": "Maestro Gourmet",
             "description": "Visitó 25 restaurantes diferentes",
-            "imageUrl": "assets/images/badges/gourmet_master.svg",
+            "imageUrl": "/assets/images/badges/gourmet_master.svg",
             "category": "exploración",
             "dateEarned": "2023-05-10T18:20:00Z"
           },
@@ -76,7 +76,7 @@
             "id": "badge4",
             "name": "Creador de Rutas",
             "description": "Creó 3 rutas gastronómicas",
-            "imageUrl": "assets/images/badges/route_creator.svg",
+            "imageUrl": "/assets/images/badges/route_creator.svg",
             "category": "creación",
             "dateEarned": "2023-06-12T11:30:00Z"
           }
@@ -99,7 +99,7 @@
       "role": "USER",
       "username": "ana_foodlover",
       "profileImage": {
-        "url": "assets/images/users/profile3.jpg",
+        "url": "/assets/images/users/profile3.jpg",
         "alt": "Ana Martínez"
       },
       "followers": 98,
@@ -114,7 +114,7 @@
             "id": "badge5",
             "name": "Fotógrafo Culinario",
             "description": "Compartió 10 fotos de platos",
-            "imageUrl": "assets/images/badges/food_photographer.svg",
+            "imageUrl": "/assets/images/badges/food_photographer.svg",
             "category": "fotografía",
             "dateEarned": "2023-02-28T16:40:00Z"
           }

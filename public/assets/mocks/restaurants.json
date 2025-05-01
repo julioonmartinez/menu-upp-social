@@ -608,11 +608,11 @@
       "description": "Restaurante especializado en pescados y mariscos de temporada. Nuestra barra de productos frescos del día y nuestra carta rotativa según la pesca ofrecen lo mejor del Mediterráneo y el Cantábrico.",
       "username": "cantinadelmar",
       "logo": {
-      "url": "/assets/images/restaurants/logo8.jpg",
+      "url": "/assets/images/restaurants/logo5.jpg",
       "alt": "Logo La Cantina del Mar"
       },
       "coverImage": {
-      "url": "/assets/images/restaurants/cover8.jpg",
+      "url": "/assets/images/restaurants/cover5.jpg",
       "alt": "Interior La Cantina del Mar"
       },
       "address": {
