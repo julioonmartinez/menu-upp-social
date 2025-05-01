@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, delay, map, tap, catchError } from 'rxjs';
+import { Observable, of, delay, map, tap, catchError, switchMap } from 'rxjs';
 
 import { SocialUser } from '../models/user.model';
 import { Restaurant } from '../models/restaurant.model';
@@ -82,24 +82,60 @@ export class MockDataService {
   getDishesByRestaurant(restaurantId: string): Observable<Dish[]> {
     console.log('Buscando platos para restaurante:', restaurantId);
     
-    return this.http.get<Dish[]>('/assets/mocks/dishes.json').pipe(
-      tap(data => console.log('Platos cargados:', data.length)),
-      map(dishes => {
-        const filtered = dishes.filter(dish => dish.restaurantId === restaurantId);
-        console.log(`Platos filtrados para restaurante ${restaurantId}:`, filtered.length);
-        return filtered;
-      }),
-      catchError(err => {
-        console.error('Error al cargar datos de platos:', err);
-        return of([]);
-      }),
-      delay(800)
+    // Primero necesitamos obtener el restaurante para tener su username
+    return this.getRestaurantById(restaurantId).pipe(
+      switchMap(restaurant => {
+        if (!restaurant) {
+          console.error(`Restaurante no encontrado con ID: ${restaurantId}`);
+          return of([]);
+        }
+        
+        // Ahora obtenemos los platos y les agregamos el username
+        return this.http.get<Dish[]>('/assets/mocks/dishes.json').pipe(
+          tap(data => console.log('Platos cargados:', data.length)),
+          map(dishes => {
+            const filtered = dishes
+              .filter(dish => dish.restaurantId === restaurantId)
+              .map(dish => ({
+                ...dish,
+                restaurantUsername: restaurant.username // Añadimos el username
+              }));
+            
+            console.log(`Platos filtrados para restaurante ${restaurantId}:`, filtered.length);
+            return filtered;
+          }),
+          catchError(err => {
+            console.error('Error al cargar datos de platos:', err);
+            return of([]);
+          }),
+          delay(800)
+        );
+      })
     );
   }
   
   getDishById(dishId: string): Observable<Dish | undefined> {
     return this.http.get<Dish[]>('/assets/mocks/dishes.json').pipe(
-      map(dishes => dishes.find(dish => dish.id === dishId)),
+      switchMap(dishes => {
+        const dish = dishes.find(d => d.id === dishId);
+        
+        if (!dish) {
+          return of(undefined);
+        }
+        
+        // Obtener el restaurante para añadir el username
+        return this.getRestaurantById(dish.restaurantId).pipe(
+          map(restaurant => {
+            if (restaurant) {
+              return {
+                ...dish,
+                restaurantUsername: restaurant.username
+              };
+            }
+            return dish;
+          })
+        );
+      }),
       delay(800)
     );
   }

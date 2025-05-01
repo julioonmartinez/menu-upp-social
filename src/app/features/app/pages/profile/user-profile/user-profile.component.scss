@@ -48,8 +48,9 @@
   flex-direction: column;
 }
 
-// Cabecera del perfil
+// Cabecera del perfil - Rediseñada
 .profile-header {
+  position: relative;
   margin-bottom: $spacing-lg;
   background-color: $white;
   border-radius: $border-radius-lg;
@@ -57,62 +58,67 @@
   overflow: hidden;
 }
 
-// Banner del perfil
+// Banner del perfil con gradiente mejorado
 .profile-banner {
-  height: 200px;
+  height: 180px;
   background-size: cover;
   background-position: center;
   position: relative;
   
   @include respond-to('md') {
-    height: 240px;
+    height: 220px;
+  }
+  
+  // Gradiente más pronunciado para mejorar contraste
+  .banner-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba($blue-primary, 0.1),
+      rgba($blue-primary, 0.8)
+    );
   }
 }
 
-// Overlay del banner
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, rgba($blue-primary, 0), rgba($blue-primary, 0.7));
-}
-
-// Información del perfil
-.profile-info {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  grid-template-areas: 
-    "avatar details"
-    "actions actions";
-  gap: $spacing-md;
-  padding: $spacing-md;
+// Contenedor de información de perfil
+.profile-info-container {
+  padding: 0 $spacing-md $spacing-md;
   position: relative;
+  z-index: 1;
   margin-top: -60px;
+  display: flex;
+  flex-direction: column;
   
   @include respond-to('md') {
-    grid-template-columns: 140px 1fr auto;
-    grid-template-areas: "avatar details actions";
-    margin-top: -70px;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: $spacing-md;
+    margin-top: -80px;
   }
 }
 
 // Avatar del perfil
 .profile-avatar {
-  grid-area: avatar;
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid $white;
   background-color: $white;
   box-shadow: $shadow-md;
   z-index: 1;
+  margin-bottom: $spacing-md;
+  align-self: center;
   
   @include respond-to('md') {
     width: 140px;
     height: 140px;
+    align-self: flex-start;
+    margin-bottom: 0;
   }
   
   img {
@@ -124,20 +130,27 @@
 
 // Detalles del perfil
 .profile-details {
-  grid-area: details;
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
+  flex: 1;
+  background-color: $white;
+  padding: $spacing-sm;
+  border-radius: $border-radius-md;
+  
+  @include respond-to('md') {
+    padding: $spacing-md;
+  }
 }
 
-// Nombre del perfil
+// Nombre del perfil - Mejorado para contraste
 .profile-name {
   margin: 0 0 $spacing-xs;
   font-size: $font-size-xl;
   color: $blue-primary;
+  text-align: center;
+  // Sombra de texto eliminada para diseño más limpio
   
   @include respond-to('md') {
     font-size: $font-size-xxl;
+    text-align: left;
   }
 }
 
@@ -147,11 +160,13 @@
   flex-direction: column;
   gap: $spacing-xs;
   margin-bottom: $spacing-sm;
+  align-items: center;
   
   @include respond-to('md') {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    align-items: flex-start;
   }
 }
 
@@ -170,7 +185,7 @@
 // Elemento de estadística
 .stat-item {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: $spacing-xs;
   
   .stat-value {
@@ -189,6 +204,11 @@
   font-size: $font-size-sm;
   line-height: 1.5;
   color: rgba($blue-primary, 0.8);
+  text-align: center;
+  
+  @include respond-to('md') {
+    text-align: left;
+  }
 }
 
 // Ubicación del perfil
@@ -198,46 +218,62 @@
   display: flex;
   align-items: center;
   gap: $spacing-xs;
+  justify-content: center;
+  
+  @include respond-to('md') {
+    justify-content: flex-start;
+  }
 }
 
-// Acciones del perfil
+// Acciones del perfil - Mejorada para móvil
 .profile-actions {
-  grid-area: actions;
   display: flex;
   gap: $spacing-sm;
-  justify-content: flex-start;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md $spacing-md;
   
   @include respond-to('md') {
     justify-content: flex-end;
-    align-items: flex-start;
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    padding: 0;
+    
+    // Fondo semi-transparente para los botones en desktop
+    app-button {
+      background-color: rgba($white, 0.9);
+      border-radius: $border-radius-md;
+      box-shadow: $shadow-sm;
+    }
   }
 }
 
-// Pestañas de navegación
+// Contenedor de pestañas - Rediseñado compatible con SSR
+.profile-tabs-container {
+  position: relative;
+  margin-bottom: $spacing-lg;
+  background-color: $white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+}
+
+// Pestañas de navegación - Mejoradas
 .profile-tabs {
   display: flex;
   overflow-x: auto;
-  margin-bottom: $spacing-lg;
-  border-bottom: 1px solid rgba($blue-primary, 0.1);
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
   
   &::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: rgba($light-gray, 0.3);
-    border-radius: 2px;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba($blue-primary, 0.2);
-    border-radius: 2px;
+    display: none; // Chrome/Safari/Opera
   }
 }
 
-// Botón de pestaña
+// Botón de pestaña - Rediseñado
 .tab-button {
-  padding: $spacing-sm $spacing-md;
+  flex: 1;
+  padding: $spacing-md $spacing-sm;
   background: none;
   border: none;
   font-size: $font-size-md;
@@ -246,35 +282,78 @@
   white-space: nowrap;
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: $spacing-xs;
+  transition: color $transition-fast;
   
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background-color: $orange-primary;
-    opacity: 0;
-    transition: opacity $transition-fast;
+  i {
+    font-size: $font-size-md;
+    
+    @include respond-to('md') {
+      margin-right: $spacing-xs;
+    }
+  }
+  
+  span {
+    font-size: $font-size-sm;
   }
   
   &:hover {
     color: $orange-primary;
-    
-    &::after {
-      opacity: 0.3;
-    }
   }
   
   &.active {
     color: $orange-primary;
     font-weight: $font-weight-semibold;
+  }
+  
+  @include respond-to('md') {
+    flex-direction: row;
+    padding: $spacing-md;
+  }
+}
+
+// Indicador dinámico con clases en lugar de estilos inline (compatible SSR)
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background-color: $orange-primary;
+  transition: all $transition-normal;
+  border-radius: $border-radius-sm $border-radius-sm 0 0;
+  
+  // Cada posición es una clase específica en lugar de estilo inline
+  &.tab-indicator-0 {
+    left: 0;
+    width: 33.33%;
+  }
+  
+  &.tab-indicator-1 {
+    left: 33.33%;
+    width: 33.33%;
+  }
+  
+  &.tab-indicator-2 {
+    left: 66.66%;
+    width: 33.33%;
+  }
+  
+  @include respond-to('md') {
+    // Ajustes para desktop - mejoramos la precisión
+    &.tab-indicator-0 {
+      left: 0;
+      width: 33.33%;
+    }
     
-    &::after {
-      opacity: 1;
+    &.tab-indicator-1 {
+      left: 33.33%;
+      width: 33.33%;
+    }
+    
+    &.tab-indicator-2 {
+      left: 66.66%;
+      width: 33.33%;
     }
   }
 }
@@ -472,14 +551,18 @@
   transition: width 0.3s ease;
 }
 
-// Grid de estadísticas
+// Grid de estadísticas - Mejorado para mobile-first
 .stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: $spacing-md;
   margin-bottom: $spacing-lg;
   
-  @include respond-to('md') {
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to('lg') {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -544,9 +627,23 @@
   margin-bottom: $spacing-md;
   font-size: $font-size-md;
   color: $blue-primary;
+  position: relative;
+  padding-left: $spacing-md;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    background-color: $orange-primary;
+    border-radius: $border-radius-sm;
+  }
 }
 
-// Grid de insignias
+// Grid de insignias - Mejorado para mobile-first
 .badges-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -568,6 +665,7 @@
   
   &:hover {
     transform: translateY(-3px);
+    box-shadow: $shadow-md;
   }
 }
 
@@ -609,6 +707,12 @@
   font-size: $font-size-sm;
   color: rgba($blue-primary, 0.7);
   margin-bottom: $spacing-xs;
+  
+  // Limitar a dos líneas y mostrar ellipsis
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 // Fecha de insignia
@@ -628,6 +732,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: $spacing-md;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
 }
 
 // Sección de rutas
@@ -635,7 +741,7 @@
   margin-bottom: $spacing-lg;
 }
 
-// Grid de rutas
+// Grid de rutas - Mejorado para mobile-first
 .routes-grid {
   display: grid;
   grid-template-columns: 1fr;

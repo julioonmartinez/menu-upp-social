@@ -5,7 +5,7 @@
   [borderRadius]="'md'"
   class="dish-card"
   [class]="'dish-card-' + size"
-  [routerLink]="interactive ? ['/profile', dish.restaurantId, 'dish', dish.id] : null"
+  [routerLink]="interactive ? ['/profile', dish.restaurantUsername || dish.restaurantId, 'dish', dish.id] : null"
 >
   <div class="dish-card-content">
     <!-- Imagen del plato -->

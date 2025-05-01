@@ -1,5 +1,5 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, signal, PLATFORM_ID, Inject, AfterViewInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MockDataService } from '../../../../../core/services/mock-data.service';
 import { SocialUser, Badge } from '../../../../../core/models/user.model';
@@ -27,9 +27,12 @@ import { RouteCardComponent } from '../../../../../shared/components/route-card/
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, AfterViewInit {
   // Servicios
   private mockDataService = inject(MockDataService);
+  
+  // Variable para saber si estamos en el navegador - definida en el constructor
+  private isBrowser: boolean;
   
   // Datos
   user = signal<SocialUser | undefined>(undefined);
@@ -45,13 +48,52 @@ export class UserProfileComponent implements OnInit {
   error = signal<string | null>(null);
   activeTab = signal<'activity' | 'stats' | 'routes'>('activity');
   
+  // Simplificamos el enfoque usando una clase CSS para el indicador
+  // en lugar de manipular directamente el DOM
+  activeTabIndex = signal<number>(0);
+  
   // En una app real, obtendríamos este ID del servicio de autenticación
   userId = 'user1';
+  
+  // Inyectamos PLATFORM_ID para determinar si estamos en el navegador o servidor
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // Inicializar isBrowser en el constructor
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
   
   ngOnInit(): void {
     this.loadUserData();
     this.loadUserActivities();
     this.loadUserRoutes();
+    
+    // Establecer la pestaña inicial
+    this.setActiveTabIndex();
+  }
+  
+  ngAfterViewInit(): void {
+    // Solo actualizar el indicador en el navegador y después del renderizado inicial
+    if (this.isBrowser) {
+      setTimeout(() => {
+        this.setActiveTabIndex();
+      }, 0);
+    }
+  }
+  
+  /**
+   * Establece el índice de la pestaña activa para CSS
+   */
+  private setActiveTabIndex(): void {
+    switch(this.activeTab()) {
+      case 'activity':
+        this.activeTabIndex.set(0);
+        break;
+      case 'stats':
+        this.activeTabIndex.set(1);
+        break;
+      case 'routes':
+        this.activeTabIndex.set(2);
+        break;
+    }
   }
   
   /**
@@ -141,6 +183,7 @@ export class UserProfileComponent implements OnInit {
    */
   setActiveTab(tab: 'activity' | 'stats' | 'routes'): void {
     this.activeTab.set(tab);
+    this.setActiveTabIndex();
   }
   
   /**

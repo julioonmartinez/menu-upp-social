@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ButtonComponent } from '../../shared/components/button/button.component';
 
 /**
  * Layout principal para la sección de aplicación autenticada
@@ -12,7 +11,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonComponent],
+  imports: [CommonModule, RouterModule, ],
   templateUrl: './app-layout.component.html',
   styleUrls: ['./app-layout.component.scss']
 })

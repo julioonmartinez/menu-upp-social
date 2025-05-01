@@ -109,13 +109,13 @@
 // Contenido principal
 .main-content {
   flex: 1;
-  padding: 60px $spacing-md 70px;
+  padding: calc(60px + 1rem) $spacing-md 70px;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   
   @include respond-to('lg') {
-    padding-left: 250px;
+    padding-left: calc(250px + 1rem) ;
     padding-bottom: $spacing-md;
   }
 }

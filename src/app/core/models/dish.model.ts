@@ -16,6 +16,7 @@ export interface Dish {
   isVegan?: boolean;
   isGlutenFree?: boolean;
   rating?: DishRating;
+  restaurantUsername?: string;
   reviews?: DishReview[];
   favorites?: number;    // Número de favoritos
   featured?: boolean;    // Destacado en el menú
