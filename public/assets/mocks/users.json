@@ -22,7 +22,7 @@
             "id": "badge1",
             "name": "Explorador Novato",
             "description": "Visitó su primer restaurante",
-            "imageUrl": "/assets/images/badges/explorer_novice.svg",
+            "imageUrl": "/assets/images/badges/explorer_novice.jpeg",
             "category": "exploración",
             "dateEarned": "2023-03-15T14:30:00Z"
           },
@@ -30,7 +30,7 @@
             "id": "badge2",
             "name": "Crítico Culinario",
             "description": "Escribió 5 reseñas detalladas",
-            "imageUrl": "/assets/images/badges/food_critic.svg",
+            "imageUrl": "/assets/images/badges/food_critic.jpeg",
             "category": "reseñas",
             "dateEarned": "2023-04-22T09:45:00Z"
           }
@@ -68,7 +68,7 @@
             "id": "badge3",
             "name": "Maestro Gourmet",
             "description": "Visitó 25 restaurantes diferentes",
-            "imageUrl": "/assets/images/badges/gourmet_master.svg",
+            "imageUrl": "/assets/images/badges/gourmet_master.jpeg",
             "category": "exploración",
             "dateEarned": "2023-05-10T18:20:00Z"
           },
@@ -76,7 +76,7 @@
             "id": "badge4",
             "name": "Creador de Rutas",
             "description": "Creó 3 rutas gastronómicas",
-            "imageUrl": "/assets/images/badges/route_creator.svg",
+            "imageUrl": "/assets/images/badges/route_creator.jpeg",
             "category": "creación",
             "dateEarned": "2023-06-12T11:30:00Z"
           }
@@ -114,7 +114,7 @@
             "id": "badge5",
             "name": "Fotógrafo Culinario",
             "description": "Compartió 10 fotos de platos",
-            "imageUrl": "/assets/images/badges/food_photographer.svg",
+            "imageUrl": "/assets/images/badges/food_photographer.jpeg",
             "category": "fotografía",
             "dateEarned": "2023-02-28T16:40:00Z"
           }
