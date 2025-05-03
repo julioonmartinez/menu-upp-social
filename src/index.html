@@ -1,13 +1,85 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>MenuUppSocial</title>
+  <title>Menu-UPP Social | Plataforma Social Gastronómica</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Meta tags básicos -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Plataforma social gastronómica que transforma la experiencia de menús digitales en una experiencia social completa centrada en la gastronomía.">
+  <meta name="keywords" content="gastronomía, restaurantes, menú digital, rutas gastronómicas, social, comida">
+  <meta name="author" content="Menu-UPP Social">
+  <meta name="theme-color" content="#FF6B00">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://menuupp.com/">
+  <meta property="og:title" content="Menu-UPP Social | Plataforma Social Gastronómica">
+  <meta property="og:description" content="Conecta con restaurantes, descubre platillos populares y crea rutas gastronómicas con amigos.">
+  <meta property="og:image" content="https://menuupp.com/assets/images/og-image.jpg">
+  <meta property="og:site_name" content="Menu-UPP Social">
+  <meta property="og:locale" content="es_MX">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://menuupp.com/">
+  <meta name="twitter:title" content="Menu-UPP Social | Plataforma Social Gastronómica">
+  <meta name="twitter:description" content="Conecta con restaurantes, descubre platillos populares y crea rutas gastronómicas con amigos.">
+  <meta name="twitter:image" content="https://menuupp.com/assets/images/twitter-image.jpg">
+  
+  <!-- Favicons para diferentes dispositivos -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#FF6B00">
+  <meta name="msapplication-TileColor" content="#FF6B00">
+  <meta name="msapplication-config" content="assets/icons/browserconfig.xml">
+  
+  <!-- Manifest para PWA -->
+  <!-- <link rel="manifest" href="manifest.webmanifest"> -->
+  
+  <!-- Precargar fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap">
+  
+  <!-- Precargar Font Awesome -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Configuración para SSR -->
+  <script>
+    // Verifica si es un bot para mejorar la experiencia de SEO
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+    if (isBot) {
+      document.documentElement.classList.add('is-bot');
+    }
+  </script>
+  
+  <!-- Structured data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebApplication",
+      "name": "Menu-UPP Social",
+      "description": "Plataforma social gastronómica que transforma la experiencia de menús digitales en una experiencia social completa.",
+      "applicationCategory": "FoodEstablishmentApplication, SocialNetworkingApplication",
+      "operatingSystem": "Web",
+      "url": "https://menuupp.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
 </head>
 <body>
   <app-root></app-root>
+  <noscript>Por favor, habilita JavaScript para utilizar esta aplicación.</noscript>
 </body>
 </html>

@@ -4,6 +4,7 @@
 // Página de detalle de plato
 .dish-detail {
   padding-bottom: $spacing-xl;
+  padding-top: $spacing-sm;
 }
 
 // Navegación de retorno
@@ -56,6 +57,7 @@
   padding: $spacing-xl 0;
   text-align: center;
   color: $blue-primary;
+  margin-top: $spacing-md;
 }
 
 // Icono de error
@@ -169,7 +171,7 @@
 
 // Tarjeta de información
 .dish-info-card {
-  height: 100%;
+  // height: 100%;
 }
 
 // Información del plato

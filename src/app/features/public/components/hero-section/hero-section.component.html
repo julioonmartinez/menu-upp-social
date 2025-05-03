@@ -19,16 +19,17 @@
           <button class="search-button" (click)="handleSearch()">
             <i class="fa-solid fa-search"></i>
           </button>
+           <!-- Quick Search Results (componentizado separadamente) -->
+        <app-quick-search
+        *ngIf="showQuickSearch"
+        [results]="quickSearchResults"
+        [isLoading]="isQuickSearchLoading"
+        (selectResult)="handleSelectResult($event)"
+        (viewAllResults)="handleSearch()">
+      </app-quick-search>
         </div>
         
-        <!-- Quick Search Results (componentizado separadamente) -->
-        <app-quick-search
-          *ngIf="showQuickSearch"
-          [results]="quickSearchResults"
-          [isLoading]="isQuickSearchLoading"
-          (selectResult)="handleSelectResult($event)"
-          (viewAllResults)="handleSearch()">
-        </app-quick-search>
+       
         
         <div class="search-tags">
           <span 

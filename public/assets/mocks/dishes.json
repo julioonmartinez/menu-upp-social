@@ -6,14 +6,8 @@
       "price": 9.50,
       "currency": "MXN",
       "images": [
-        {
-          "url": "assets/images/dishes/croquetas1.jpg",
-          "alt": "Croquetas de jamón ibérico"
-        },
-        {
-          "url": "assets/images/dishes/croquetas2.jpg",
-          "alt": "Detalle de croquetas"
-        }
+       
+
       ],
       "mainImage": {
         "url": "/assets/images/dishes/croquetas_main.jpg",
@@ -91,10 +85,7 @@
       "price": 3.50,
       "currency": "MXN",
       "images": [
-        {
-          "url": "assets/images/dishes/nigiri1.jpg",
-          "alt": "Nigiri de salmón"
-        }
+       
       ],
       "mainImage": {
         "url": "assets/images/dishes/nigiri_main.jpg",
@@ -124,10 +115,7 @@
       "price": 16.50,
       "currency": "MXN",
       "images": [
-        {
-          "url": "assets/images/dishes/pasta1.jpg",
-          "alt": "Tagliatelle bolognese"
-        }
+        
       ],
       "mainImage": {
         "url": "assets/images/dishes/pasta_main.jpg",
@@ -157,14 +145,7 @@
       "price": 11.50,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/guacamole1.jpg",
-      "alt": "Guacamole tradicional"
-      },
-      {
-      "url": "assets/images/dishes/guacamole2.jpg",
-      "alt": "Preparación del guacamole"
-      }
+     
       ],
       "mainImage": {
       "url": "/assets/images/dishes/guacamole_main.jpg",
@@ -209,10 +190,7 @@
       "price": 14.90,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/tacos1.jpg",
-      "alt": "Tacos al pastor"
-      }
+     
       ],
       "mainImage": {
       "url": "/assets/images/dishes/tacos_main.jpg",
@@ -242,10 +220,7 @@
       "price": 16.50,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/quesoveg1.jpg",
-      "alt": "Tabla de quesos vegetales"
-      }
+     
       ],
       "mainImage": {
       "url": "/assets/images/dishes/quesoveg_main.jpg",
@@ -275,10 +250,7 @@
       "price": 19.80,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/risotto1.jpg",
-      "alt": "Risotto de setas"
-      }
+      
       ],
       "mainImage": {
       "url": "/assets/images/dishes/risotto_main.jpg",
@@ -341,10 +313,7 @@
       "price": 28.90,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/rodaballo1.jpg",
-      "alt": "Rodaballo a la plancha"
-      }
+      
       ],
       "mainImage": {
       "url": "/assets/images/dishes/rodaballo_main.jpg",
@@ -374,10 +343,7 @@
       "price": 17.90,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/tikka1.jpg",
-      "alt": "Pollo Tikka Masala"
-      }
+      
       ],
       "mainImage": {
       "url": "/assets/images/dishes/tikka_main.jpg",
@@ -407,10 +373,7 @@
       "price": 16.90,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/butter1.jpg",
-      "alt": "Butter Chicken"
-      }
+      
       ],
       "mainImage": {
       "url": "/assets/images/dishes/butter_main.jpg",
@@ -440,10 +403,7 @@
       "price": 29.50,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/lubina1.jpg",
-      "alt": "Lubina a la sal"
-      }
+      
       ],
       "mainImage": {
       "url": "/assets/images/dishes/lubina_main.jpg",
@@ -473,10 +433,7 @@
       "price": 24.90,
       "currency": "MXN",
       "images": [
-      {
-      "url": "assets/images/dishes/arroznegro1.jpg",
-      "alt": "Arroz negro"
-      }
+      
       ],
       "mainImage": {
       "url": "/assets/images/dishes/arroznegro_main.jpg",

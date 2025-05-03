@@ -1,0 +1,20 @@
+<div class="detail-layout">
+    <!-- Barra de navegación -->
+    <div class="navigation-bar">
+      <button class="back-button" (click)="goBack()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      
+      <!-- Acciones adicionales si se necesitan (compartir, etc.) -->
+      <div class="action-buttons">
+        <button class="action-button">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Contenido principal -->
+    <main class="detail-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>

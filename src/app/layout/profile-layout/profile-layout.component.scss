@@ -249,6 +249,9 @@
         opacity: 0.3;
       }
     }
+    &:focus{
+      outline: 0;
+    }
   }
 }
 

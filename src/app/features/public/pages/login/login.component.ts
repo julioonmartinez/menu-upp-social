@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { CardComponent } from '../../../../shared/components/card/card.component';
@@ -18,6 +18,8 @@ import { CardComponent } from '../../../../shared/components/card/card.component
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  //injecciones
+  router = inject(Router);
   // Estados
   loading = false;
   error: string | null = null;
@@ -56,7 +58,7 @@ export class LoginComponent {
       this.loading = false;
       
       // Redirección en una implementación real
-      // this.router.navigate(['/app/explore']);
+      this.router.navigate(['/app/explore']);
     }, 1500);
   }
   

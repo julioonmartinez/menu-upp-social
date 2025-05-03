@@ -1,11 +1,24 @@
 //src/app/features/profiles/profiles.routes.ts
 import { Routes } from '@angular/router';
 
-// Importamos el componente del layout
-// Nota: Este componente aún no existe, se creará más adelante
+// Importamos los componentes de layout
 import { ProfileLayoutComponent } from '../../layout/profile-layout/profile-layout.component';
+import { DetailLayoutComponent } from '../../layout/detail-layout/detail-layout.component';
 
 export const routes: Routes = [
+  // Ruta de detalle de platillo con layout propio
+  {
+    path: ':username/dish/:dishId',
+    component: DetailLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/dish-detail/dish-detail.component').then(c => c.DishDetailComponent),
+        title: 'Detalle de Platillo | MenuUPP'
+      }
+    ]
+  },
+  // Rutas normales de perfil con layout de perfil
   {
     path: ':username',
     component: ProfileLayoutComponent,
@@ -14,8 +27,6 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () => {
-          // Carga dinámica basada en el tipo de perfil
-          // Esto se gestionará en el componente
           return import('./profile-loader/profile-loader.component').then(c => c.ProfileLoaderComponent);
         },
         title: 'Perfil | MenuUPP'
@@ -36,13 +47,6 @@ export const routes: Routes = [
             title: 'Categoría | Menú | MenuUPP'
           }
         ]
-      },
-      
-      // Detalle de platillo en restaurante
-      {
-        path: 'dish/:dishId',
-        loadComponent: () => import('./pages/dish-detail/dish-detail.component').then(c => c.DishDetailComponent),
-        title: 'Detalle de Platillo | MenuUPP'
       },
       
       // Enlaces personalizados de restaurante

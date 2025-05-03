@@ -6,7 +6,7 @@
   position: relative;
   padding: $spacing-lg 0;
   background: linear-gradient(135deg, rgba($light-gray, 0.3), rgba($orange-light, 0.1));
-  overflow: hidden;
+  // overflow: hidden;
   
   // Formas decorativas
   &::before {
@@ -112,7 +112,9 @@
   transition: all $transition-normal;
   position: relative;
   border: 2px solid transparent;
-  
+  z-index: 100;
+  margin-left: 1rem;
+  margin-right: 1rem;
   &:focus-within {
     box-shadow: $shadow-lg;
     transform: translateY(-2px) scale(1.01);

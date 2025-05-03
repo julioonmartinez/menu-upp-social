@@ -24,7 +24,7 @@
   <!-- Contenido del perfil - Mostrar cuando hay datos aunque estemos recargando -->
   <ng-container *ngIf="restaurant && isRestaurant">
     <div class="profile-info">
-      <p class="profile-description" *ngIf="restaurant?.description">{{ restaurant?.description }}</p>
+      <p class="profile-description" *ngIf="restaurant?.description">{{ restaurant.description }}</p>
     </div>
     
     <!-- Sección principal -->

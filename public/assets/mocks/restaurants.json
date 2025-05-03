@@ -597,7 +597,7 @@
       }
       ],
       "features": ["Terraza", "Música en vivo", "Cócteles artesanales", "Menú degustación"],
-      "priceRange": "undefined",
+      "priceRange": "$$$$",
       "cuisineType": ["India", "Asiática", "Especias"],
       "createdAt": "2023-02-05T12:30:00Z",
       "updatedAt": "2023-07-12T15:45:00Z"
