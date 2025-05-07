@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { RestaurantGridComponent } from '../../components/restaurant-grid/restau
 import { DishesGridComponent } from '../../components/dishes-grid/dishes-grid.component';
 import { RoutesGridComponent } from '../../components/routes-grid/routes-grid.component';
 import { RegistrationSidebarComponent } from '../../components/registration-sidebar/registration-sidebar.component';
+import { RestaurantService } from '../../../../core/services/restaurant.service';
 
 @Component({
   selector: 'app-landing',
@@ -40,16 +41,20 @@ import { RegistrationSidebarComponent } from '../../components/registration-side
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit, OnDestroy {
+
+  //inyección de dependencias
+  restaurantService = inject(RestaurantService);
   // Datos de exploración
   popularRestaurants: Restaurant[] = [];
   trendingDishes: Dish[] = [];
   popularRoutes: GastronomicRoute[] = [];
-  
+  dishes: Dish[] = [];
   // Control de tabs
   activeTab: 'restaurants' | 'dishes' | 'routes' = 'restaurants';
   
   // Estado de búsqueda
   searchQuery = '';
+  
   isSearching = false;
   searchResults: any[] = [];
   
@@ -81,7 +86,13 @@ export class LandingComponent implements OnInit, OnDestroy {
   constructor(
     private mockDataService: MockDataService,
     private router: Router
-  ) {}
+  ) {
+    this.restaurantService.getRestaurants().subscribe({
+      next: (restaurants) => {  
+        console.log('Restaurantes cargados:', restaurants);
+      }
+    });
+  }
   
   ngOnInit() {
     this.loadRestaurants();

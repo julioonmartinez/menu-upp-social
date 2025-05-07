@@ -3,7 +3,11 @@ import { provideRouter, withComponentInputBinding, withViewTransitions,  } from 
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { TokenService } from './core/services/token.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +18,12 @@ export const appConfig: ApplicationConfig = {
     
     ),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(),
+    { provide: TokenService, useClass: TokenService },
+    provideHttpClient(
+      withInterceptors([authInterceptor]),
+      withFetch()
+    ),
+    provideAnimations()
    
   ]
 };
