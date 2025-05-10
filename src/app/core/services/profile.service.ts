@@ -6,6 +6,8 @@ import { MockDataService } from './mock-data.service';
 import { Restaurant } from '../models/restaurant.model';
 import { SocialUser } from '../models/user.model';
 import { SocialActivity } from '../models/route.model';
+import { RestaurantService } from './restaurant.service';
+import { RestaurantAdapterService } from './restaurant-adapter.service';
 
 /**
  * Servicio para gestionar perfiles de restaurantes y usuarios
@@ -18,7 +20,8 @@ import { SocialActivity } from '../models/route.model';
 })
 export class ProfileService {
   private mockDataService = inject(MockDataService);
-  
+  private restaurantService = inject(RestaurantService);
+  private restaurantAdapter = inject(RestaurantAdapterService);
   // Signals para estado
   private _currentRestaurant = signal<Restaurant | null>(null);
   private _currentUser = signal<SocialUser | null>(null);
@@ -125,17 +128,65 @@ loadProfileByUsername(username: string, forceReload: boolean = false): void {
   this._profileActivities.set([]);
   
   // Primero intentamos cargar como restaurante
-  this.mockDataService.getRestaurantByUsername(username)
-    .pipe(
-      catchError(err => {
-        console.error('Error al cargar el perfil de restaurante', err);
-        return of(undefined);
-      })
-    )
-    .subscribe(restaurant => {
+  // this.mockDataService.getRestaurantByUsername(username)
+  //   .pipe(
+  //     catchError(err => {
+  //       console.error('Error al cargar el perfil de restaurante', err);
+  //       return of(undefined);
+  //     })
+  //   )
+  //   .subscribe(restaurant => {
+  //     if (restaurant) {
+  //       console.log('ProfileService: Restaurante encontrado:', restaurant.name);
+  //       this._currentRestaurant.set(restaurant);
+  //       this._currentUser.set(null);
+  //       this._profileType.set('restaurant');
+  //       this._loading.set(false);
+  //       this._dataLoaded.set(true);
+  //       this._lastLoadTime.set(Date.now());
+        
+  //       // Cargar actividades explícitamente después de obtener el ID
+  //       this.loadProfileActivities(restaurant.id!);
+  //       this.checkFollowingStatus(restaurant.id!);
+  //     } else {
+  //       // Si no es restaurante, intentamos como usuario
+  //       this.mockDataService.getUserByUsername(username)
+  //         .pipe(
+  //           catchError(err => {
+  //             console.error('Error al cargar el perfil de usuario', err);
+  //             this._error.set('Error al cargar el perfil');
+  //             this._loading.set(false);
+  //             return of(undefined);
+  //           })
+  //         )
+  //         .subscribe(user => {
+  //           if (user) {
+  //             console.log('ProfileService: Usuario encontrado:', user.name);
+  //             this._currentUser.set(user);
+  //             this._currentRestaurant.set(null);
+  //             this._profileType.set('user');
+  //             this._loading.set(false);
+  //             this._dataLoaded.set(true);
+  //             this._lastLoadTime.set(Date.now());
+              
+  //             // Cargar actividades explícitamente después de obtener el ID
+  //             this.loadProfileActivities(user.id!);
+  //             this.checkFollowingStatus(user.id!);
+  //           } else {
+  //             // Si no se encuentra, establecemos error
+  //             this._error.set('Perfil no encontrado');
+  //             this._loading.set(false);
+  //             this._dataLoaded.set(false);
+  //           }
+  //         });
+  //     }
+  //   });
+
+  this.restaurantService.getRestaurantByUsername(username).subscribe({
+    next: (restaurant) => {
       if (restaurant) {
         console.log('ProfileService: Restaurante encontrado:', restaurant.name);
-        this._currentRestaurant.set(restaurant);
+        this._currentRestaurant.set(this.restaurantAdapter.adaptRestaurant(restaurant));
         this._currentUser.set(null);
         this._profileType.set('restaurant');
         this._loading.set(false);
@@ -177,7 +228,13 @@ loadProfileByUsername(username: string, forceReload: boolean = false): void {
             }
           });
       }
-    });
+    },
+    error: (err) => {
+      console.error('Error al cargar el perfil de restaurante', err);
+      this._error.set('Error al cargar el perfil');
+      this._loading.set(false);
+    }
+  })
 }
 
   

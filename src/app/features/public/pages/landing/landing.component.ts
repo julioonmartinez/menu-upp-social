@@ -20,6 +20,7 @@ import { DishesGridComponent } from '../../components/dishes-grid/dishes-grid.co
 import { RoutesGridComponent } from '../../components/routes-grid/routes-grid.component';
 import { RegistrationSidebarComponent } from '../../components/registration-sidebar/registration-sidebar.component';
 import { RestaurantService } from '../../../../core/services/restaurant.service';
+import { RestaurantAdapterService } from '../../../../core/services/restaurant-adapter.service';
 
 @Component({
   selector: 'app-landing',
@@ -44,6 +45,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   //inyección de dependencias
   restaurantService = inject(RestaurantService);
+  restaurantAdapter = inject(RestaurantAdapterService);
   // Datos de exploración
   popularRestaurants: Restaurant[] = [];
   trendingDishes: Dish[] = [];
@@ -88,14 +90,22 @@ export class LandingComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.restaurantService.getRestaurants().subscribe({
-      next: (restaurants) => {  
-        console.log('Restaurantes cargados:', restaurants);
+      next: (backendRestaurants) => {
+        // Usar el adaptador para convertir los datos
+        this.popularRestaurants = this.restaurantAdapter.adaptRestaurants(backendRestaurants);
+        this.loading.restaurants = false;
+        console.log('Restaurantes backend:', backendRestaurants);
+        console.log('Restaurantes adaptados:', this.popularRestaurants);
+      },
+      error: (error) => {
+        console.error('Error cargando restaurantes:', error);
+        this.loading.restaurants = false;
       }
     });
   }
   
   ngOnInit() {
-    this.loadRestaurants();
+    // this.loadRestaurants();
     this.loadDishes();
     this.loadRoutes();
   }

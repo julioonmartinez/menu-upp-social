@@ -48,7 +48,7 @@ export class RestaurantProfileComponent implements OnInit, OnDestroy {
       
       if (restaurant && restaurant.id) {
         console.log('RestaurantProfile Effect: Detectado restaurante:', restaurant.name);
-        this.loadFeaturedDishes(restaurant.id);
+        this.loadFeaturedDishes(restaurant.id, restaurant.username);
       }
     });
   }
@@ -56,17 +56,20 @@ export class RestaurantProfileComponent implements OnInit, OnDestroy {
   /**
    * Método para cargar los platos destacados del restaurante
    */
-  private loadFeaturedDishes(restaurantId: string): void {
+  private loadFeaturedDishes(restaurantId: string, username:string): void {
     // Verificar si ya tenemos platos cargados para este restaurante
     const currentLoadedId = this.menuService.loadedRestaurantId();
     
     if (currentLoadedId !== restaurantId) {
       console.log('RestaurantProfile: Cargando platos para nuevo restaurante:', restaurantId);
-      this.menuService.loadDishes(restaurantId);
+      // this.menuService.loadDishes(restaurantId);
+      this.menuService.loadDishesRestaurantUsername(username)
     } else {
       console.log('RestaurantProfile: Usando platos en caché para:', restaurantId);
     }
   }
+
+  
   
   ngOnInit(): void {
     // Ya no necesitamos cargar el perfil aquí, el ProfileLayoutComponent lo hará

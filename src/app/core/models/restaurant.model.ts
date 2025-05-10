@@ -16,7 +16,7 @@ export interface Restaurant {
   menuSections?: MenuSection[];
   socialLinks?: SocialLink[];
   features?: string[];       // Características como "Terraza", "WiFi", etc.
-  priceRange?: '€' | '€€' | '€€€';
+  priceRange?: '$' | '$$' | '$$$';
   cuisineType?: string[];    // Tipo de cocina: "Italiana", "Mexicana", etc.
   createdAt?: Date;
   updatedAt?: Date;

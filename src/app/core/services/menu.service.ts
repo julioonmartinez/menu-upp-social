@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 
 import { MockDataService } from './mock-data.service';
 import { Dish, Category } from '../models/dish.model';
+import { DishService } from './dish.service';
 
 /**
  * Servicio para gestionar menús de restaurantes
@@ -15,6 +16,7 @@ import { Dish, Category } from '../models/dish.model';
 })
 export class MenuService {
   private mockDataService = inject(MockDataService);
+  private dishService = inject(DishService)
   
   // Signals
   private _dishes = signal<Dish[]>([]);
@@ -201,6 +203,58 @@ export class MenuService {
         console.log(`MenuService: Platos cargados (${dishes.length}):`, dishes.map(d => d.name).join(', '));
         this._dishes.set(dishes);
         this._loadedRestaurantId.set(restaurantId);
+        this._lastDishesLoadTime.set(Date.now());
+      }
+    });
+    this.dishService.getDishesByRestaurantUsername(restaurantId).pipe(
+      catchError(err => {
+        console.error('Error loading dishes', err);
+        this._error.set('Error al cargar los platos');
+        return of([]);
+      }),
+      finalize(() => this._loading.set(false))
+    ).subscribe({
+      next: (dishesResponse) => {
+        console.log('MenuService: Respuesta de platos:', dishesResponse);
+        // const dishes = dishesResponse.
+        // console.log(`MenuService: Platos cargados (${dishes.length}):`, dishes.map(d => d.name).join(', '));
+        // this._dishes.set(dishes);
+        this._loadedRestaurantId.set(restaurantId);
+        this._lastDishesLoadTime.set(Date.now());
+      }
+    });      
+  }
+  
+  loadDishesRestaurantUsername(username:string){
+    if(this._loading()){
+      console.log('MenuService: Ya hay una carga de platos en progreso');
+      return;
+    }
+
+    const currentTime = Date.now();
+    const timeSinceLastLoad = currentTime - this._lastDishesLoadTime();
+    const cacheAge = 60000; // 60 segundos
+    if(this._loadedRestaurantId() === username && this._dishes().length > 0 && timeSinceLastLoad < cacheAge){
+      console.log('MenuService: Usando platos en caché para restaurante:', username);
+      return;
+    }
+    console.log('MenuService: Cargando platos para restaurante:', username);
+    this._loading.set(true);
+    this._error.set(null);
+    this.dishService.getDishesByRestaurantUsername(username).pipe(
+      catchError(err => {
+        console.error('Error loading dishes', err);
+        this._error.set('Error al cargar los platos');
+        return of([]);
+      }),
+      finalize(() => this._loading.set(false))
+    ).subscribe({
+      next: (dishesResponse) => {
+        console.log('MenuService: Respuesta de platos:', dishesResponse);
+        // const dishes = dishesResponse.
+        // console.log(`MenuService: Platos cargados (${dishes.length}):`, dishes.map(d => d.name).join(', '));
+        // this._dishes.set(dishes);
+        this._loadedRestaurantId.set(username);
         this._lastDishesLoadTime.set(Date.now());
       }
     });
